@@ -1,0 +1,21 @@
+{
+    "name"           : "vf3",
+    "description"    : "UI",
+    "authors"        : ["Vital Fadeev"],
+    "copyright"      : "Copyright © 2024, vital",
+    "license"        : "GPL3",
+    "dflags"         : ["-mixin=mixins.d"],
+     "configurations" : [
+        {
+            "name"           : "SDL",
+            "targetType"     : "executable",
+            "platforms"      : ["linux"],
+            "versions"       : ["SDL", "SDL_2022"],
+            "libs"           : [],
+            "dependencies"   : {
+                "bindbc-sdl"       : "~>1.4.2",
+            },
+        },
+    ],
+ }
+ 
