@@ -14,7 +14,7 @@
 
 
 ## Pos, Vid, Size
-
+```
 no "pos" in element, but pos in struct around element
 
 psy.Pos -> struct pos
@@ -30,15 +30,18 @@ ContEl {
     pos
     el
 }
+```
 
 ## "Childs"
 
+```
 Chidls not childs - is linked
 
 El.childs[] -> el, el, el
 
 El.group[] -> el, el, el
 El.linked[] -> el, el, el
+```
 
 
 ## group
@@ -53,11 +56,14 @@ el
 
 
 ##
+```
 no tree, but is are ray
 ray + links = tree
+```
 
 
 ## Elements, Groups
+```
 Groups   Elements
 ------   --------
 Group1 - Element1
@@ -72,9 +78,11 @@ foreach (group; groups)
   group.go ()
     foreach (e; group.es)
       cb (e);    
-  
+```
+
 
 ## invalidate on move
+```
 When move icon => invalidate his area (pos,size)
 icon
   on_move ()
@@ -85,3 +93,4 @@ icon
 "abc"+font => draw_ops[] => [line,line,line,...]
 draw_ops[] => draw_id
 draw_id => resource
+```
