@@ -14,10 +14,11 @@ import sdl_gfx_backend;
 void 
 main () {
     ES es;
+    GS gs;
 
     // load
     Load!E load;
-    load.go (es);
+    load.go (es,gs);
 
     // place
 
@@ -36,38 +37,49 @@ main () {
         ]);
     alias Image_store = Store!Image;
     Image_store image_store;
-    image_store.put (image); // 0
-    image_store.put (image); // 1
+    image_store.s.length = 2;
+    image_store.put (0, image); // 0
+    image_store.put (1, image); // 1
+
+    import draw_store;
+    Draws draws;
+    draws ~= _Draw (
+        Color (0xFFFFFF), [
+            Pos (0,0), 
+            Pos (100,0), 
+            Pos (100,100), 
+            Pos (0,100), 
+            Pos (0,0)
+        ]);
+    alias Draw_store = Store!Draws;
+    Draw_store _draw_store;
+    _draw_store.s.length = 2;
+    _draw_store.put (0, draws); // 0
+    _draw_store.put (1, draws); // 1
 
 
     //
     auto gfx_backend = SDL_GFX_Backend!Frame ([]);
-    gfx_backend.go (es,image_store);
+    gfx_backend.go (es,gs,_draw_store);
 }
 
 struct
 Frame {
     void
-    draw (Image_store,G) (ref G g, ref ES es, ref Image_store image_store) {
+    draw (Draw_store,G) (ref G g, ref ES es, ref GS gs, ref Draw_store draw_store) {
         //g.draw_point (Pos (0,0), Color (0xFFFFFFFF));
         //g.draw_points ([Pos (0,0)], Color (0xFFFFFFFF));
         //g.draw_line (Pos (0,0), Pos (100,100), Color (0xFFFFFFFF));
         //g.draw_lines ([Pos (0,0), Pos (100,100)], Color (0xFFFFFFFF));
 
         // Control
-        foreach (ref e; es)
-            foreach (ref group; e.groups)
-                group.go (group);
+        foreach (ref group; gs)
+            group.go (group);
 
         // Draw
-        foreach (ref e; es) {
-            auto draw_id = e.draw_id;
-            if (draw_id) {
-                auto image = image_store.get (draw_id);
-                auto moved_image = move_image (image, e.pos);
-                g.draw_image (moved_image);
-            }
-        }
+        foreach (ref e; es)
+            if (e.draw_id)
+                g.draw_id (e.draw_id, e.pos, draw_store);
     }
 
     //void
@@ -82,22 +94,10 @@ Frame {
 }
 
 
-auto
-move_image (ref Image image, Pos pos) {
-    Image moved_image;
-    foreach (ref rec; image.recs) {
-        Pos[] poss;
-        foreach (p; rec.pos)
-            poss ~= Pos (p.x+pos.x, p.y+pos.y);
-        moved_image.recs ~= Image_rec (rec.color,poss);
-    }
-    return moved_image;
-}
-
 struct 
 Load (E) {
     void 
-    go (ES)(ref ES es) {
+    go (ES,GS)(ref ES es, ref GS groups) {
         // text,icon,text
         // text,icon,text
         //
@@ -116,7 +116,9 @@ Load (E) {
 
         // set groups
         auto group_1 = new Group!E ();
+        groups ~= group_1;
         auto group_2 = cast (Group!E*) new Ryadki_group!E ();
+        groups ~= group_2;
         //auto group_2 = groups.add!Ryadki_group ();
         foreach (ref e; es) {
             e.groups ~= group_1;
@@ -143,3 +145,11 @@ Load (E) {
 //     put hash,draws
 //     get draw_id
 //   return draw_id
+//
+// foreach (s; ["ПН","*","25/15","ВТ","*","25/15"])
+//   e.draw_id = text_to_draw_id (s,font)
+//
+// foreach (pair; (pairs (es,datas))
+//   e = pair[0]
+//   s = pair[1]
+//   e.draw_id = text_to_draw_id (s,font)

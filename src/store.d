@@ -37,16 +37,16 @@ MemoryRay {
 
 
 struct
-Store (E) {
-    E[] es;
+Store (T) {
+    T[] s;
 
     void
-    put (E e) {
-        es ~= e;
+    put (I)(I i, T a) {
+        s[i] = a;
     }
 
-    E
+    T
     get (I) (I i) {
-        return es[i];
+        return s[i];
     }
 }

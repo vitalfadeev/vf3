@@ -18,11 +18,13 @@ Group (E) {
 
 
 struct
-Groups (E) {
-    Group!E*[] _super;
+Egroups (E) {
+    alias G = Group!E;
+
+    G*[] _super;
     alias _super this;
 
-    E*         _e;
+    E*   _e;
     
     //int
     //opApply (int delegate(ref size_t, ref Group!E*) dg) {
@@ -40,11 +42,21 @@ Groups (E) {
     //}
 
     void 
-    opOpAssign (string op: "~") (Group!E* group) { 
+    opOpAssign (string op: "~") (G* group) { 
         _super ~= group;
         group.es ~= _e;
     }
 }
+
+
+struct
+_GS (G) {
+    G*[] _super;
+    alias _super this;
+}
+
+alias GS = ._GS!(Group!E);
+
 
 struct
 Group_es (E) {

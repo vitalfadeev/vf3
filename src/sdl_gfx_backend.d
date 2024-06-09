@@ -7,6 +7,8 @@ import bindbc.sdl;
 import pos;
 import color;
 import image;
+import el : Draw_id;
+import draw_store : Draws;
 
 struct
 SDL_GFX_Backend (Frame) {
@@ -58,6 +60,44 @@ SDL_GFX_Backend (Frame) {
         }
     }
 
+    void
+    draw_draws (ref Draws draws) {
+        foreach (d; draws) {
+            SDL_SetRenderDrawColor (
+                renderer, 
+                d.color.r, 
+                d.color.g, 
+                d.color.b, 
+                d.color.a);
+
+            SDL_Point[] sdl_points;
+            foreach (p; d.pos)
+                sdl_points ~= SDL_Point (p.x,p.y);
+
+            SDL_RenderDrawLines (renderer, sdl_points.ptr, cast (int) sdl_points.length);
+        }
+    }
+
+    void
+    draw_id (Draw_store) (Draw_id draw_id, Pos pos, ref Draw_store draw_store) {
+        auto draws = draw_store.get (draw_id);
+        auto moved = transform_move (draws, pos);
+        draw_draws (moved);
+    }
+
+    auto
+    transform_move (ref Draws draws, Pos pos) {
+        Draws copy;
+        copy = draws.copy (copy);
+
+        foreach (ref d; copy)
+            foreach (ref p; d.pos)
+                p = Pos (p.x+pos.x, p.y+pos.y);
+
+        return copy;
+    }
+
+
     //
     SDL_Window*   window;
     SDL_Renderer* renderer;
@@ -68,10 +108,10 @@ SDL_GFX_Backend (Frame) {
     }
 
     void 
-    go (ES,Image_store) (ref ES es, ref Image_store image_store) {
+    go (ES,GS,Draw_store) (ref ES es, ref GS gs, ref Draw_store draw_store) {
         new_window (window);
         new_renderer (window, renderer);
-        event_loop (window, renderer, frame, es, image_store);
+        event_loop (window, renderer, frame, es, gs, draw_store);
     }
 
     void 
@@ -119,7 +159,7 @@ SDL_GFX_Backend (Frame) {
 
     //
     void 
-    event_loop (ES,Image_store) (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame, ref ES es, ref Image_store image_store) {
+    event_loop (ES,GS,Draw_store) (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame, ref ES es, ref GS gs, ref Draw_store draw_store) {
         bool _go = true;
 
         while (_go) {
@@ -139,7 +179,7 @@ SDL_GFX_Backend (Frame) {
                 }
 
                 // Draw
-                frame.draw (this, es, image_store);
+                frame.draw (this, es, gs, draw_store);
 
                 // Rasterize
                 SDL_RenderPresent (renderer);

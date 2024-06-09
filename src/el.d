@@ -6,7 +6,7 @@ _E(DATA) {
     alias T = typeof(this);
 
     // Group data
-    Groups!T _groups;  // Group[], e
+    Egroups!T _groups;  // Group[], e
     auto ref groups() { _groups._e = &this; return _groups; }
 
     // Place data
@@ -16,7 +16,7 @@ _E(DATA) {
     Layer layer;
 
     // Draw data
-    Draw_id  draw_id;
+    Draw_id draw_id;
 }
 
 alias Draw_id = ubyte;
