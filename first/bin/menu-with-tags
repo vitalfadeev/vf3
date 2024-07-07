@@ -1,0 +1,19 @@
+#!/bin/bash
+# stdin -> menu -> stdout
+# echo -e "1\n2\n" | menu
+
+let i=0
+MENU_ITEMS=()
+
+while IFS=$'\n' read -r line
+do
+    let i=$i+1
+    MENU_ITEMS+=($i "$line")
+done
+
+#xterm -wf -e  
+dialog --menu  "Please select" 10 40 3  ${MENU_ITEMS[@]}
+# --input-fd 1
+# --last-key
+# --no-items
+# --no-tags

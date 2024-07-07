@@ -24,3 +24,5 @@ Color {
 }
 
 alias ARGB32 = uint;
+
+enum White = 0xffffffff;

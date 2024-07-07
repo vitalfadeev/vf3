@@ -145,12 +145,6 @@ alias ShapeModeDefault = WindowShapeMode.ShapeModeDefault;alias ShapeModeBinariz
 // expansion at ../../.dub/packages/bindbc-sdl/1.2.4/bindbc-sdl/source/bindbc/sdl/bind/sdlthread.d(31,1)
 alias SDL_THREAD_PRIORITY_LOW = SDL_ThreadPriority.SDL_THREAD_PRIORITY_LOW;alias SDL_THREAD_PRIORITY_NORMAL = SDL_ThreadPriority.SDL_THREAD_PRIORITY_NORMAL;alias SDL_THREAD_PRIORITY_HIGH = SDL_ThreadPriority.SDL_THREAD_PRIORITY_HIGH;alias SDL_THREAD_PRIORITY_TIME_CRITICAL = SDL_ThreadPriority.SDL_THREAD_PRIORITY_TIME_CRITICAL;
 
-// expansion at
-.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
-
-// expansion at
-.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
-
 // expansion at /usr/include/dmd/druntime/import/core/internal/atomic.d(502,13)
 
                 asm pure nothrow @nogc @trusted
@@ -238,8 +232,116 @@ alias SDL_THREAD_PRIORITY_LOW = SDL_ThreadPriority.SDL_THREAD_PRIORITY_LOW;alias
 // expansion at
 .object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
 
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
 // expansion at /usr/include/dmd/phobos/std/functional.d(452,16)
 cast(T)a < cast(T) b
+
+// expansion at /usr/include/dmd/phobos/std/internal/memory.d(32,18)
+onOutOfMemoryError();
+
+// expansion at /usr/include/dmd/phobos/std/internal/memory.d(40,18)
+onOutOfMemoryError();
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(452,16)
+cast(T)a < cast(T) b
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int schema = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int sequence = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias schema = _0LU;alias _1LU = Identity!(field[1LU]);alias sequence = _1LU;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
 
 // expansion at /usr/include/dmd/phobos/std/format/spec.d(170,13)
 private ubyte _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf;@property bool flDash() @safe pure nothrow @nogc const { return (_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf & 1U) != 0;}
@@ -256,27 +358,6 @@ private ubyte _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf;@prop
 @property void flEqual(bool v) @safe pure nothrow @nogc { if (v) _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf |= 32U;else _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf &= cast(typeof(_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf))(-1-cast(typeof(_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf))32U);}
 @property bool flSeparator() @safe pure nothrow @nogc const { return (_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf & 64U) != 0;}
 @property void flSeparator(bool v) @safe pure nothrow @nogc { if (v) _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf |= 64U;else _flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf &= cast(typeof(_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf))(-1-cast(typeof(_flDash_flZero_flSpace_flPlus_flHash_flEqual_flSeparator__bf))64U);}
-
-// expansion at /usr/include/dmd/phobos/std/functional.d(452,16)
-cast(T)a < cast(T) b
-
-// expansion at
-.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
-
-// expansion at
-.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
-
-// expansion at
-.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
-
-// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
-alias a = __a ;
-
-// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
-alias b = __b ;
-
-// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
-a == b
 
 // expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
 enum int data = 0;
@@ -343,6 +424,2020 @@ lhs < rhs
 
 // expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
 lhs < rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/range/package.d(6175,5)
+
+        int opApply(scope int delegate(ref ElementType!(Ranges[0]), ref ElementType!(Ranges[1])) dg)
+        {
+            import std.exception : enforce;
+
+            auto ranges = _ranges;
+            int res;
+
+
+            while (!ranges[0].empty && !ranges[1].empty)
+            {
+                res = dg(ranges[0].front, ranges[1].front);
+                if (res) break;
+                ranges[0].popFront();
+                ranges[1].popFront();
+
+            }
+
+            if (_stoppingPolicy == StoppingPolicy.requireSameLength)
+            {
+                foreach (range; ranges)
+                    enforce(range.empty);
+            }
+            return res;
+        }
+
+
+// expansion at /usr/include/dmd/phobos/std/range/package.d(6176,5)
+
+        int opApply(scope int delegate(size_t, ref ElementType!(Ranges[0]), ref ElementType!(Ranges[1])) dg)
+        {
+            import std.exception : enforce;
+
+            auto ranges = _ranges;
+            int res;
+            size_t index = 0;
+
+            while (!ranges[0].empty && !ranges[1].empty)
+            {
+                res = dg(index, ranges[0].front, ranges[1].front);
+                if (res) break;
+                ranges[0].popFront();
+                ranges[1].popFront();
+                ++index;
+            }
+
+            if (_stoppingPolicy == StoppingPolicy.requireSameLength)
+            {
+                foreach (range; ranges)
+                    enforce(range.empty);
+            }
+            return res;
+        }
+
+
+// expansion at /usr/include/dmd/phobos/std/range/package.d(6191,9)
+
+        int opApplyReverse()(scope int delegate(ref ElementType!(Ranges[0]), ref ElementType!(Ranges[1])) dg)
+        {
+            static assert(false, "Reverse iteration with lockstep is only supported if all ranges are bidirectional.
+");
+        }
+
+
+// expansion at /usr/include/dmd/phobos/std/range/package.d(6192,9)
+
+        int opApplyReverse()(scope int delegate(size_t, ref ElementType!(Ranges[0]), ref ElementType!(Ranges[1])) dg)
+        {
+            static assert(false, "Indexed reverse iteration with lockstep is only supportedif all ranges are bidirectional and have a length.
+");
+        }
+
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/atomic.d(264,13)
+
+                asm pure nothrow @nogc @trusted
+                {
+                    naked;
+                    lock; xadd[RSI], EDI;
+                    mov EAX, EDI;
+                    ret;
+                }
+
+
+// expansion at /usr/include/dmd/phobos/std/stdio.d(5251,38)
+core.stdc.stdio.stdin
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val-=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/phobos/std/stdio.d(5251,38)
+core.stdc.stdio.stdout
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val-=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/phobos/std/stdio.d(5251,38)
+core.stdc.stdio.stderr
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val-=mod
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int status = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int output = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias status = _0LU;alias _1LU = Identity!(field[1LU]);alias output = _1LU;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.global
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.global
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.casefold
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.casefold
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.freeform
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.freeform
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.nonunicode
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.nonunicode
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.multiline
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.multiline
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(618,44)
+RegexOption.singleline
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/parser.d(620,41)
+RegexOption.singleline
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a < b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a < b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(478,37)
+a < b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(481,32)
+a < b
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a <= b
+
+// expansion at /usr/include/dmd/phobos/std/uni/package.d(2263,21)
+rhs &= this;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a.name
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a.name
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a[0]
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a[1]
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/hash.d(551,5)
+
+    enum bool isChained = is(typeof(seed) : size_t);
+    static if (!isChained) enum size_t seed = 0;
+    static if (hasCallableToHash!(typeof(val))) //CTFE depends on toHash()
+    {
+        static if (!__traits(isSame, typeof(val), __traits(parent, val.toHash))
+            && is(typeof(val is null)))
+        {
+            static if (isChained)
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))), seed);
+            else
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))));
+        }
+        else
+        {
+            static if (isChained)
+                return hashOf(cast(size_t) val.toHash(), seed);
+            else
+                return val.toHash();
+        }
+    }
+    else
+    {
+        import core.internal.convert : toUbyte;
+        static if (__traits(hasMember, T, "toHash") && is(typeof(T.toHash) == function))
+        {
+            // TODO: in the future maybe this should be changed to a static
+            // assert(0), because if there's a `toHash` the programmer probably
+            // expected it to be called and a compilation failure here will
+            // expose a bug in his code.
+            //   In the future we also might want to disallow non-const toHash
+            // altogether.
+            pragma(msg, "Warning: struct "~__traits(identifier, T)
+                ~" has method toHash, however it cannot be called with "
+                ~typeof(val).stringof~" this.");
+            static if (__traits(compiles, __traits(getLocation, T.toHash)))
+            {
+                enum file = __traits(getLocation, T.toHash)[0];
+                enum line = __traits(getLocation, T.toHash)[1].stringof;
+                pragma(msg, "  ",__traits(identifier, T),".toHash defined here: ",file,"(",line,")");
+            }
+        }
+
+        static if (T.tupleof.length == 0)
+        {
+            return seed;
+        }
+        else static if ((is(T == struct) && !canBitwiseHash!T) || T.tupleof.length == 1)
+        {
+            static if (isChained) size_t h = seed;
+            static foreach (i, F; typeof(val.tupleof))
+            {
+                static if (__traits(isStaticArray, F))
+                {
+                    static if (i == 0 && !isChained) size_t h = 0;
+                    static if (F.sizeof > 0 && canBitwiseHash!F)
+                        // May use smallBytesHash instead of bytesHash.
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    else
+                        // We can avoid the "double hashing" the top-level version uses
+                        // for consistency with TypeInfo.getHash.
+                        foreach (ref e; val.tupleof[i])
+                            h = hashOf(e, h);
+                }
+                else static if (is(F == struct) || is(F == union))
+                {
+                    static if (hasCallableToHash!F)
+                    {
+                        static if (!__traits(isSame, F, __traits(parent, val.tupleof[i].toHash))
+                            && is(typeof(val.tupleof[i] is null)))
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)));
+                            else
+                                h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)), h);
+                        }
+                        else
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = val.tupleof[i].toHash();
+                            else
+                                h = hashOf(cast(size_t) val.tupleof[i].toHash(), h);
+                        }
+                    }
+                    else static if (F.tupleof.length == 1)
+                    {
+                        // Handle the single member case separately to avoid unnecessarily using bytesHash.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i].tupleof[0]);
+                        else
+                            h = hashOf(val.tupleof[i].tupleof[0], h);
+                    }
+                    else static if (canBitwiseHash!F)
+                    {
+                        // May use smallBytesHash instead of bytesHash.
+                        static if (i == 0 && !isChained) size_t h = 0;
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    }
+                    else
+                    {
+                        // Nothing special happening.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i]);
+                        else
+                            h = hashOf(val.tupleof[i], h);
+                    }
+                }
+                else
+                {
+                    // Nothing special happening.
+                    static if (i == 0 && !isChained)
+                        size_t h = hashOf(val.tupleof[i]);
+                    else
+                        h = hashOf(val.tupleof[i], h);
+                }
+            }
+            return h;
+        }
+        else static if (is(typeof(toUbyte(val)) == const(ubyte)[]))//CTFE ready for structs without reference fields
+        {
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(toUbyte(val), seed);
+        }
+        else // CTFE unsupported
+        {
+            assert(!__ctfe, "unable to compute hash of "~T.stringof~" at compile time");
+            const(ubyte)[] bytes = (() @trusted => (cast(const(ubyte)*)&val)[0 .. T.sizeof])();
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(bytes, seed);
+        }
+    }
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/hash.d(551,5)
+
+    enum bool isChained = is(typeof(seed) : size_t);
+    static if (!isChained) enum size_t seed = 0;
+    static if (hasCallableToHash!(typeof(val))) //CTFE depends on toHash()
+    {
+        static if (!__traits(isSame, typeof(val), __traits(parent, val.toHash))
+            && is(typeof(val is null)))
+        {
+            static if (isChained)
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))), seed);
+            else
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))));
+        }
+        else
+        {
+            static if (isChained)
+                return hashOf(cast(size_t) val.toHash(), seed);
+            else
+                return val.toHash();
+        }
+    }
+    else
+    {
+        import core.internal.convert : toUbyte;
+        static if (__traits(hasMember, T, "toHash") && is(typeof(T.toHash) == function))
+        {
+            // TODO: in the future maybe this should be changed to a static
+            // assert(0), because if there's a `toHash` the programmer probably
+            // expected it to be called and a compilation failure here will
+            // expose a bug in his code.
+            //   In the future we also might want to disallow non-const toHash
+            // altogether.
+            pragma(msg, "Warning: struct "~__traits(identifier, T)
+                ~" has method toHash, however it cannot be called with "
+                ~typeof(val).stringof~" this.");
+            static if (__traits(compiles, __traits(getLocation, T.toHash)))
+            {
+                enum file = __traits(getLocation, T.toHash)[0];
+                enum line = __traits(getLocation, T.toHash)[1].stringof;
+                pragma(msg, "  ",__traits(identifier, T),".toHash defined here: ",file,"(",line,")");
+            }
+        }
+
+        static if (T.tupleof.length == 0)
+        {
+            return seed;
+        }
+        else static if ((is(T == struct) && !canBitwiseHash!T) || T.tupleof.length == 1)
+        {
+            static if (isChained) size_t h = seed;
+            static foreach (i, F; typeof(val.tupleof))
+            {
+                static if (__traits(isStaticArray, F))
+                {
+                    static if (i == 0 && !isChained) size_t h = 0;
+                    static if (F.sizeof > 0 && canBitwiseHash!F)
+                        // May use smallBytesHash instead of bytesHash.
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    else
+                        // We can avoid the "double hashing" the top-level version uses
+                        // for consistency with TypeInfo.getHash.
+                        foreach (ref e; val.tupleof[i])
+                            h = hashOf(e, h);
+                }
+                else static if (is(F == struct) || is(F == union))
+                {
+                    static if (hasCallableToHash!F)
+                    {
+                        static if (!__traits(isSame, F, __traits(parent, val.tupleof[i].toHash))
+                            && is(typeof(val.tupleof[i] is null)))
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)));
+                            else
+                                h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)), h);
+                        }
+                        else
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = val.tupleof[i].toHash();
+                            else
+                                h = hashOf(cast(size_t) val.tupleof[i].toHash(), h);
+                        }
+                    }
+                    else static if (F.tupleof.length == 1)
+                    {
+                        // Handle the single member case separately to avoid unnecessarily using bytesHash.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i].tupleof[0]);
+                        else
+                            h = hashOf(val.tupleof[i].tupleof[0], h);
+                    }
+                    else static if (canBitwiseHash!F)
+                    {
+                        // May use smallBytesHash instead of bytesHash.
+                        static if (i == 0 && !isChained) size_t h = 0;
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    }
+                    else
+                    {
+                        // Nothing special happening.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i]);
+                        else
+                            h = hashOf(val.tupleof[i], h);
+                    }
+                }
+                else
+                {
+                    // Nothing special happening.
+                    static if (i == 0 && !isChained)
+                        size_t h = hashOf(val.tupleof[i]);
+                    else
+                        h = hashOf(val.tupleof[i], h);
+                }
+            }
+            return h;
+        }
+        else static if (is(typeof(toUbyte(val)) == const(ubyte)[]))//CTFE ready for structs without reference fields
+        {
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(toUbyte(val), seed);
+        }
+        else // CTFE unsupported
+        {
+            assert(!__ctfe, "unable to compute hash of "~T.stringof~" at compile time");
+            const(ubyte)[] bytes = (() @trusted => (cast(const(ubyte)*)&val)[0 .. T.sizeof])();
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(bytes, seed);
+        }
+    }
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/hash.d(551,5)
+
+    enum bool isChained = is(typeof(seed) : size_t);
+    static if (!isChained) enum size_t seed = 0;
+    static if (hasCallableToHash!(typeof(val))) //CTFE depends on toHash()
+    {
+        static if (!__traits(isSame, typeof(val), __traits(parent, val.toHash))
+            && is(typeof(val is null)))
+        {
+            static if (isChained)
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))), seed);
+            else
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))));
+        }
+        else
+        {
+            static if (isChained)
+                return hashOf(cast(size_t) val.toHash(), seed);
+            else
+                return val.toHash();
+        }
+    }
+    else
+    {
+        import core.internal.convert : toUbyte;
+        static if (__traits(hasMember, T, "toHash") && is(typeof(T.toHash) == function))
+        {
+            // TODO: in the future maybe this should be changed to a static
+            // assert(0), because if there's a `toHash` the programmer probably
+            // expected it to be called and a compilation failure here will
+            // expose a bug in his code.
+            //   In the future we also might want to disallow non-const toHash
+            // altogether.
+            pragma(msg, "Warning: struct "~__traits(identifier, T)
+                ~" has method toHash, however it cannot be called with "
+                ~typeof(val).stringof~" this.");
+            static if (__traits(compiles, __traits(getLocation, T.toHash)))
+            {
+                enum file = __traits(getLocation, T.toHash)[0];
+                enum line = __traits(getLocation, T.toHash)[1].stringof;
+                pragma(msg, "  ",__traits(identifier, T),".toHash defined here: ",file,"(",line,")");
+            }
+        }
+
+        static if (T.tupleof.length == 0)
+        {
+            return seed;
+        }
+        else static if ((is(T == struct) && !canBitwiseHash!T) || T.tupleof.length == 1)
+        {
+            static if (isChained) size_t h = seed;
+            static foreach (i, F; typeof(val.tupleof))
+            {
+                static if (__traits(isStaticArray, F))
+                {
+                    static if (i == 0 && !isChained) size_t h = 0;
+                    static if (F.sizeof > 0 && canBitwiseHash!F)
+                        // May use smallBytesHash instead of bytesHash.
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    else
+                        // We can avoid the "double hashing" the top-level version uses
+                        // for consistency with TypeInfo.getHash.
+                        foreach (ref e; val.tupleof[i])
+                            h = hashOf(e, h);
+                }
+                else static if (is(F == struct) || is(F == union))
+                {
+                    static if (hasCallableToHash!F)
+                    {
+                        static if (!__traits(isSame, F, __traits(parent, val.tupleof[i].toHash))
+                            && is(typeof(val.tupleof[i] is null)))
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)));
+                            else
+                                h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)), h);
+                        }
+                        else
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = val.tupleof[i].toHash();
+                            else
+                                h = hashOf(cast(size_t) val.tupleof[i].toHash(), h);
+                        }
+                    }
+                    else static if (F.tupleof.length == 1)
+                    {
+                        // Handle the single member case separately to avoid unnecessarily using bytesHash.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i].tupleof[0]);
+                        else
+                            h = hashOf(val.tupleof[i].tupleof[0], h);
+                    }
+                    else static if (canBitwiseHash!F)
+                    {
+                        // May use smallBytesHash instead of bytesHash.
+                        static if (i == 0 && !isChained) size_t h = 0;
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    }
+                    else
+                    {
+                        // Nothing special happening.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i]);
+                        else
+                            h = hashOf(val.tupleof[i], h);
+                    }
+                }
+                else
+                {
+                    // Nothing special happening.
+                    static if (i == 0 && !isChained)
+                        size_t h = hashOf(val.tupleof[i]);
+                    else
+                        h = hashOf(val.tupleof[i], h);
+                }
+            }
+            return h;
+        }
+        else static if (is(typeof(toUbyte(val)) == const(ubyte)[]))//CTFE ready for structs without reference fields
+        {
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(toUbyte(val), seed);
+        }
+        else // CTFE unsupported
+        {
+            assert(!__ctfe, "unable to compute hash of "~T.stringof~" at compile time");
+            const(ubyte)[] bytes = (() @trusted => (cast(const(ubyte)*)&val)[0 .. T.sizeof])();
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(bytes, seed);
+        }
+    }
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a == a.Union
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a != a.Open
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a + b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a <= b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a <= b
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a != 0
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/hash.d(551,5)
+
+    enum bool isChained = is(typeof(seed) : size_t);
+    static if (!isChained) enum size_t seed = 0;
+    static if (hasCallableToHash!(typeof(val))) //CTFE depends on toHash()
+    {
+        static if (!__traits(isSame, typeof(val), __traits(parent, val.toHash))
+            && is(typeof(val is null)))
+        {
+            static if (isChained)
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))), seed);
+            else
+                return hashOf(__traits(getMember, val, __traits(getAliasThis, typeof(val))));
+        }
+        else
+        {
+            static if (isChained)
+                return hashOf(cast(size_t) val.toHash(), seed);
+            else
+                return val.toHash();
+        }
+    }
+    else
+    {
+        import core.internal.convert : toUbyte;
+        static if (__traits(hasMember, T, "toHash") && is(typeof(T.toHash) == function))
+        {
+            // TODO: in the future maybe this should be changed to a static
+            // assert(0), because if there's a `toHash` the programmer probably
+            // expected it to be called and a compilation failure here will
+            // expose a bug in his code.
+            //   In the future we also might want to disallow non-const toHash
+            // altogether.
+            pragma(msg, "Warning: struct "~__traits(identifier, T)
+                ~" has method toHash, however it cannot be called with "
+                ~typeof(val).stringof~" this.");
+            static if (__traits(compiles, __traits(getLocation, T.toHash)))
+            {
+                enum file = __traits(getLocation, T.toHash)[0];
+                enum line = __traits(getLocation, T.toHash)[1].stringof;
+                pragma(msg, "  ",__traits(identifier, T),".toHash defined here: ",file,"(",line,")");
+            }
+        }
+
+        static if (T.tupleof.length == 0)
+        {
+            return seed;
+        }
+        else static if ((is(T == struct) && !canBitwiseHash!T) || T.tupleof.length == 1)
+        {
+            static if (isChained) size_t h = seed;
+            static foreach (i, F; typeof(val.tupleof))
+            {
+                static if (__traits(isStaticArray, F))
+                {
+                    static if (i == 0 && !isChained) size_t h = 0;
+                    static if (F.sizeof > 0 && canBitwiseHash!F)
+                        // May use smallBytesHash instead of bytesHash.
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    else
+                        // We can avoid the "double hashing" the top-level version uses
+                        // for consistency with TypeInfo.getHash.
+                        foreach (ref e; val.tupleof[i])
+                            h = hashOf(e, h);
+                }
+                else static if (is(F == struct) || is(F == union))
+                {
+                    static if (hasCallableToHash!F)
+                    {
+                        static if (!__traits(isSame, F, __traits(parent, val.tupleof[i].toHash))
+                            && is(typeof(val.tupleof[i] is null)))
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)));
+                            else
+                                h = hashOf(__traits(getMember, val.tupleof[i], __traits(getAliasThis, F)), h);
+                        }
+                        else
+                        {
+                            static if (i == 0 && !isChained)
+                                size_t h = val.tupleof[i].toHash();
+                            else
+                                h = hashOf(cast(size_t) val.tupleof[i].toHash(), h);
+                        }
+                    }
+                    else static if (F.tupleof.length == 1)
+                    {
+                        // Handle the single member case separately to avoid unnecessarily using bytesHash.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i].tupleof[0]);
+                        else
+                            h = hashOf(val.tupleof[i].tupleof[0], h);
+                    }
+                    else static if (canBitwiseHash!F)
+                    {
+                        // May use smallBytesHash instead of bytesHash.
+                        static if (i == 0 && !isChained) size_t h = 0;
+                        h = bytesHashWithExactSizeAndAlignment!F(toUbyte(val.tupleof[i]), h);
+                    }
+                    else
+                    {
+                        // Nothing special happening.
+                        static if (i == 0 && !isChained)
+                            size_t h = hashOf(val.tupleof[i]);
+                        else
+                            h = hashOf(val.tupleof[i], h);
+                    }
+                }
+                else
+                {
+                    // Nothing special happening.
+                    static if (i == 0 && !isChained)
+                        size_t h = hashOf(val.tupleof[i]);
+                    else
+                        h = hashOf(val.tupleof[i], h);
+                }
+            }
+            return h;
+        }
+        else static if (is(typeof(toUbyte(val)) == const(ubyte)[]))//CTFE ready for structs without reference fields
+        {
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(toUbyte(val), seed);
+        }
+        else // CTFE unsupported
+        {
+            assert(!__ctfe, "unable to compute hash of "~T.stringof~" at compile time");
+            const(ubyte)[] bytes = (() @trusted => (cast(const(ubyte)*)&val)[0 .. T.sizeof])();
+            // Not using bytesHashWithExactSizeAndAlignment here because
+            // the result may differ from typeid(T).hashOf(&val).
+            return bytesHashAlignedBy!T(bytes, seed);
+        }
+    }
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Char:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Char);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Char);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Char);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Char);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Any:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Any);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Any);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Any);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Any);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.CodepointSet:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.CodepointSet);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.CodepointSet);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.CodepointSet);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.CodepointSet);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Trie:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Trie);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Trie);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Trie);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Trie);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrChar:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrChar);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrChar);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrChar);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrChar);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Nop:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Nop);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Nop);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Nop);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Nop);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.End:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.End);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.End);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.End);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.End);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Bol:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Bol);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Bol);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Bol);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Bol);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Eol:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Eol);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Eol);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Eol);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Eol);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Wordboundary:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Wordboundary);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Wordboundary);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Wordboundary);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Wordboundary);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Notwordboundary:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Notwordboundary);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Notwordboundary);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Notwordboundary);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Notwordboundary);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Backref:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Backref);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Backref);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Backref);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Backref);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GroupStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GroupStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GroupStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GroupStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GroupStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GroupEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GroupEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GroupEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GroupEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GroupEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Option:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Option);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Option);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Option);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Option);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GotoEndOr:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GotoEndOr);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GotoEndOr);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GotoEndOr);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GotoEndOr);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Bof:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Bof);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Bof);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Bof);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Bof);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Eof:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Eof);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Eof);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Eof);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Eof);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteQStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteQStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteQStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteQStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteQStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteQEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteQEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteQEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteQEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteQEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteBloomStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteBloomStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteBloomStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteBloomStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteBloomStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteBloomEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteBloomEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteBloomEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteBloomEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteBloomEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatQStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatQStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatQStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatQStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatQStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatQEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatQEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatQEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatQEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatQEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookaheadStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookaheadStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookaheadStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookaheadStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookaheadStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookaheadEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookaheadEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookaheadEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookaheadEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookaheadEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookaheadStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookaheadStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookaheadStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookaheadStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookaheadStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookaheadEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookaheadEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookaheadEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookaheadEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookaheadEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookbehindStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookbehindStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookbehindStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookbehindStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookbehindStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookbehindEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookbehindEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookbehindEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookbehindEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookbehindEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookbehindStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookbehindStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookbehindStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookbehindStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookbehindStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookbehindEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookbehindEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookbehindEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookbehindEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookbehindEnd);
+                break L_dispatch;
+
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Char:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Char);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Char);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Char);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Char);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Any:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Any);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Any);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Any);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Any);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.CodepointSet:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.CodepointSet);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.CodepointSet);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.CodepointSet);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.CodepointSet);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Trie:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Trie);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Trie);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Trie);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Trie);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrChar:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrChar);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrChar);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrChar);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrChar);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Nop:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Nop);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Nop);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Nop);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Nop);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.End:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.End);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.End);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.End);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.End);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Bol:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Bol);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Bol);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Bol);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Bol);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Eol:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Eol);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Eol);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Eol);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Eol);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Wordboundary:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Wordboundary);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Wordboundary);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Wordboundary);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Wordboundary);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Notwordboundary:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Notwordboundary);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Notwordboundary);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Notwordboundary);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Notwordboundary);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Backref:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Backref);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Backref);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Backref);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Backref);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GroupStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GroupStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GroupStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GroupStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GroupStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GroupEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GroupEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GroupEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GroupEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GroupEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Option:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Option);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Option);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Option);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Option);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.GotoEndOr:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.GotoEndOr);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.GotoEndOr);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.GotoEndOr);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.GotoEndOr);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Bof:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Bof);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Bof);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Bof);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Bof);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.Eof:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.Eof);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.Eof);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.Eof);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.Eof);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.OrEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.OrEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.OrEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.OrEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.OrEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteQStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteQStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteQStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteQStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteQStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteQEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteQEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteQEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteQEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteQEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteBloomStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteBloomStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteBloomStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteBloomStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteBloomStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.InfiniteBloomEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.InfiniteBloomEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.InfiniteBloomEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.InfiniteBloomEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.InfiniteBloomEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatQStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatQStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatQStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatQStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatQStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.RepeatQEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.RepeatQEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.RepeatQEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.RepeatQEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.RepeatQEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookaheadStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookaheadStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookaheadStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookaheadStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookaheadStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookaheadEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookaheadEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookaheadEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookaheadEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookaheadEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookaheadStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookaheadStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookaheadStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookaheadStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookaheadStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookaheadEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookaheadEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookaheadEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookaheadEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookaheadEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookbehindStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookbehindStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookbehindStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookbehindStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookbehindStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.LookbehindEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.LookbehindEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.LookbehindEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.LookbehindEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.LookbehindEnd);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookbehindStart:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookbehindStart);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookbehindStart);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookbehindStart);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookbehindStart);
+                break L_dispatch;
+
+
+// expansion at /usr/include/dmd/phobos/std/regex/internal/thompson.d(832,13)
+case IR.NeglookbehindEnd:
+                    opCacheTrue[pc] = &Ops!(true).op!(IR.NeglookbehindEnd);
+                    opCacheBackTrue[pc] = &BackOps!(true).op!(IR.NeglookbehindEnd);
+                    opCacheFalse[pc] = &Ops!(false).op!(IR.NeglookbehindEnd);
+                    opCacheBackFalse[pc] = &BackOps!(false).op!(IR.NeglookbehindEnd);
+                break L_dispatch;
+
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(129,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(130,20)
+a != 0
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/traits.d(2312,5)
+alias ReturnType!T function(Parameters!T) pure nothrow @safe SetFunctionAttributes;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/traits.d(2312,5)
+alias ReturnType!T function(Parameters!T) pure @safe SetFunctionAttributes;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(222,13)
+alias a = __a ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(223,13)
+alias b = __b ;
+
+// expansion at /usr/include/dmd/phobos/std/functional.d(224,20)
+a == b
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int index = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(467,13)
+enum int value = 0;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias index = _0LU;alias _1LU = Identity!(field[1LU]);alias value = _1LU;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(654,9)
+alias _0LU = Identity!(field[0LU]);alias _1LU = Identity!(field[1LU]);
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at /usr/include/dmd/druntime/import/core/internal/atomic.d(138,13)
+
+                asm pure nothrow @nogc @trusted
+                {
+                    push RBX; // call preserved
+
+                    mov EDX, 0;
+                    mov EAX, 0;
+                    mov RCX, src;
+                    lock; cmpxchg [RCX], EDX;
+                    lea RBX, resultValuePtr;
+                    mov RBX, [RBX];
+                    mov [RBX], EAX;
+
+                    pop RBX;
+                }
+
+
+// expansion at /usr/include/dmd/druntime/import/core/atomic.d(542,9)
+*cast(T*)&val+=mod
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs == rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at /usr/include/dmd/phobos/std/typecons.d(539,31)
+lhs < rhs
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
+
+// expansion at
+.object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;
 
 // expansion at
 .object.size_t h = 0;foreach (i, T; typeof(p.tupleof))    static if(is(T* : const(.object.Object)*))         h = h * 33 + typeid(const(.object.Object)).getHash(cast(const void*)&p.tupleof[i]);    else         h = h * 33 + typeid(T).getHash(cast(const void*)&p.tupleof[i]);return h;

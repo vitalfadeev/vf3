@@ -34,6 +34,12 @@ SDL_GFX_Backend (Frame) {
     }
 
     void
+    draw_line (G_pos a, G_pos b, Color color) {
+        SDL_SetRenderDrawColor (renderer, color.r, color.g, color.b, color.a);
+        SDL_RenderDrawLine (renderer, a.x, a.y, b.x, b.y);  // draws the line to include both end points.
+    }
+
+    void
     draw_lines (Pos[] poss, Color color) {
         SDL_SetRenderDrawColor (renderer, color.r, color.g, color.b, color.a);
         SDL_Point[] sdl_points;
@@ -95,6 +101,13 @@ SDL_GFX_Backend (Frame) {
                 p = Pos (p.x+pos.x, p.y+pos.y);
 
         return copy;
+    }
+
+
+    void
+    draw (Glyph) (ref Glyph glyph) {
+        import draw_glyph;
+        draw_glyph (glyph,this);
     }
 
 
@@ -172,8 +185,9 @@ SDL_GFX_Backend (Frame) {
                     case SDL_QUIT:
                         _go = false;
                         break;
-                    case SDL_MOUSEBUTTONDOWN:
-                        //frame.event (&e);
+                    case SDL_MOUSEBUTTONDOWN: 
+                        static if (__traits(hasMember, frame, "event"))
+                            frame.event (&e);
                         break;
                     default:
                 }

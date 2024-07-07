@@ -1,0 +1,2 @@
+menu:
+  bin/menu $MENU_ITEMS

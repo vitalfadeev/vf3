@@ -1,0 +1,3 @@
+*.mp4 open
+open mpv
+*.avi open mpv

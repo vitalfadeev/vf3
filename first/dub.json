@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"vf"
+	],
+	"copyright": "Copyright © 2024, vf",
+	"dependencies": {
+		"urld": "~>2.1.1"
+	},
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "first"
+}

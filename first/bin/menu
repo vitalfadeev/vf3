@@ -1,0 +1,26 @@
+#!/bin/bash
+# stdin -> menu -> stdout
+# echo -e "1\n2\n" | menu
+
+MENU_ITEMS=()
+
+while IFS=$'\n' read -r line
+do
+    MENU_ITEMS+=("$line")
+done
+
+MY_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
+
+
+xterm -wf -e  ${MY_PATH}/_dialog.sh  ${MENU_ITEMS[@]}
+
+#selected_item=$( my_dialog)
+#echo ${selected_item}
+#echo "event:menu,done,quesy_id,selected_item" | socat - UNIX:/tmp/vf_bus.soc 
+
+# --input-fd 1
+# --output-fd 1
+# --last-key
+# --no-items
+# --no-tags
+# --stdout

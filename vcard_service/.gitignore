@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/vcard_service
+vcard_service.so
+vcard_service.dylib
+vcard_service.dll
+vcard_service.a
+vcard_service.lib
+vcard_service-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
