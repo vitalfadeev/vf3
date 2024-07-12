@@ -1,19 +1,37 @@
 import regex_cmd;
+import my_string;
 import log : log;
 
 struct
 Db {
     Regex_cmd[] s;
+
+    alias DB_IDX = size_t;
+
+    Sorted_globs!DB_IDX by_glob;
+    Sorted_regex!DB_IDX by_regex;
+    Sorted_mimes!DB_IDX by_mime;
+    Sorted_file!DB_IDX  by_file;
     // *.mp4 mpv $URL
     // regex cmd
+
+    void
+    seach (string q) {
+        DB_IDX[] idxs;
+        idxs ~= by_glob.get (q);
+        idxs ~= by_regex.get (q);
+        //idxs ~= by_mime.get (q);
+    }
 
     void
     load () {
         import std.file;
         import std.string;
         import std.path;
+        import my_string;
 
         string data;
+        DB_IDX i;
 
         // read files
         foreach (string file_name; dirEntries ("files/", SpanMode.shallow)) {
@@ -26,18 +44,36 @@ Db {
             // parse
             foreach (ref e; Parser (data)) {
                 log (name,": ",e);
+
                 // convert commands
                 string[] cmds;
-                foreach (_e;e.commands)
+                foreach (_e; e.commands)
                     cmds ~= _e.s;
-                // 1 regex - 1 record
-                foreach (ref er;e.regexes) {
+
+                // convert regexes
+                string[] rgxs;
+                foreach (_e; e.regexes)
+                    rgxs ~= _e.s;
+
+                s ~= Regex_cmd (name,rgxs,cmds);
+                by_file.s[name][i] = _stub();
+
+                // sort by regex type
+                foreach (ref er; e.regexes) {
                     string regex = er.s;
-                    s ~= Regex_cmd (name,regex,cmds);
+                    auto my_string_mask = My_string_mask (regex);
+                    auto cleaned = my_string_mask.cleaned ();
+                    switch (my_string_mask.get_type) {
+                        case My_string_mask.Type.GLOB  : by_glob.s[cleaned][i] = _stub(); break;
+                        case My_string_mask.Type.REGEX : by_regex.s[cleaned][i] = _stub(); break;
+                        case My_string_mask.Type.MIME  : by_mime.s[cleaned][i] = _stub(); break;
+                        default:
+                    }
                 }
+
+                i++;
             }
         }
-
     }
 
     void
@@ -56,11 +92,6 @@ Parsed_data {
     string icon;
     string hotkey;
     string command;
-}
-
-
-auto Parser2 (Range) (Range range) {
-    return _Parser!Range (range);
 }
 
 struct
@@ -370,20 +401,106 @@ Checker_mime : Checker {
    }
 }
 
-// pattern
-// bash pattern
-// *  any string, null string
-// ?  single char
-// [] any one of enclosed chars, [!...] not chars, [^...] not chars, [a-d] = [abcd], 
-//    [:class:] class one of POSIX classes: alnum alpha ascii blank cntrl digit graph lower print punct space upper word xdigit
-//    [=c=]
-//    [.symbol.]
-//
-// ?(pattern-list)
-// *(pattern-list)
-// +(pattern-list)
-// @(pattern-list)
-// !(pattern-list)
-// pattern-list = pattern|pattern|pattern
-//   std.path. globMatch (s,"*.mp4")
+// Parser
+//   /\
+//  A B C
+// abcdefghj
 
+// by_mime
+//   db[mime][0..1] = commands
+// by_ext
+//   db[ext][0..1] = commands
+
+
+struct _stub {}
+
+struct
+Sorted_globs (DB_IDX) {
+    DB_IDX_SET[string] s;  // "*.mp4" -> [1,2,3]
+
+    alias DB_IDX_SET = _stub[DB_IDX];
+
+    DB_IDX[]
+    get (string q) {
+        import std.path;
+
+        DB_IDX_SET set;
+
+        log ("s.keys ():", s.keys ());
+        log ("s[glob].keys ():", s["*.mp4"].keys ());
+
+        foreach (glob; s.keys ())
+            if (globMatch (q,glob))
+                foreach (i; s[glob].keys ())
+                    set [i] = _stub ();
+
+        return set.keys ();
+    }
+}
+
+struct
+Sorted_regex (DB_IDX) {
+    DB_IDX_SET[string] s;  // ".*\.mp4" -> [1,2,3]
+
+    alias DB_IDX_SET = _stub[DB_IDX];
+
+    DB_IDX[]
+    get (string q) {
+        import std.regex;
+
+        DB_IDX_SET set;
+
+        foreach (rs; s.keys ())
+            if (!matchFirst (q,regex (rs)).empty)
+                foreach (i; s[rs].keys())
+                    set[i] = _stub ();
+
+        return set.keys ();
+    }
+}
+
+struct
+Sorted_mimes (DB_IDX) {
+    DB_IDX_SET[string] s;  // "video/mp4" -> [1,2,3]
+
+    alias DB_IDX_SET = _stub[DB_IDX];
+
+    DB_IDX[]
+    get (string q) {
+        import std.regex;
+        import globals;
+
+        DB_IDX_SET set;
+
+        auto mime_type = Globals.mime_db.mime_type_for_file_name (q);
+
+        log ("mime_type.name:",mime_type.name);
+
+        if (mime_type !is null) {
+            auto _set = (mime_type.name) in s;
+            if (_set !is null)
+                return _set.keys ();            
+        }
+
+        return [];
+    }
+}
+
+
+struct
+Sorted_file (DB_IDX) {
+    DB_IDX_SET[string] s;  // "mpv_open" -> [1,2,3]
+
+    alias DB_IDX_SET = _stub[DB_IDX];
+
+    DB_IDX[]
+    get (string q) {
+        DB_IDX_SET set;
+
+        auto _set = q in s;
+        if (_set !is null)
+            return _set.keys ();            
+
+        return [];
+    }
+}

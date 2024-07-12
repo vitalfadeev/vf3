@@ -1,2 +1,2 @@
 *.pdf
-  xpdf %f
+  xpdf "${URL}"

@@ -1,12 +1,24 @@
 import std.socket;
 import std.stdio;
+import async_command_socket;
+import my_menu_server;
+import client_socket_base;
 alias log = writeln;
 
 
 class
 My_client : Client_socket_base {
+    string[] args;
+
     this (string socket_path) {
         super (socket_path);
+    }
+
+    override
+    void
+    go (string[] args) {
+        this.args = args;
+        super.go (args);
     }
 
     override
@@ -36,7 +48,7 @@ My_client : Client_socket_base {
 
     void
     on_1_answers (size_t n, string[] variants) {
-        execute_command (variants[0]);
+        execute_command (variants, args[0]);
     }
 
     void
@@ -46,11 +58,66 @@ My_client : Client_socket_base {
         //     send answer
         //       get answer 2
         //         execute
-        Menu (n,variants)
+        Menu_async (n,variants)
             .go (
                 (done) {
-                    writeln ("DONE");
+                    log ("DONE");
+                    import std.string;
+                    auto splits = done.split ("/")[3];
+                    if (splits.length >= 4) {
+                        string cmd = done.split ("/")[3];
+                        //execute_command ([cmd]);
+                        log (cmd);
+                        query_command (cmd ~ " " ~ args[0]);
+                    }
                 });
+    }
+
+    void
+    query_command (string cmd) {
+        import std.string;
+
+        this.write (cmd);
+
+        string buffer = this.read ();
+        log ("buffer:",buffer);
+
+        if (buffer !is null) {
+            on_data (buffer);
+        }
+    }
+
+    //void
+    //execute_command (ref string[] cmd) {
+    //    log (cmd);
+    //    this.write (cmd ~ " " ~ args[0]);
+    //}
+
+    void
+    execute_command (string[] cmd_lines, string s) {
+        import std.stdio;
+        import std.string;
+        import std.conv;
+        import std.process;
+
+        log ("pipeProcess");
+        log (cmd_lines);
+
+        auto shell = environment.get ("SHELL", "/bin/bash");
+        string[string] env;
+        env["URL"] = s;
+        auto pipes = pipeProcess (shell, Redirect.all, env);
+
+        foreach (cmd;cmd_lines)
+            pipes.stdin.writeln (cmd);
+
+        pipes.stdin.flush ();
+        pipes.stdin.close ();
+
+        wait (pipes.pid);
+
+        foreach (_out;pipes.stdout.byLine)
+            log (_out);
     }
 }
 
@@ -80,7 +147,7 @@ Menu {
         import std.process;
 
         string[string] env;
-        auto pipes = pipeProcess ("bin/menu", Redirect.stdin, env);
+        auto pipes = pipeProcess ("../first/bin/menu", Redirect.stdin | Redirect.stdout, env);
 
         foreach (line; lines)
             pipes.stdin.writeln (line);
@@ -88,13 +155,14 @@ Menu {
         pipes.stdin.flush ();
         pipes.stdin.close ();
 
+        wait (pipes.pid);
+
         string[] output;
         foreach (line; pipes.stdout.byLine)
             output ~= line.idup;
 
-        if (output.length > 0) {
+        if (output.length > 0)
             _on_menu_data (output[0], done_cb);
-        }
     }
 
     void
@@ -103,104 +171,59 @@ Menu {
     }
 }
 
-class
-Client_socket_base : Socket {
-    string socket_path;
-    char[1024] buffer;
+struct
+Menu_async {
+    size_t   n;
+    string[] variants;
 
-    this (string socket_path) {
-        this.socket_path = socket_path;
-        super (AddressFamily.UNIX, SocketType.STREAM);
-        //socket.setOption (SocketOptionLevel.SOCKET, SocketOption.REUSEADDR, true);
+    alias DONE_DG = void delegate (string s);
 
-        try {
-            log ("Connecting");
-            this.connect (new UnixAddress (socket_path));
-        } catch (Throwable e) {
-            log (e);
-        }
+    void
+    go (DONE_DG done_cb) {
+        _show_menu_async (variants, done_cb);
     }
 
     void
-    go (string[] input) {
-        foreach (line; input) {
-            log ("q: ", line);
-            this.write (line);
+    _show_menu_async (string[] lines, DONE_DG done_cb) {
+        // show menu
+        //   send lines to stdin
+        //   menu
+        //     read lines from stdin
+        //     on_done
+        //       send "event://./menu/done/./selected_item" to stdout
+        import std.stdio;
+        import std.string;
+        import std.conv;
+        import std.process;
+        import std.file;
 
-            string buffer = this.read ();
+        string vf_menu_async_socket = "/tmp/vf_menu_async.soc";
+        if (vf_menu_async_socket.exists)
+            vf_menu_async_socket.remove ();
+        auto my_menu_server = new My_menu_server (vf_menu_async_socket);
+        my_menu_server.done_cb = done_cb;
 
-            if (buffer !is null)
-                on_data (buffer);
-        }
+        string[string] env;
+        env["VF_SOCKET_PATH"] = vf_menu_async_socket;
+        auto pipes = pipeProcess ("/home/vf/src/vf3/first/bin/menu_async", Redirect.all, env);
+
+        foreach (line; lines)
+            pipes.stdin.writeln (line);
+
+        pipes.stdin.flush ();
+        pipes.stdin.close ();
+
+        my_menu_server.go ();
+
+        wait (pipes.pid);
     }
 
     void
-    go () {
-        try {
-            log ("Connecting");
-            this.connect (new UnixAddress (socket_path));
-            on_connected ();
-        } catch (Throwable e) {
-            log (e);
-        }
-    }
-
-    //
-    void
-    first_answer () {
-        //wait "Hello!"
-        //auto received = this.receive (buffer); // wait for the server to say hello
-        //log ("Server said: ", buffer[0 .. received]);
-    }
-
-    void
-    write (char[] s) {
-        this.send (s);
-    }
-
-    void
-    write (string s) {
-        this.send (s);
-    }
-
-    string
-    read () {
-        auto got = this.receive (buffer); // wait for the server to say hello
-        if (got != Socket.ERROR && got != 0) {
-            string readed_string = buffer[0 .. got].idup;
-            log ("a: ", readed_string);
-            return readed_string;
-        }
-        else
-        if (got == Socket.ERROR) {
-            log ("socket error");
-            return null;
-        }
-        else
-        if (got == 0) {
-            log ("socket disconnected");
-            return null;
-        }
-
-        return null;
-    }
-
-    //
-    void
-    on_connected () {
-        //
-    }
-
-    void
-    on_disconnected (Socket server) {
-        //
-    }
-
-    void
-    on_data (string data) {
-        //
+    _on_menu_data (string selected_item, DONE_DG done_cb) {
+        done_cb (selected_item);
     }
 }
+
 
 
 void
@@ -220,7 +243,7 @@ parse_answer (string lines, ref size_t n, ref string[] variants) {
 }
 
 void
-execute_command (string cmd) {
+__execute_command (string cmd) {
     import std.stdio;
     import std.string;
     import std.conv;

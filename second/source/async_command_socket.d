@@ -1,8 +1,9 @@
 import std.stdio;
+import my_socket;
 alias log = writeln;
 
 struct
-Service_2 {
+Async_command_socket {
     alias T = typeof (this);
     alias DONE_DG = void delegate (string s);
     alias FAIL_DG = void delegate (string s);

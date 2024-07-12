@@ -1,7 +1,6 @@
-
 struct
 Regex_cmd {
-    string file_name;
-    string regex_string;
+    string   file_name;
+    string[] regexes;
     string[] commands;
 }

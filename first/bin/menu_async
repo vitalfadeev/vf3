@@ -1,0 +1,25 @@
+#!/bin/bash
+# stdin -> menu -> stdout
+# echo -e "1\n2\n" | menu
+
+function read_menu_items_from_stdin () {
+MENU_ITEMS=()
+
+while IFS=$'\n' read -r line
+do
+    MENU_ITEMS+=("$line")
+done
+}
+
+MY_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
+
+if xhost >& /dev/null 
+then 
+  # xterm -wf -e \
+    # ${MY_PATH}/_dialog_async.sh  ${MENU_ITEMS[@]}
+  # ${MY_PATH}/_zenity_async.sh  ${MENU_ITEMS[@]}
+  ${MY_PATH}/_xmenu_async.sh
+else 
+  MENU_ITEMS=$( read_menu_items_from_stdin)
+  ${MY_PATH}/_dialog_async.sh  ${MENU_ITEMS[@]}
+fi

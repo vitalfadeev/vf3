@@ -1,0 +1,6 @@
+cam://shot
+    fswebcam -r 640x480 --jpeg 85 -D 1 web-cam-shot.jpg
+    # streamer -f jpeg -o image.jpeg
+    # avconv -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 /tmp/out.jpg
+    # ffmpeg -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 /tmp/out.jpg
+    # uvccapture -m

@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"vf"
+	],
+	"copyright": "Copyright © 2024, vf",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "unix_socket"
+}

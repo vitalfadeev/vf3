@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/unix_socket
+unix_socket.so
+unix_socket.dylib
+unix_socket.dll
+unix_socket.a
+unix_socket.lib
+unix_socket-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

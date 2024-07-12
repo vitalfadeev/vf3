@@ -1,45 +1,31 @@
-import db;
 import regex_cmd;
+import my_string;
+import globals;
 import log : log;
+
 
 struct 
 S {
     Regex_cmd[]
-    query (string s) {
-        // *.mp4 mpv $URL
-        Db db;
-        db.load ();
+    query (string q) {
+        // 1.mp4
 
+        // by_glob
+        auto idxs = Globals.db.by_glob.get (q);
+        log ("by_glob:",idxs);
+
+        // by_mime
+        //auto idxs2 = Globals.db.by_mime.get (q);
+        //log ("by_mime:",idxs2);
+
+        // 1 -> Regex_cmd
         Regex_cmd[] rcs;
-
-        foreach (ref rc; db.s) {
-            if (check (rc, s))
-                rcs ~= rc;
-        }
+        foreach (i; idxs)
+            rcs ~= Globals.db.s[i];
+        //foreach (i; idxs2)
+        //    rcs ~= Globals.db.s[i];
 
         return rcs;
-    }
-
-    bool
-    check (ref Regex_cmd rc, string s) {
-        import std.string;
-        //return checker.check (rc.regex_string, s);
-        if (rc.regex_string.startsWith ("*")) {
-            // POSIX glob
-            import std.path;
-            if (globMatch (s,rc.regex_string))
-                return true;
-        }
-        else {
-            // regex
-            import std.regex;
-            auto r = regex (rc.regex_string);
-
-            if (!matchFirst (s,r).empty)
-                return true;
-        }
-
-        return false;
     }
 
     string
@@ -52,20 +38,16 @@ S {
 
     string[]
     commands_for_name (string name) {
-        Db db;
-        db.load ();
-
         Regex_cmd[] rcs;
 
-        foreach (ref rc; db.s) {
-            if (check (rc, name))
-                rcs ~= rc;
-        }
+        auto ids = Globals.db.by_file.get (name);  // [1,2,3]
 
-        foreach (ref rc; rcs)
-            if (rc.file_name == name)
-                return rc.commands;
+        foreach (i; ids)
+            rcs ~= Globals.db.s[i];
 
-        return null;
+        foreach (rc; rcs)
+            return rc.commands;
+
+        return [];
     }
 }

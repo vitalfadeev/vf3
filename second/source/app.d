@@ -5,13 +5,15 @@ alias log = writeln;
 
 void 
 main (string[] args) {
-	//from_stdin ();
-	from_args (args);
+	if (args.length)
+		from_args (args);
+	else
+		from_stdin ();
 }
 
 void
 from_args (string[] args) {
-	new My_client ("/tmp/vf_bus.soc")
+	new My_client ("/tmp/vf.soc")
 		.go (args[1..$]);
 }
 
@@ -29,3 +31,9 @@ from_stdin () {
 }
 
 
+// C
+//   socket
+//   menu
+//     echo "menu/done/" | socat - socket
+//
+// C [items,...] -> stdin -> menu (socket,-) -> stdout -> socat -> socket

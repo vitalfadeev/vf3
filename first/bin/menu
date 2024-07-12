@@ -12,7 +12,8 @@ done
 MY_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
 
 
-xterm -wf -e  ${MY_PATH}/_dialog.sh  ${MENU_ITEMS[@]}
+#xterm -wf -e  
+${MY_PATH}/_dialog.sh  ${MENU_ITEMS[@]}
 
 #selected_item=$( my_dialog)
 #echo ${selected_item}

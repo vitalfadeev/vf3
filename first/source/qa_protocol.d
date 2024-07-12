@@ -5,6 +5,7 @@ import std.process;
 import url;
 import s;
 import regex_cmd;
+import globals;
 import query_registry : Query_registry,Query_registry_rec,Query_id;
 import log : log;
 
@@ -78,15 +79,41 @@ QA_protocol {
 
     auto
     on_query (string s) {
-        return client_say (s);
+        import std.string;
+        import std.uni;
+
+        auto splits = s.split (" ");
+        log ("splits: ", splits);
+
+        if (splits.length >= 2) {
+            auto name = splits[0];
+            auto arg  = splits[1..$].join (" ");
+            foreach (c;name)
+                if (c.isAlphaNum || c == '_' || c == '-')
+                    continue;
+                else
+                    return client_say (s);
+
+            return client_wait_commands_for (name,arg);
+        }
+        else
+            return client_say (s);
     }
 
     string
     client_say (string s) {
-        S s1;
-        auto answers = s1.query (s);
+        auto answers = S ().query (s);
 
         return answer_to_client (s,answers);
+    }
+
+    string
+    client_wait_commands_for (string name, string arg) {
+        import std.string;
+
+        auto commands = S ().commands_for_name (name);
+        string output = "1\n" ~ commands.join ("\n");
+        return output;
     }
 
     string
@@ -105,20 +132,24 @@ QA_protocol {
 
     string
     on_1_answer (string s, Regex_cmd[] answers) {
-        string output = "1\n";
+        import std.string;
 
-        auto answer = answers[0];
-        output ~= answer.file_name ~ "\n";
+        string output = "1\n" ~ answers[0].commands.join ("\n");
 
-        execute_command (answer.commands, s);
+        //execute_command (answer.commands, s);
 
         return output;
     }
 
     string
     on_n_answer (string s, Regex_cmd[] answers) {
-        show_menu (s,answers);
-        return "";
+        import std.conv;
+        //show_menu (s,answers);
+        string output;
+        output ~= answers.length.to!string ~ "\n";
+        foreach (ref a; answers)
+            output ~= a.file_name ~ "\n";
+        return output;
     }
 
     void
@@ -146,6 +177,14 @@ QA_protocol {
         pipes.stdin.close ();
     }
 
+    string
+    execute_command (string name, string s) {
+        auto commands = S ().commands_for_name (name);
+        log ("commands:",commands);
+        execute_command (commands, s);
+        return "";
+    }
+
     void
     execute_command (string[] cmd_lines, string s) {
         import std.stdio;
@@ -158,12 +197,18 @@ QA_protocol {
 
         auto shell = environment.get ("SHELL", "/bin/bash");
         string[string] env;
-        auto pipes = pipeProcess (shell, Redirect.stdin, env);
+        env["URL"] = s;
+        auto pipes = pipeProcess (shell, Redirect.all, env);
 
         foreach (cmd;cmd_lines)
             pipes.stdin.writeln (cmd);
 
         pipes.stdin.flush ();
         pipes.stdin.close ();
+
+        wait (pipes.pid);
+
+        foreach (_out;pipes.stdout.byLine)
+            log (_out);
     }
 }

@@ -1,0 +1,29 @@
+{
+	"authors": [
+		"Roman Chistokhodov"
+	],
+	"configurations": [
+		{
+			"name": "library",
+			"targetType": "library"
+		}
+	],
+	"copyright": "Copyright © 2015-2016, Roman Chistokhodov",
+	"dependencies": {
+		"dxml": "~>0.4.0",
+		"xdgpaths": "~>0.2.5"
+	},
+	"description": "Shared MIME-info Database specification implementation",
+	"importPaths": [
+		"source/"
+	],
+	"license": "BSL-1.0",
+	"name": "mime",
+	"sourcePaths": [
+		"source/"
+	],
+	"targetName": "mime",
+	"targetPath": "lib",
+	"targetType": "library",
+	"version": "0.5.2"
+}

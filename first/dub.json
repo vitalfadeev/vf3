@@ -4,7 +4,9 @@
 	],
 	"copyright": "Copyright © 2024, vf",
 	"dependencies": {
-		"urld": "~>2.1.1"
+		"urld": {"path":"deps/urld"},
+        "mime": {"path":"deps/mime"},
+        "unix_socket": {"path":"deps/unix_socket"},
 	},
 	"description": "A minimal D application.",
 	"license": "proprietary",

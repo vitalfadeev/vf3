@@ -1,0 +1,22 @@
+{
+	"authors": [
+		"dhasenan"
+	],
+	"configurations": [
+		{
+			"name": "library",
+			"targetType": "library"
+		}
+	],
+	"copyright": "Copyright © 2015, dhasenan",
+	"description": "A URL parsing library",
+	"importPaths": [
+		"source/"
+	],
+	"license": "MIT",
+	"name": "urld",
+	"sourcePaths": [
+		"source/"
+	],
+	"version": "2.1.1"
+}

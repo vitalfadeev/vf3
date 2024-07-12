@@ -3,6 +3,18 @@
 	[
 		{
 			"path": "."
-		}
+		},
+		{
+			"path": "/usr/include/dmd/phobos/std"
+		},
+		{
+			"path": "/usr/include/dmd/phobos/etc"
+		},
+		{
+			"path": "/usr/include/dmd/druntime/import/core"
+		},
+		{
+			"path": "/usr/include/dmd/druntime/import/etc"
+		},
 	]
 }

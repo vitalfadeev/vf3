@@ -1,0 +1,1 @@
+/home/vf/src/vf3/first/source/log.d

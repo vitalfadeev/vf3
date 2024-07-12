@@ -1,2 +1,2 @@
 menu:
-  bin/menu $MENU_ITEMS
+  bin/menu ${MENU_ITEMS}

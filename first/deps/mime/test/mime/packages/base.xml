@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="text/plain">
+        <comment>plain text document</comment>
+    </mime-type>
+    <mime-type type="application/x-zerosize">
+        <comment>empty document</comment>
+    </mime-type>
+    <mime-type type="inode/directory">
+        <comment>folder</comment>
+    </mime-type>
+    <mime-type type="application/octet-stream">
+        <comment>unknown</comment>
+    </mime-type>
+    <mime-type type="text/x-makefile">
+        <comment>Makefile</comment>
+        <sub-class-of type="text/plain"/>
+        <glob pattern="makefile"/>
+        <glob-deleteall/>
+    </mime-type>
+    <mime-type type="x-content/image-dcf">
+        <comment>digital photos</comment>
+        <treemagic>
+            <treematch type="directory" path="dcim" non-empty="true"/>
+        </treemagic>
+    </mime-type>
+    <mime-type type="x-content/unix-software">
+        <comment>UNIX software</comment>
+        <treemagic>
+            <treematch type="file" path=".autorun" match-case="true"/>
+            <treematch type="file" path="autorun" match-case="true"/>
+            <treematch type="file" path="autorun.sh" match-case="true"/>
+        </treemagic>
+    </mime-type>
+    <mime-type type="application/x-general-glob">
+        <comment>General glob</comment>
+        <glob pattern="general*glob"/>
+    </mime-type>
+    <mime-type type="application/x-general-long-glob">
+        <comment>General glob</comment>
+        <glob pattern="general*_long_glob"/>
+    </mime-type>
+    <mime-type type="application/xml">
+        <sub-class-of type="text/plain"/>
+        <magic priority="40">
+            <match value="&lt;?xml" type="string" offset="0"/>
+            <match value="&lt;!--" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.xml"/>
+        <alias type="text/xml"/>
+    </mime-type>
+</mime-info>
