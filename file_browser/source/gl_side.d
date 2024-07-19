@@ -1,4 +1,5 @@
 import bindbc.sdl;
+import std.range : ElementType;
 
 
 struct
@@ -13,8 +14,8 @@ GL_Side {
     //    
     alias ID = dchar;
 
-    _mix[ID]      s;  // resources
     SDL_Renderer* renderer;
+    _mix[ID]      s;  // resources
 
 
     alias ABSXY = SDL_Point;
@@ -132,6 +133,24 @@ GL_Side {
     void
     _move_g_cursor (ABSXY pos) {
         // pos
+    }
+
+    void
+    __draw_draws (R) (R range) {
+        alias E = ElementType!R;
+
+        foreach (e; range) 
+            switch (e.type) {
+                case E.Type.POINTS: 
+                    SDL_RenderDrawPoints (renderer,e.points.ptr,cast (int) e.points.length);
+                    break;
+                case E.Type.LINES: 
+                    SDL_RenderDrawLines (renderer,e.points.ptr,cast (int) e.points.length);
+                    break;
+                case E.Type.LINES2: 
+                    break;
+                default:
+            }
     }
 
     void

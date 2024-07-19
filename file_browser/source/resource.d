@@ -9,32 +9,32 @@ Resource {
     alias ID   = dchar;
 }
 
-struct
-Resources {
-    Resource[] s;
-    alias s this;
+//struct
+//Resources {
+//    Resource[] s;
+//    alias s this;
 
-    alias ID = typeof (s.length);
+//    alias ID = typeof (s.length);
 
-    ID
-    open (Resource.Font font, Resource.Size size, Resource.ID index) {
-        s ~= Resource (font,size,index);
-        return resources.length-1;
-    }
+//    ID
+//    open (Resource.Font font, Resource.Size size, Resource.ID index) {
+//        s ~= Resource (font,size,index);
+//        return resources.length-1;
+//    }
 
-    ID
-    open (ref Resource resource) {
-        s ~= resource;
-        return resources.length-1;
-    }
-}
+//    ID
+//    open (ref Resource resource) {
+//        s ~= resource;
+//        return resources.length-1;
+//    }
+//}
 
-alias Font_Resource  = _Resource!Size;
-alias Size_Resource  = _Resource!Char;
-alias Char_Resource  = _Resource!Draws;
+//alias Font_Resource  = _Resource!Size;
+//alias Size_Resource  = _Resource!Char;
+//alias Char_Resource  = _Resource!Draws;
 
-alias Dir_Resource  = _Resource!File;
-alias File_Resource = _Resource!Rec;
+//alias Dir_Resource  = _Resource!File;
+//alias File_Resource = _Resource!Rec;
 
 struct
 _Resource (E) {
@@ -44,8 +44,8 @@ _Resource (E) {
     }
 }
 
-alias Dir_Resource  = _Resource!Text_File;
-alias Text_File_Resource = _Resource!(Text_File.Rec);
+//alias Dir_Resource  = _Resource!Text_File;
+//alias Text_File_Resource = _Resource!(Text_File.Rec);
 
 
 // Load Resource
@@ -126,60 +126,44 @@ alias Text_File_Resource = _Resource!(Text_File.Rec);
 // _buffer_slice = fd.read (buffer)
 // fd.close ()
 
-struct
-Font {
-    alias ID = Font_ID;
+//struct
+//Font {
+//    alias ID = Font_ID;
 
-    ID
-    open (string name) {
-        return id;
-    }
-}
+//    ID
+//    open (string name) {
+//        return id;
+//    }
+//}
 
-struct
-Font_ID {
-    size_t _super;
-    alias _super this;
+//struct
+//Font_ID {
+//    size_t _super;
+//    alias _super this;
 
-    void
-    read () {
-        // size[]
-    }
+//    void
+//    read () {
+//        // size[]
+//    }
 
-    void
-    close () {
-        //
-    }
-}
+//    void
+//    close () {
+//        //
+//    }
+//}
 
-struct
-Size_ID {
-    size_t _super;
-    alias _super this;
+//struct
+//Size_ID {
+//    size_t _super;
+//    alias _super this;
 
-    void
-    read () {
-        // char[]
-    }
+//    void
+//    read () {
+//        // draws[]
+//    }
 
-    void
-    close () {
-        //
-    }
-}
-
-struct
-Size_ID {
-    size_t _super;
-    alias _super this;
-
-    void
-    read () {
-        // draws[]
-    }
-
-    void
-    close () {
-        //
-    }
-}
+//    void
+//    close () {
+//        //
+//    }
+//}

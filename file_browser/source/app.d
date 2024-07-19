@@ -6,6 +6,7 @@ import bindbc.freetype;
 import bindbc.sdl;
 import gl_side;
 import font_cache;
+import font;
 alias log = writeln;
 
 FT_Library ftLib;
@@ -36,7 +37,7 @@ main() {
 	new_renderer (window, renderer);
 
 	// Event Loop
-	auto frame = Frame (true);
+	auto frame = Frame (GL_Side (renderer));
 	event_loop (window,renderer,frame);
 
     //
@@ -390,7 +391,7 @@ Point {
 //   glyphs
 //   draws
 string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-int     font_size = 64;
+int     font_size = 96;
 
 
 //
@@ -484,13 +485,13 @@ SDLException : Exception {
 //
 struct
 Frame {
-    Font_cache!Draws    font_cache;
-    Fonts!Draws.Font_id font_id;
     GL_Side             gl_side;
+    //Font_cache!Draws    font_cache;
+    //Fonts!Draws.Font_id font_id;
 
-    this (bool _) {
-        font_id = font_cache.fonts.add (font_pathname);
-    }
+    //this (bool _) {
+    //    font_id = font_cache.fonts.add (font_pathname);
+    //}
 
     void
     draw (SDL_Renderer* renderer) {
@@ -507,15 +508,34 @@ Frame {
         // Resource.id
         // Resource conertor
         // Resource to draws
-        auto draws = 
-            font_cache.get_draws (
-                font_id, 
-                cast (Fonts!Draws.Font_size) font_size, 
-                cast (dchar) 'A'
-            );
+        auto r = Font!ftLib.open (font_pathname).open (font_size).open ('A').read!E ();
+
+        //foreach (e; r)
+        //    log (e);
+
+        //auto draws = 
+        //    font_cache.get_draws (
+        //        font_id, 
+        //        cast (Fonts!Draws.Font_size) font_size, 
+        //        cast (dchar) 'A'
+        //    );
 
         SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
-        gl_side._draw_draws (draws);
+        gl_side.__draw_draws (r);
+    }
+
+    struct
+    E {
+        Type    type;
+        Point[] points;  // rel
+
+        enum Type {
+            POINTS,
+            LINES,
+            LINES2,
+        }
+
+        alias Point = SDL_Point;
     }
 
     void
@@ -670,20 +690,20 @@ Dir_Grid {
 
 	void
 	load () {
-        import dir : Dir2,linux_dirent;
-		string pathname = "/tmp";
+        //import dir : Dir,linux_dirent64;
+		//string pathname = "/tmp";
 
-        auto ds = Dir2 (pathname);
-        ds.load ();
-        ds.sort ();
+        //auto ds = Dir2 (pathname);
+        //ds.load ();
+        //ds.sort ();
 
-        foreach (linux_dirent* d; ds) {
-            //writef ("%8x ", d.d_ino);
-            //writef ("%-7s ", d.d_type);
+        //foreach (linux_dirent* d; ds) {
+        //    //writef ("%8x ", d.d_ino);
+        //    //writef ("%-7s ", d.d_type);
 
-            //writef ("%s", d.d_name.fromStringz);
-            //writeln ();        
-        }
+        //    //writef ("%s", d.d_name.fromStringz);
+        //    //writeln ();        
+        //}
 	}
 
 	void
