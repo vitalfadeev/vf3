@@ -126,7 +126,8 @@ Parser {
     }
 }
 
-auto SAE_analyzer (Range) (Range range) {
+auto 
+SAE_analyzer (Range) (Range range) {
     return _SAE_analyzer!Range (range);
 }
 
@@ -254,7 +255,8 @@ _SAE_analyzer (R) {
 }
 
 
-auto String_analyzer (Range) (Range range) {
+auto 
+String_analyzer (Range) (Range range) {
     return _String_analyzer!Range (range);
 }
 

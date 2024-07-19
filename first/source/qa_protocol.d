@@ -6,7 +6,7 @@ import url;
 import s;
 import regex_cmd;
 import globals;
-import query_registry : Query_registry,Query_registry_rec,Query_id;
+//import query_registry : Query_registry,Query_registry_rec,Query_id;
 import log : log;
 
 
@@ -64,7 +64,8 @@ QA_protocol {
         auto selected_item = splits[4];
         log ("splits:",splits);
 
-        Query_id query_id = Query_id (parse!(typeof(Query_id._a)) (qid));
+        //Query_id query_id = Query_id (parse!(typeof(Query_id._a)) (qid));
+        
         //Query_registry_rec rec;
         //if (query_registry.get (query_id, rec) ) {
         //    QA_protocol ().q (selected_item ~ " " ~ rec.query);

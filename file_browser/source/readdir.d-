@@ -1,0 +1,63 @@
+// read dir
+alias 
+readdir_t = 
+    int function (void*, const char*, int, loff_t, u64, unsigned);
+
+// LINUX_VERSION_CODE >= KERNEL_VERSION(3, 11, 0)
+version (_KERNEL_VERSION_3_11_0) {
+struct 
+callback_context {
+    dir_context ctx;
+    readdir_t   filler;
+    void*       context;
+};
+
+int 
+iterate_dir_callback (dir_context* ctx, const char* name, int namlen,
+        loff_t offset, u64 ino, uint d_type) {
+    callback_context* buf = container_of (ctx, callback_context, ctx);
+    return buf.filler (buf.context, name, namlen, offset, ino, d_type);
+}
+}
+
+
+int 
+readdir (const char* path, readdir_t filler, void* context) {
+    int res;
+version (_KERNEL_VERSION_3_11_0) {
+    callback_context buf = {
+        .ctx.actor: cast (filldir_t) iterate_dir_callback,
+        .context: context,
+        .filler: filler
+    };
+}
+
+    file* dir = filp_open (path, O_DIRECTORY, S_IRWXU | S_IRWXG | S_IRWXO);
+    if (!IS_ERR (dir)) {
+version (_KERNEL_VERSION_3_11_0) {
+        res = iterate_dir (dir, &buf.ctx);
+}
+else {
+        res = vfs_readdir (dir, filler, context);
+}
+        filp_close (dir, NULL);
+    }
+    else 
+        res = cast (int) PTR_ERR (dir);
+
+    return res;
+}
+
+int 
+filldir_callback (void* data, const char* name, int namlen,
+        loff_t offset, u64 ino, uint d_type) {
+    printk (KERN_NOTICE!"file: %.*s type: %d\n", namlen, name, d_type);
+    
+    if (d_type == DT_DIR) {
+        // do sth with your subdirs
+    }
+
+    return 0;
+}
+
+readdir ("/etc", filldir_callback, cast (void*) 123);

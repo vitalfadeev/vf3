@@ -1,0 +1,22 @@
+{
+	"dependencies": {
+		"bindbc-freetype": "~>1.2.6",
+		"syscall-d": "~>0.5.0",
+		"dir": {"path":"deps/dir"},
+	},
+	"libs": [
+		"freetype"
+	],
+	"versions": [
+		"SDL_2_6",
+		"SDL_2_6_5",
+		"FT_2_13"
+	],
+	"authors": [
+		"vf"
+	],
+	"copyright": "Copyright © 2024, vf",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "file_dir"
+}

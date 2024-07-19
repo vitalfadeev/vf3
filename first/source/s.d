@@ -15,15 +15,15 @@ S {
         log ("by_glob:",idxs);
 
         // by_mime
-        //auto idxs2 = Globals.db.by_mime.get (q);
-        //log ("by_mime:",idxs2);
+        auto idxs2 = Globals.db.by_mime.get (q);
+        log ("by_mime:",idxs2);
 
         // 1 -> Regex_cmd
         Regex_cmd[] rcs;
         foreach (i; idxs)
             rcs ~= Globals.db.s[i];
-        //foreach (i; idxs2)
-        //    rcs ~= Globals.db.s[i];
+        foreach (i; idxs2)
+            rcs ~= Globals.db.s[i];
 
         return rcs;
     }

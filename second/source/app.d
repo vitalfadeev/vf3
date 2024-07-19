@@ -37,3 +37,7 @@ from_stdin () {
 //     echo "menu/done/" | socat - socket
 //
 // C [items,...] -> stdin -> menu (socket,-) -> stdout -> socat -> socket
+
+// deb
+// show deb
+// install

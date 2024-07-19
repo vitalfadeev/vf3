@@ -1,0 +1,12 @@
+{
+	"dependencies": {
+		"syscall-d": {"path":"deps/syscall-d"},
+	},
+	"authors": [
+		"vf"
+	],
+	"copyright": "Copyright © 2024, vf",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "dir"
+}

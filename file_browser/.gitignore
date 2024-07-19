@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/file_browser
+file_browser.so
+file_browser.dylib
+file_browser.dll
+file_browser.a
+file_browser.lib
+file_browser-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
