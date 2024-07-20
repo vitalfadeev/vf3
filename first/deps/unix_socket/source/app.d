@@ -27,7 +27,11 @@ void main()
 
 	import unix_socket.select;
 	while (true) {
-		Select (f,server,server.clients);
+		Select (
+			f,
+			server,
+			server.clients
+		);
 
 		// remove disconected clients
 		server.remove_disconected_clients ();

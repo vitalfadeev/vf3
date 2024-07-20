@@ -25,7 +25,11 @@ void main()
 
 	import unix_socket.select;
 	while (true) {
-		Select (keyboard_input,socket_server,socket_server.clients);
+		Select (
+			keyboard_input,
+			socket_server,
+			socket_server.clients
+		);
 
 		// remove disconected clients
 		socket_server.remove_disconected_clients ();
@@ -126,6 +130,11 @@ Custom_server {
 				foreach (e; iterator) {
  					s ~= *e;
 					length++;
+					if (*e == '\n') { // iterate each line \n
+						on_data (s);
+						s.length = 0;
+						length = 0;
+					}
 				}
 				if (length == 0) {
 					log ("  client disconnected");

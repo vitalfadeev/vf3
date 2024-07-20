@@ -2,9 +2,27 @@ import std.stdio;
 import my_client;
 alias log = writeln;
 
+void 
+main() {
+	import socket_file;
+
+	string pathname = "/tmp/vf.soc";
+    auto f = Socket_File.open (pathname);  // File.ID
+	log ("f.fd: ",f.fd);
+	f.write ("1.mp4\n");
+	f.flush ();
+	char[] buffer;
+	buffer.length = 1000;
+	string s;
+	foreach (e; f.read (buffer))
+		s ~= *e;
+	log (s);
+	f.close ();
+}
+
 
 void 
-main (string[] args) {
+main2 (string[] args) {
 	if (args.length)
 		from_args (args);
 	else

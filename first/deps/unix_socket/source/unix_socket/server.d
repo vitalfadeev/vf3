@@ -187,7 +187,7 @@ _Client {
             return Iterator!E (fd,buffer);
         }
 
-        T[]
+        size_t
         write (T) (T[] buffer) {
             log ("  _Client.write:");
             log ("    fd: ",fd);
@@ -197,14 +197,12 @@ _Client {
 
             size_t nbytes = .send (fd, buffer.ptr, cast (int) T.sizeof*buffer.length, 0);
 
-            if (nbytes == _SEND_ERROR) {
-                // error
+            if (nbytes == _SEND_ERROR)
                 throw new Errno_exception ("write: send");
-            }
 
             log ("send.nbytes:",nbytes);
 
-            return buffer[0..nbytes/T.sizeof];
+            return nbytes;
         }
 
 
