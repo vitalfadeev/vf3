@@ -2,6 +2,9 @@
 	"authors": [
 		"vf"
 	],
+	"dependencies": {
+		"file_dir": {"path":"deps/file_dir"},
+	},
 	"copyright": "Copyright © 2024, vf",
 	"description": "A minimal D application.",
 	"license": "proprietary",

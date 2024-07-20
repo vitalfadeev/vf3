@@ -1,8 +1,8 @@
 module unix_socket.select;
 
-import unix_socket.file : FD;
 import std.stdio : writeln;
 import unix_socket.errno_exception;
+import file : FD;
 alias log=writeln;
 
 auto
@@ -30,6 +30,8 @@ Select (SOURCES...) (ref SOURCES srcs)  {
                 if (e.fd > maxfd)
                     maxfd = e.fd;
         }
+        else
+            static assert (0, "expect field \"fd\" for type \"" ~ __traits (fullyQualifiedName,typeof(src)) ~ "\" in " ~ __traits (identifier,src));
     }
     nfds = maxfd + 1;
 
@@ -96,7 +98,7 @@ trait_t_or_e_has_fd (S) () {
 
 template 
 trait_has_fd (T) {
-    alias FD = int;
+    //alias FD = int;
     static if (__traits (hasMember,T,"fd") && is (typeof (__traits (getMember,T,"fd")) == FD))
         enum trait_has_fd = true;
     else

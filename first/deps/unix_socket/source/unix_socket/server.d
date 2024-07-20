@@ -4,11 +4,12 @@ import core.sys.posix.unistd : read,write,close;
 import core.sys.posix.sys.socket : 
     socket,AF_UNIX,SOCK_STREAM,bind,socklen_t,sa_family_t,sockaddr,
     listen,accept,recv,send,shutdown,SHUT_RDWR;
+public import core.sys.posix.sys.types : mode_t;
 import core.stdc.string : strcpy,strncpy;
 import core.sys.posix.sys.un : sockaddr_un;
 import core.sys.linux.errno : errno;
 import unix_socket.errno_exception;
-import unix_socket.file : FD;
+import file : FD,O_RDONLY;
 import std.stdio : writeln;
 alias log=writeln;
 
@@ -17,9 +18,9 @@ struct
 Server (T_client /* =_Client */) {
     //File _super;
     //alias _super this;
-    FD        fd;
-    string    pathname;
-    T_client[] clients;
+    FD            fd;
+    string        pathname;
+    T_client.ID[] clients;
 
     enum listen_backlog = 32;
 
@@ -86,11 +87,11 @@ Server (T_client /* =_Client */) {
         }
     }
 
-    T_client
+    T_client.ID
     accept () {
         log ("  accept:");
         auto new_fd = _accept ();
-        auto new_client = T_client (_Client (new_fd));
+        auto new_client = T_client.open (new_fd);
         clients ~= new_client;
         log ("    new_fd:",new_fd);
         return new_client;
@@ -138,67 +139,111 @@ Server (T_client /* =_Client */) {
 
 struct
 _Client {
-    FD     fd;
-    string pathname;  // always empty
-    bool   disconnected;
+    static
+    ID
+    open (FD fd) {
+        return ID (fd);
+    }
 
-    enum _RECV_ERROR = -1;
-    enum _SEND_ERROR = -1;
+    struct
+    ID {
+        FD fd;
+        alias fd this;
 
-    T[]
-    read (T) (T[] buffer) {
-        log ("  _Client.read:");
-        log ("    fd: ",fd);
-        log ("    T: ",T.stringof);
-        log ("    buffer.length: ",buffer.length);
-        log ("    T.sizeof: ",T.sizeof);
+        string pathname;  // always empty
+        bool   disconnected;
 
-        size_t nbytes = .recv (fd, buffer.ptr, cast (int) T.sizeof*buffer.length, 0);
+        enum _RECV_ERROR = -1;
+        enum _SEND_ERROR = -1;
+        enum _FILE_OPEN_ERROR = -1;
+        enum _FILE_READ_ERROR = -1;
+        enum _FILE_READ_EOF   =  0;
 
-        if (nbytes == _RECV_ERROR) {
-            // error
-            throw new Errno_exception ("read: recv");
+        alias E = ubyte;
+
+
+        this (FD fd) {
+            this.fd = fd;
         }
 
-        log ("recv.nbytes:",nbytes);
-
-        return buffer[0..nbytes/T.sizeof];
-    }
-
-    T[]
-    write (T) (T[] buffer) {
-        log ("  _Client.write:");
-        log ("    fd: ",fd);
-        log ("    T: ",T.stringof);
-        log ("    buffer.length: ",buffer.length);
-        log ("    T.sizeof: ",T.sizeof);
-
-        size_t nbytes = .send (fd, buffer.ptr, cast (int) T.sizeof*buffer.length, 0);
-
-        if (nbytes == _SEND_ERROR) {
-            // error
-            throw new Errno_exception ("write: send");
+        Iterator!E
+        read (E) (E[] buffer) {
+            return Iterator!E (fd,buffer);
         }
 
-        log ("send.nbytes:",nbytes);
+        T[]
+        write (T) (T[] buffer) {
+            log ("  _Client.write:");
+            log ("    fd: ",fd);
+            log ("    T: ",T.stringof);
+            log ("    buffer.length: ",buffer.length);
+            log ("    T.sizeof: ",T.sizeof);
 
-        return buffer[0..nbytes/T.sizeof];
-    }
+            size_t nbytes = .send (fd, buffer.ptr, cast (int) T.sizeof*buffer.length, 0);
+
+            if (nbytes == _SEND_ERROR) {
+                // error
+                throw new Errno_exception ("write: send");
+            }
+
+            log ("send.nbytes:",nbytes);
+
+            return buffer[0..nbytes/T.sizeof];
+        }
 
 
-    void
-    close () {
-        .shutdown (fd,SHUT_RDWR);
-        .close (fd);
-    }
+        void
+        close () {
+            .shutdown (fd,SHUT_RDWR);
+            .close (fd);
+        }
 
-    void
-    on_select () {
+        void
+        on_select () {
+            //
+        }
+
+        void
+        on_disconnected () {
+            disconnected = true;
+        }
+
         //
-    }
+        struct 
+        Iterator (E) {
+            int fd;
+            E[]  buffer;
 
-    void
-    on_disconnected () {
-        disconnected = true;
+            alias DG = int delegate (E* e);
+
+            int 
+            opApply (scope DG dg) {
+                for (;;) {
+                    auto nbytes = .recv (fd, buffer.ptr, cast (int) E.sizeof*buffer.length, 0);
+                    //auto nbytes = .read (fd,buffer.ptr,E.sizeof*buffer.length);
+
+                    if (nbytes == _FILE_READ_EOF) {
+                        break;
+                    }
+                    else
+                    if (nbytes == _FILE_READ_ERROR) {
+                        // errno
+                        throw new Errno_exception ("recv");
+                    }
+
+                    auto e = buffer.ptr;
+                    auto limit = (cast (void*) e) + nbytes;
+
+                    for (; e < limit; e++) {
+                        int result = dg (e);
+
+                        if (result)
+                            return result;
+                    }
+                }
+
+                return 0;
+            }    
+        }    
     }
 }

@@ -508,7 +508,11 @@ Frame {
         // Resource.id
         // Resource conertor
         // Resource to draws
-        auto r = Font!ftLib.open (font_pathname).open (font_size).open ('A').read!E ();
+        auto r = 
+            Font!ftLib.open (font_pathname)
+                .open (font_size)
+                .open ('A')
+                .read!E ();
 
         //foreach (e; r)
         //    log (e);

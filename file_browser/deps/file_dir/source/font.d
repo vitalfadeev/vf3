@@ -3,14 +3,13 @@ import std.stdio : writeln;
 import std.string : toStringz,fromStringz;
 import bindbc.loader;
 import bindbc.freetype;
-//import file;
 import errno_exception;
 alias log=writeln;
 
 
 
 struct
-Font (alias FT_Library ftLib) {
+Font (alias FT_Library ftlib) {
     //File _super;
     //alias _super this;
 
@@ -27,7 +26,7 @@ Font (alias FT_Library ftLib) {
         alias ftface = _fd;
 
         this (string pathname) {
-            auto error = FT_New_Face (ftLib,pathname.toStringz,0,&ftface);
+            auto error = FT_New_Face (ftlib,pathname.toStringz,0,&ftface);
 
             if (error == FT_Err_Unknown_File_Format) {
                 //... the font file could be opened and read, but it appears
@@ -257,17 +256,10 @@ Glyph_to_points (E) {
 //   open ("arial.ttf").open (10).open ('A')
 //   open ("arial.ttf").open (10).open ('A').read ()
 
+
 unittest {
-    load_FT ();
-    init_ft ();
-
-    string  pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-    int     size = 64;
-
-    auto r = Font.open (pathname).open (size).open ('A').read!(Font_Glyph.ID.E) ();
-    
-    foreach (e; r)
-        log (e);
+    static 
+    FT_Library ftlib;
 
     void
     load_FT () {
@@ -290,21 +282,32 @@ unittest {
         //FT_Init_FreeType (&lib);    
     }
 
-    FT_Library ftLib;
-
     void
     init_ft () {
         FT_Error err;
-        err = FT_Init_FreeType (&ftLib);
+        err = FT_Init_FreeType (&ftlib);
         if (err) {
             log (FT_Error_String (err));
             throw new Exception ("Loading error: ");
         }
 
         int maj, min, pat;
-        FT_Library_Version (ftLib, &maj, &min, &pat);
+        FT_Library_Version (ftlib, &maj, &min, &pat);
         assert (maj >= 2);
         assert (min >= 13);
     }
+
+
+    load_FT ();
+    init_ft ();
+
+    string  pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
+    int     size = 64;
+
+    auto r = Font!ftlib.open (pathname).open (size).open ('A').read!(Font_Glyph.ID.E) ();
+    
+    foreach (e; r)
+        log (e);
+
 }
 

@@ -2,6 +2,7 @@ module dir.dir;
 
 import core.sys.posix.dirent : opendir,readdir_r,DIR,dirent,closedir;
 
+alias FD = size_t;
 
 struct linux_dirent {
     import core.sys.posix.sys.types : off_t;
@@ -50,7 +51,8 @@ Dir {
         import syscalld : syscall, GETDENTS;
         import std.string : toStringz;
 
-        size_t          fd, nread;
+        FD              fd;
+        size_t          nread;
         linux_dirent*   d;
         size_t          bpos;
         char            d_type;

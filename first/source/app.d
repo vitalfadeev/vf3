@@ -107,17 +107,25 @@ Custom_server {
 	    	log ("on_select");
 			log ("  client");
 			char[1024] buffer;
-			auto buf = _super.read (buffer);
-			log ("  buf.legth:",buf.length);
-			log ("  buf:",buf);
-			if (buf.length == 0) {
+			//alias StringIterator = _super.Iterator;
+			//auto iterator = _super.read!StringIterator (buffer);
+			auto iterator = _super.read (buffer);
+			// char s to string
+			size_t length;
+			string line;
+			foreach (e; iterator) {
+				line ~= *e;
+				if (*e == '\n') {
+					on_data (line);
+					line.length = 0;
+				}
+				length++;
+			}
+			if (length == 0) {
 				log ("  client disconnected");
 				_super.close ();
 				_super.on_disconnected ();  // remove from server.clients
 			    //on_client_disconnected (client);
-			}
-			else {
-				on_data (buf.idup);
 			}
 	    }
 

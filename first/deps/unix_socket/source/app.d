@@ -4,11 +4,10 @@ alias log=writeln;
 
 void main()
 {
-    import unix_socket.file : O_RDONLY,O_NONBLOCK;
+    import file : O_RDONLY,O_NONBLOCK;
 	string input_dev = 
 		"/dev/input/by-id/usb-LITEON_Technology_USB_Keyboard-event-kbd";
-	auto f = Custom_file (input_dev);
-	f.open (O_RDONLY|O_NONBLOCK);
+    auto f = Custom_file.open (input_dev,O_RDONLY|O_NONBLOCK);
 	log ("f.fd: ",f.fd);
 
 	//
@@ -66,33 +65,32 @@ Input_event {
 
 struct
 Custom_file {
-	import unix_socket.file : File,FD;
+	import file : File,FD;
 
 	File _super;
 	alias _super this;
 
-	this (FD fd) {
-	    this._super.fd = fd;
-	}
+	struct
+	ID {
+		File.ID _super;
+		alias _super this;
 
-	this (string pathname) {
-	    this._super.pathname = pathname;
+		void
+		on_select () {
+			log ("  on_select");
+		    Input_event[] buffer;
+		    buffer.length = 1;
+		    auto iterator = _super.read (buffer);
+		    foreach (e; iterator)
+		        writeln (e);
+		}    
 	}
-
-    void
-    on_select () {
-    	log ("  on_select");
-        Input_event[1] input_event;
-        auto buf = _super.read (input_event[]);
-        log ("  buf.legth:",buf.length);
-        //on_data ();
-    }    
 }
 
 struct
 Custom_server {
 	import unix_socket.server : Server;
-	import unix_socket.file : FD;
+	import file : FD;
 
 	Server!_Client _super;
 	alias _super this;
@@ -119,28 +117,45 @@ Custom_server {
 		_Client _super;
 		alias _super this;
 
-		void
-	    on_select () {
-	    	log ("on_select");
-			log ("  client");
-			char[1024] buffer;
-			auto buf = _super.read (buffer);
-			log ("  buf.legth:",buf.length);
-			log ("  buf:",buf);
-			if (buf.length == 0) {
-				log ("  client disconnected");
-				_super.close ();
-				_super.on_disconnected ();  // remove from server.clients
-			    //on_client_disconnected (client);
-			}
-			else {
-				on_data (buf.idup);
-			}
-	    }
+		static
+		ID
+		open (FD fd) {
+		    return ID (_Client.ID (fd));
+		}
 
-	    void
-	    on_data (string s) {
-	        log ("  on_data: ",s);
+		struct
+		ID {
+			_Client.ID _super;
+			alias _super this;
+
+			void
+		    on_select () {
+		    	log ("on_select");
+				log ("  client");
+				char[] buffer;
+				buffer.length = 1000;
+				auto iterator = _super.read (buffer);
+				size_t length;
+				string s;
+				foreach (e; iterator) {
+					s ~= *e;
+					length++;
+				}
+				if (length == 0) {
+					log ("  client disconnected");
+					_super.close ();
+					_super.on_disconnected ();  // remove from server.clients
+				    //on_client_disconnected (client);
+				}
+				else {
+					on_data (s);
+				}
+		    }
+
+		    void
+		    on_data (string s) {
+		        log ("  on_data: ",s);
+		    }
 	    }
 	}
 }

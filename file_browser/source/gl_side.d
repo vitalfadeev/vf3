@@ -140,6 +140,7 @@ GL_Side {
         alias E = ElementType!R;
 
         foreach (e; range) 
+            final
             switch (e.type) {
                 case E.Type.POINTS: 
                     SDL_RenderDrawPoints (renderer,e.points.ptr,cast (int) e.points.length);
@@ -148,8 +149,8 @@ GL_Side {
                     SDL_RenderDrawLines (renderer,e.points.ptr,cast (int) e.points.length);
                     break;
                 case E.Type.LINES2: 
+                    // ...
                     break;
-                default:
             }
     }
 

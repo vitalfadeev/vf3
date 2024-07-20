@@ -32,6 +32,8 @@ import errno_exception;
 import file;
 alias log=writeln;
 
+alias FD = int;
+
 
 struct
 File {
@@ -53,21 +55,32 @@ File {
         return ID (pathname,flags,mode);
     }
 
+    static
+    ID
+    open (FD fd) {
+        return ID (fd);
+    }
+
     struct
     ID {
-        int _fd;
-        alias _fd this;
+        FD fd;
+        alias fd this;
+
 
         this (string pathname, int flags=O_RDONLY, mode_t mode=mode_t.init) {
-            _fd = .open (pathname.toStringz,flags,mode);
+            fd = .open (pathname.toStringz,flags,mode);
 
-            if (_fd == _FILE_OPEN_ERROR)
+            if (fd == _FILE_OPEN_ERROR)
                 throw new Errno_exception ("open");
+        }
+
+        this (FD fd) {
+            this.fd = fd;
         }
 
         Iterator!E
         read (E) (E[] buffer) {
-            return Iterator!E (_fd,buffer);
+            return Iterator!E (fd,buffer);
         }
 
         void
@@ -82,7 +95,7 @@ File {
 
         void
         close () {
-            .close (_fd);
+            .close (fd);
         }
 
         //
@@ -101,7 +114,7 @@ File {
         //
         struct 
         Iterator (E) {
-            int _fd;
+            FD fd;
             E[]  buffer;
 
             alias DG = int delegate (E* e);
@@ -109,7 +122,7 @@ File {
             int 
             opApply (scope DG dg) {
                 for (;;) {
-                    auto nbytes = .read (_fd,buffer.ptr,E.sizeof*buffer.length);
+                    auto nbytes = .read (fd,buffer.ptr,E.sizeof*buffer.length);
 
                     if (nbytes == _FILE_READ_EOF) {
                         break;
@@ -182,24 +195,24 @@ Dir {
 
     struct
     ID {
-        int _fd;
-        alias _fd this;
+        FD fd;
+        alias fd this;
 
         this (string pathname, int flags=O_RDONLY|O_DIRECTORY, mode_t mode=mode_t.init) {
-            _fd = .open (pathname.toStringz,flags,mode);
+            fd = .open (pathname.toStringz,flags,mode);
 
-            if (_fd == _DIR_OPEN_ERROR)
+            if (fd == _DIR_OPEN_ERROR)
                 throw new Errno_exception ("open");
         }
 
         Iterator!E
         read (E[] buffer) {
-            return Iterator!E (_fd, buffer);
+            return Iterator!E (fd, buffer);
         }
 
         struct 
         Iterator (E) {
-            int _fd;
+            FD fd;
             E[]  buffer;
 
             alias DG = int delegate (E* e);
@@ -211,7 +224,7 @@ Dir {
                 size_t nbytes;
 
                 for ( ; ; ) {
-                    nbytes = .syscall (GETDENTS64,_fd,cast(size_t) buffer.ptr,cast(size_t) E.sizeof*buffer.length); // Bytes
+                    nbytes = .syscall (GETDENTS64,fd,cast(size_t) buffer.ptr,cast(size_t) E.sizeof*buffer.length); // Bytes
 
                     if (nbytes == _DIR_READ_EOF) {
                         break;
@@ -238,7 +251,7 @@ Dir {
 
         void
         close () {
-            .close (_fd);
+            .close (fd);
         }
 
         //
