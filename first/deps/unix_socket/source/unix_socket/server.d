@@ -58,7 +58,7 @@ Server (T_client /* =_Client */) {
 
         void
         _socket () {
-            FD _fd = socket (AF_UNIX,SOCK_STREAM,0);
+            FD _fd = .socket (AF_UNIX,SOCK_STREAM,0);
 
             if (_fd == -1) {
                 log ("error: ",format_error (errno));

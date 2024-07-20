@@ -9,11 +9,10 @@ void main()
 	Globals.load ();
 
 	//
-    import unix_socket.file : O_RDONLY,O_NONBLOCK;
+	import file : O_RDONLY,O_NONBLOCK;
 	string input_dev = 
 		"/dev/input/by-id/usb-LITEON_Technology_USB_Keyboard-event-kbd";
-	auto keyboard_input = Custom_file (input_dev);
-	keyboard_input.open (O_RDONLY|O_NONBLOCK);
+	auto keyboard_input = Custom_file.open (input_dev,O_RDONLY|O_NONBLOCK);  // File.ID
 	log ("keyboard_input.fd: ",keyboard_input.fd);
 
 	//
@@ -21,8 +20,7 @@ void main()
 	string socket_path = "/tmp/vf.soc";
 	if (socket_path.exists)
 		socket_path.remove ();
-	auto socket_server = Custom_server (socket_path);
-	socket_server.open (O_RDONLY|O_NONBLOCK);
+	auto socket_server = Custom_server.open (socket_path, O_RDONLY|O_NONBLOCK);  // Server.ID
 	log ("server.fd: ",socket_server.fd);
 
 	import unix_socket.select;
@@ -48,52 +46,55 @@ Input_event {
 
 struct
 Custom_file {
-	import unix_socket.file : File,FD;
+	import file : File,FD,O_RDONLY,O_NONBLOCK;
 
 	File _super;
 	alias _super this;
 
-	this (FD fd) {
-	    this._super.fd = fd;
+	static
+	ID
+	open (string pathname) {
+	    return ID (File.ID (pathname));
 	}
 
-	this (string pathname) {
-	    this._super.pathname = pathname;
+	static
+	ID
+	open (string pathname, int flags) {
+	    return ID (File.ID (pathname,flags));
 	}
 
-    void
-    on_select () {
-    	log ("  on_select");
-        Input_event[1] input_event;
-        auto buf = _super.read (input_event[]);
-        log ("  buf.legth:",buf.length);
-        //on_data ();
-    }    
+	static
+	ID
+	open (FD fd) {
+	    return ID (File.ID (fd));
+	}
+
+	struct
+	ID {
+		File.ID _super;
+		alias _super this;
+
+	    void
+	    on_select () {
+	    	log ("  on_select");
+	    	log ("    fd: ",fd);
+	    	Input_event[] buffer;
+	    	buffer.length = 1;
+	        auto iterator = this.read (buffer);
+	        foreach (e; iterator)
+	            log (e);
+	    }
+	}
 }
 
 struct
 Custom_server {
 	import unix_socket.server : Server;
-	import unix_socket.file : FD;
+	import file : FD;
 
 	Server!_Client _super;
 	alias _super this;
 
-
-	this (FD fd) {
-	    this._super.fd = fd;
-	}
-
-	this (string pathname) {
-	    this._super.pathname = pathname;
-	}
-
-    //void
-    //on_select () {
-	//    log ("  on_select");
-	//    //on_data ();
-	//    auto new_client = _super.accept ();
-    //}    
 
 	struct
 	_Client {
@@ -102,47 +103,56 @@ Custom_server {
 		_Client _super;
 		alias _super this;
 
-		void
-	    on_select () {
-	    	log ("on_select");
-			log ("  client");
-			char[1024] buffer;
-			//alias StringIterator = _super.Iterator;
-			//auto iterator = _super.read!StringIterator (buffer);
-			auto iterator = _super.read (buffer);
-			// char s to string
-			size_t length;
-			string line;
-			foreach (e; iterator) {
-				line ~= *e;
-				if (*e == '\n') {
-					on_data (line);
-					line.length = 0;
+		static
+		ID
+		open (FD fd) {
+		    return ID (_Client.ID (fd));
+		}
+
+		struct
+		ID {
+			_Client.ID _super;
+			alias _super this;
+
+			void
+		    on_select () {
+		    	log ("on_select");
+				log ("  client");
+				char[] buffer;
+				buffer.length = 1000;
+				auto iterator = this.read (buffer);
+				size_t length;
+				string s;
+				foreach (e; iterator) {
+ 					s ~= *e;
+					length++;
 				}
-				length++;
-			}
-			if (length == 0) {
-				log ("  client disconnected");
-				_super.close ();
-				_super.on_disconnected ();  // remove from server.clients
-			    //on_client_disconnected (client);
-			}
-	    }
+				if (length == 0) {
+					log ("  client disconnected");
+					_super.close ();
+					_super.on_disconnected ();  // remove from server.clients
+				    //on_client_disconnected (client);
+				}
+				else {
+					on_data (s);
+				}
+		    }
 
-	    void
-	    on_data (string s) {
-	        log ("  on_data: ",s);
+		    void
+		    on_data (string s) {
+		        log ("  on_data: ",s);
 
-	        //auto query_id = query_registry.add (s,client);
-	        //query_registry.save_s (client,s);
+		        //auto query_id = query_registry.add (s,client);
+		        //query_registry.save_s (client,s);
 
-	        import std.string : strip;
-	        import qa_protocol;
-	        auto a = QA_protocol ().q (s.strip);
+		        import std.string : strip;
+		        import qa_protocol;
+		        auto a = QA_protocol ().q (s.strip);
 
-	        log ("a: ", a);
-	        _super.write (a);	        
-	    }
+		        log ("a: ", a);
+		        _super.write (a);	        
+		    }
+		}
 	}
 }
 

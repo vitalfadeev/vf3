@@ -100,7 +100,7 @@ Custom_file {
 		    buffer.length = 1;
 		    auto iterator = this.read (buffer);
 		    foreach (e; iterator)
-		        writeln (e);
+		        log (e);
 		}    
 	}
 }
