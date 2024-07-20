@@ -46,6 +46,7 @@ Select (SOURCES...) (ref SOURCES srcs)  {
         }
         else
         static if (trait_iterable_has_fd!(typeof(src))) {
+            pragma (msg, "has FD: ", __traits(fullyQualifiedName,typeof(src)));
             foreach (ref e; src)
                 FD_SET (e.fd,&r_fds);
         }

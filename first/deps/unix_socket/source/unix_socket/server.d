@@ -143,7 +143,6 @@ Server (T_client /* =_Client */) {
         void
         on_select () {
             log ("  Server.on_select");
-            //on_data ();
             auto new_client = accept ();
         }
 

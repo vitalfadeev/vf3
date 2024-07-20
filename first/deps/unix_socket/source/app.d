@@ -27,8 +27,7 @@ void main()
 
 	import unix_socket.select;
 	while (true) {
-		Select (f);
-		//Select (f,server,server.clients);
+		Select (f,server,server.clients);
 
 		// remove disconected clients
 		server.remove_disconected_clients ();
@@ -139,7 +138,7 @@ Custom_server {
 				log ("  client");
 				char[] buffer;
 				buffer.length = 1000;
-				auto iterator = _super.read (buffer);
+				auto iterator = this.read (buffer);
 				size_t length;
 				string s;
 				foreach (e; iterator) {

@@ -13,6 +13,7 @@ import std.string : toStringz;
 // #include <sys/types.h>
 // #include <sys/stat.h>
 // #include <fcntl.h>        
+import core.sys.posix.fcntl : fcntl,F_GETFL;
 public import core.sys.posix.fcntl : 
     O_APPEND,O_ASYNC,O_CLOEXEC,O_CREAT,
     O_DIRECT,O_DIRECTORY,O_EXCL,O_LARGEFILE,
@@ -68,7 +69,7 @@ File {
 
 
         this (string pathname, int flags=O_RDONLY, mode_t mode=mode_t.init) {
-            log ("flags: ", flags, ": ", flags & O_NONBLOCK ? "O_NONBLOCK" : "");
+            //log ("flags: ", flags, ": ", flags & O_NONBLOCK ? "O_NONBLOCK" : "");
 
             fd = .open (pathname.toStringz,flags,mode);
 
@@ -131,14 +132,17 @@ File {
                     }
                     else
                     if (nbytes == _FILE_READ_ERROR) {
-                        import core.sys.linux.errno : errno;
-                        import core.stdc.errno : EAGAIN;
-                        if (errno == EAGAIN) {  // Non-blocking I/O has been selected using O_NONBLOCK and no data was immediately available for reading. 
-                            break;
-                        } 
-                        else {                            
-                            throw new Errno_exception ("read");
+                        if ((fcntl (fd, F_GETFL)) & O_NONBLOCK) {
+                            import core.sys.linux.errno : errno;
+                            import core.stdc.errno : EAGAIN;
+                            if (errno == EAGAIN) {  // Non-blocking I/O has been selected using O_NONBLOCK and no data was immediately available for reading. 
+                                break;
+                            }                             
+                            else
+                                throw new Errno_exception ("read");
                         }
+                        else
+                            throw new Errno_exception ("read");
                     }
                     else {  // OK
                         if (buffer.length == 1) {
