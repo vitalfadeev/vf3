@@ -35,7 +35,7 @@ Select (SOURCES...) (ref SOURCES srcs)  {
     }
     nfds = maxfd + 1;
 
-    timeout.tv_sec = 3;
+    timeout.tv_sec  = 3;
     timeout.tv_usec = 0;
 
     // fd set
@@ -72,15 +72,15 @@ Select (SOURCES...) (ref SOURCES srcs)  {
         static foreach (src; srcs) {
             static if (trait_has_fd!(typeof(src))) {
                 if (FD_ISSET (src.fd,&r_fds)) {
-                    log (typeof(src).stringof);
+                    log (__traits (fullyQualifiedName,typeof(src)));
                     src.on_select ();
                 }
             }
             else
             static if (trait_iterable_has_fd!(typeof(src))) {
                 foreach (ref e; src)
-                    if (FD_ISSET (e.fd,&r_fds)) { 
-                        log (typeof(e).stringof);
+                    if (FD_ISSET (e.fd,&r_fds)) {
+                        log (__traits (fullyQualifiedName,typeof(e)));
                         e.on_select ();
                     }
             }
@@ -113,9 +113,8 @@ trait_iterable_has_fd (T) {
 
 template 
 trait_elem_type (R) {
-    static if (is(R : E[], E)) {
+    static if (is(R : E[], E))
         alias trait_elem_type = E;
-    }
     else
         alias trait_elem_type = void;
 }

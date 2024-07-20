@@ -7,7 +7,7 @@ void main()
     import file : O_RDONLY,O_NONBLOCK;
 	string input_dev = 
 		"/dev/input/by-id/usb-LITEON_Technology_USB_Keyboard-event-kbd";
-    auto f = Custom_file.open (input_dev,O_RDONLY|O_NONBLOCK);
+    auto f = Custom_file.open (input_dev,O_RDONLY|O_NONBLOCK);  // File.ID
 	log ("f.fd: ",f.fd);
 
 	//
@@ -15,8 +15,7 @@ void main()
 	string socket_path = "/tmp/vf.soc";
 	if (socket_path.exists)
 		socket_path.remove ();
-	auto server = Custom_server (socket_path);
-	server.open (O_RDONLY|O_NONBLOCK);
+	auto server = Custom_server.open (socket_path, O_RDONLY|O_NONBLOCK);  // Server.ID
 	log ("server.fd: ",server.fd);
 
 	//
@@ -28,7 +27,8 @@ void main()
 
 	import unix_socket.select;
 	while (true) {
-		Select (f,server,server.clients);
+		Select (f);
+		//Select (f,server,server.clients);
 
 		// remove disconected clients
 		server.remove_disconected_clients ();
@@ -65,10 +65,28 @@ Input_event {
 
 struct
 Custom_file {
-	import file : File,FD;
+	import file : File,FD,O_RDONLY,O_NONBLOCK;
 
 	File _super;
 	alias _super this;
+
+	static
+	ID
+	open (string pathname) {
+	    return ID (File.ID (pathname));
+	}
+
+	static
+	ID
+	open (string pathname, int flags) {
+	    return ID (File.ID (pathname,flags));
+	}
+
+	static
+	ID
+	open (FD fd) {
+	    return ID (File.ID (fd));
+	}
 
 	struct
 	ID {
@@ -78,9 +96,10 @@ Custom_file {
 		void
 		on_select () {
 			log ("  on_select");
+			log ("    fd: ",fd);
 		    Input_event[] buffer;
 		    buffer.length = 1;
-		    auto iterator = _super.read (buffer);
+		    auto iterator = this.read (buffer);
 		    foreach (e; iterator)
 		        writeln (e);
 		}    
@@ -95,20 +114,6 @@ Custom_server {
 	Server!_Client _super;
 	alias _super this;
 
-	this (FD fd) {
-	    this._super.fd = fd;
-	}
-
-	this (string pathname) {
-	    this._super.pathname = pathname;
-	}
-
-    //void
-    //on_select () {
-	//    log ("  on_select");
-	//    //on_data ();
-	//    auto new_client = _super.accept ();
-    //}    
 
 	struct
 	_Client {
@@ -138,7 +143,7 @@ Custom_server {
 				size_t length;
 				string s;
 				foreach (e; iterator) {
-					s ~= *e;
+ 					s ~= *e;
 					length++;
 				}
 				if (length == 0) {

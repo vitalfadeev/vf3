@@ -4,8 +4,9 @@ module unix_socket.errno_exception;
 class
 Errno_exception :Exception{
     this (string msg) {
+        import std.conv;
         import core.sys.linux.errno : errno;
-        super (msg~": "~format_error (errno));
+        super (msg~": "~(errno.to!string)~": "~format_error (errno));
     }
 }
 

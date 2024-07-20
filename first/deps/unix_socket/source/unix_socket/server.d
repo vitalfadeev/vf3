@@ -9,131 +9,148 @@ import core.stdc.string : strcpy,strncpy;
 import core.sys.posix.sys.un : sockaddr_un;
 import core.sys.linux.errno : errno;
 import unix_socket.errno_exception;
-import file : FD,O_RDONLY;
+import file : FD,O_RDONLY,O_NONBLOCK;
 import std.stdio : writeln;
 alias log=writeln;
 
 
 struct
 Server (T_client /* =_Client */) {
-    //File _super;
-    //alias _super this;
-    FD            fd;
-    string        pathname;
-    T_client.ID[] clients;
-
-    enum listen_backlog = 32;
-
-
-    this (FD fd) {
-        this.fd = fd;
+    static
+    ID
+    open (string pathname) {
+        return ID (pathname);
     }
 
-    this (string pathname) {
-        this.pathname = pathname;
+    static
+    ID
+    open (string pathname, int flags) {
+        return ID (pathname,flags);
     }
 
-    void
-    open (int flags) {
-        _socket ();
-        _bind ();
-        _listen ();
-    }
 
-    void
-    _socket () {
-        FD _fd = socket (AF_UNIX,SOCK_STREAM,0);
+    struct
+    ID {
+        FD fd;
+        alias fd this;
 
-        if (_fd == -1) {
-            log ("error: ",format_error (errno));
-            on_error ();
-            throw new Errno_exception ("Server");
+        string        pathname;
+        T_client.ID[] clients;
+
+        enum listen_backlog = 32;
+
+
+        this (string pathname, int flags=O_RDONLY|O_NONBLOCK, mode_t mode=mode_t.init) {
+            this.pathname = pathname;
+            _open (flags);
         }
-        else
-            this.fd = _fd;
-    }
 
-    void
-    _bind () {
-        sockaddr_un addr;
-        socklen_t   addrlen;
-        addr.sun_family = AF_UNIX;
-        strncpy (cast (char*) addr.sun_path.ptr, pathname.ptr, pathname.length);
-        addr.sun_path[pathname.length] = 0;
-        addrlen = addr.sizeof;
-
-        auto err = .bind (fd, cast (sockaddr*) &addr, addrlen);
-
-        if (err == 0) {
-            // ok
+        this (FD fd) {
+            this.fd = fd;
         }
-        else {
-            // errno
-            throw new Errno_exception ("bind");
+
+        void
+        _open (int flags) {
+            _socket ();
+            _bind ();
+            _listen ();
         }
-    }
 
-    void
-    _listen () {
-        auto err = .listen (fd,listen_backlog);
+        void
+        _socket () {
+            FD _fd = socket (AF_UNIX,SOCK_STREAM,0);
 
-        if (err == 0) {
-            // ok
-            log ("listening");
+            if (_fd == -1) {
+                log ("error: ",format_error (errno));
+                on_error ();
+                throw new Errno_exception ("Server");
+            }
+            else
+                this.fd = _fd;
         }
-        else {
-            // errno
-            throw new Errno_exception ("listen");
+
+        void
+        _bind () {
+            sockaddr_un addr;
+            socklen_t   addrlen;
+            addr.sun_family = AF_UNIX;
+            strncpy (cast (char*) addr.sun_path.ptr, pathname.ptr, pathname.length);
+            addr.sun_path[pathname.length] = 0;
+            addrlen = addr.sizeof;
+
+            auto err = .bind (fd, cast (sockaddr*) &addr, addrlen);
+
+            if (err == 0) {
+                // ok
+            }
+            else {
+                // errno
+                throw new Errno_exception ("bind");
+            }
         }
-    }
 
-    T_client.ID
-    accept () {
-        log ("  accept:");
-        auto new_fd = _accept ();
-        auto new_client = T_client.open (new_fd);
-        clients ~= new_client;
-        log ("    new_fd:",new_fd);
-        return new_client;
-    }
+        void
+        _listen () {
+            auto err = .listen (fd,listen_backlog);
 
-    FD
-    _accept () {
-        sockaddr_un caddr;
-        socklen_t clen = caddr.sizeof;
+            if (err == 0) {
+                // ok
+                log ("listening");
+            }
+            else {
+                // errno
+                throw new Errno_exception ("listen");
+            }
+        }
 
-        FD new_client = .accept (fd,cast (sockaddr *) &caddr,&clen);
-        
-        if (new_client < 0) {
-             log ("error: on accept");
-             throw new Errno_exception ("accept");
-         }
+        T_client.ID
+        accept () {
+            log ("  accept:");
+            auto new_fd = _accept ();
+            auto new_client = T_client.open (new_fd);
+            clients ~= new_client;
+            log ("    new_fd:",new_fd);
+            return new_client;
+        }
 
-         return new_client;
-    }
+        FD
+        _accept () {
+            sockaddr_un caddr;
+            socklen_t clen = caddr.sizeof;
 
-    void
-    remove_disconected_clients () {
-        import std.algorithm : remove;
-        size_t[] idxs_for_remove;
-        foreach (i,ref client; clients)
-            if (client.disconnected)
-                idxs_for_remove ~= i;
-        foreach_reverse (i; idxs_for_remove)
-            clients = clients.remove (i);
-        log ("  remove_disconected_clients: ", idxs_for_remove.length);
-    }
+            FD new_client = .accept (fd,cast (sockaddr *) &caddr,&clen);
+            
+            if (new_client < 0) {
+                 log ("error: on accept");
+                 throw new Errno_exception ("accept");
+             }
 
-    void
-    on_select () {
-        log ("  Server.on_select");
-        //on_data ();
-        auto new_client = accept ();
-    }
+             return new_client;
+        }
 
-    void
-    on_error () {
-        log ("error: Server()");
+        void
+        remove_disconected_clients () {
+            import std.algorithm : remove;
+            size_t[] idxs_for_remove;
+            foreach (i,ref client; clients)
+                if (client.disconnected)
+                    idxs_for_remove ~= i;
+            foreach_reverse (i; idxs_for_remove)
+                clients = clients.remove (i);
+            log ("  remove_disconected_clients: ", idxs_for_remove.length);
+        }
+
+        void
+        on_select () {
+            log ("  Server.on_select");
+            //on_data ();
+            auto new_client = accept ();
+        }
+
+        void
+        on_error () {
+            log ("error: Server()");
+        }
     }
 }
 
@@ -230,15 +247,22 @@ _Client {
                         // errno
                         throw new Errno_exception ("recv");
                     }
+                    else {                        
+                        if (buffer.length == 1) {
+                            int result = dg (buffer.ptr);
+                            if (result)
+                                return result;
+                        }
+                        else {
+                            auto e = buffer.ptr;
+                            auto limit = (cast (void*) e) + nbytes;
 
-                    auto e = buffer.ptr;
-                    auto limit = (cast (void*) e) + nbytes;
-
-                    for (; e < limit; e++) {
-                        int result = dg (e);
-
-                        if (result)
-                            return result;
+                            for (; e < limit; e++) {
+                                int result = dg (e);
+                                if (result)
+                                    return result;
+                            }
+                        }
                     }
                 }
 

@@ -68,6 +68,8 @@ File {
 
 
         this (string pathname, int flags=O_RDONLY, mode_t mode=mode_t.init) {
+            log ("flags: ", flags, ": ", flags & O_NONBLOCK ? "O_NONBLOCK" : "");
+
             fd = .open (pathname.toStringz,flags,mode);
 
             if (fd == _FILE_OPEN_ERROR)
@@ -114,14 +116,14 @@ File {
         //
         struct 
         Iterator (E) {
-            FD fd;
-            E[]  buffer;
+            FD  fd;
+            E[] buffer;
 
             alias DG = int delegate (E* e);
 
             int 
             opApply (scope DG dg) {
-                for (;;) {
+                for (;;) {  // for read more than buffer size
                     auto nbytes = .read (fd,buffer.ptr,E.sizeof*buffer.length);
 
                     if (nbytes == _FILE_READ_EOF) {
@@ -129,18 +131,31 @@ File {
                     }
                     else
                     if (nbytes == _FILE_READ_ERROR) {
-                        // errno
-                        throw new Errno_exception ("read");
+                        import core.sys.linux.errno : errno;
+                        import core.stdc.errno : EAGAIN;
+                        if (errno == EAGAIN) {  // Non-blocking I/O has been selected using O_NONBLOCK and no data was immediately available for reading. 
+                            break;
+                        } 
+                        else {                            
+                            throw new Errno_exception ("read");
+                        }
                     }
+                    else {  // OK
+                        if (buffer.length == 1) {
+                            int result = dg (buffer.ptr);
+                            if (result)
+                                return result;
+                        }
+                        else {                        
+                            auto e = buffer.ptr;
+                            auto limit = (cast (void*) e) + nbytes;
 
-                    auto e = buffer.ptr;
-                    auto limit = (cast (void*) e) + nbytes;
-
-                    for (; e < limit; e++) {
-                        int result = dg (e);
-
-                        if (result)
-                            return result;
+                            for (; e < limit; e++) {
+                                int result = dg (e);
+                                if (result)
+                                    return result;
+                            }
+                        }                        
                     }
                 }
 
