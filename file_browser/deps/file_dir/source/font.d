@@ -9,7 +9,7 @@ alias log=writeln;
 
 
 struct
-Font (alias FT_Library ftlib) {
+Font (alias FT_Library ftlib) {  // Resource : File
     //File _super;
     //alias _super this;
 

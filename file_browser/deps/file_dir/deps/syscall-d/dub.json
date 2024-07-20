@@ -1,0 +1,25 @@
+{
+	"authors": [
+		"kubo39"
+	],
+	"configurations": [
+		{
+			"name": "library",
+			"targetType": "staticLibrary"
+		}
+	],
+	"description": "syscall interface for D",
+	"importPaths": [
+		"source/"
+	],
+	"license": "MIT",
+	"name": "syscall-d",
+	"sourcePaths": [
+		"source/"
+	],
+	"targetName": "syscall",
+	"targetPath": "build",
+	"targetType": "staticLibrary",
+	"version": "0.5.0",
+	"workingDirectory": "build"
+}

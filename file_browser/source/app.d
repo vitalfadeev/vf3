@@ -509,7 +509,8 @@ Frame {
         // Resource conertor
         // Resource to draws
         auto r = 
-            Font!ftLib.open (font_pathname)
+            Font!(ftLib)
+                .open (font_pathname)
                 .open (font_size)
                 .open ('A')
                 .read!E ();
@@ -525,7 +526,18 @@ Frame {
         //    );
 
         SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
-        gl_side.__draw_draws (r);
+        gl_side.__draw_draws (r);  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+
+        // cahce
+        // path -> cahce_id
+        // arial/10/A -> cahce_id  - resource_id
+        // look 
+        //   in cache -> ok
+        //   go path
+        //     ok -> store copy in cache
+
+        // fast mem
+        // slow mem
     }
 
     struct
@@ -603,15 +615,52 @@ Render {
     }
 
     void
-    render_char () { // resource_id
+    render_char (char c) { // resource_id
         // pos,char
+        string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
+        int     font_size      = 96;
+        SDL_Renderer* renderer;
+        auto    gl_side = GL_Side (renderer);
+
+        gl_side.
+            __draw_draws (  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                Font!(ftLib)
+                    .open (font_pathname)
+                    .open (font_size)
+                    .open (c)
+                    .read!E ()
+            );
     }
 
     void
-    render_chars () { // resource_id 
+    render_chars (char[] s) { // resource_id 
         // each char in chars:
         //   pos,char
         //   pos += step
+        string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
+        int     font_size      = 96;
+        SDL_Renderer* renderer;
+        auto    gl_side = GL_Side (renderer);
+
+        foreach (c; s) {
+            SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
+            gl_side.
+                __draw_draws (  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                    Font!(ftLib)
+                        .open (font_pathname)
+                        .open (font_size)
+                        .open (c)
+                        .read!E ()
+                );
+
+            //dx = 2;
+            //dy = 0;
+            //FT_Glyph_Metrics m = face.glyph.metrics;
+            //// Size (m.width,m.height); 
+            ////   n 26.6 pixel format (i.e., 1/64 of pixels),
+            //step = Size (m.horiAdvance/64,m.vertAdvance/64);
+            //pos += step;
+        }
     }
 
     void
@@ -628,6 +677,21 @@ Render {
     render_struct () { // resource_id
         // each field in fields
         //   pos,field
+    }
+
+    //
+    struct
+    E {
+        Type    type;
+        Point[] points;  // rel
+
+        enum Type {
+            POINTS,
+            LINES,
+            LINES2,
+        }
+
+        alias Point = SDL_Point;
     }
 }
 

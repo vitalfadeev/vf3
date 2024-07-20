@@ -35,7 +35,6 @@ alias log=writeln;
 
 alias FD = int;
 
-
 struct
 File {
     static
@@ -120,7 +119,7 @@ File {
             FD  fd;
             E[] buffer;
 
-            alias DG = int delegate (E* e);
+            alias DG = int delegate (E[] buffer);
 
             int 
             opApply (scope DG dg) {
@@ -145,21 +144,9 @@ File {
                             throw new Errno_exception ("read");
                     }
                     else {  // OK
-                        if (buffer.length == 1) {
-                            int result = dg (buffer.ptr);
-                            if (result)
-                                return result;
-                        }
-                        else {                        
-                            auto e = buffer.ptr;
-                            auto limit = (cast (void*) e) + nbytes;
-
-                            for (; e < limit; e++) {
-                                int result = dg (e);
-                                if (result)
-                                    return result;
-                            }
-                        }                        
+                        int result = dg (buffer);
+                        if (result)
+                            return result;
                     }
                 }
 
@@ -229,12 +216,14 @@ Dir {
             return Iterator!E (fd, buffer);
         }
 
+        alias E = linux_dirent64;
+
         struct 
         Iterator (E) {
-            FD fd;
-            E[]  buffer;
+            FD  fd;
+            E[] buffer;
 
-            alias DG = int delegate (E* e);
+            alias DG = int delegate (E* e);  // dirent pointer
 
             int 
             opApply (scope DG dg) {
@@ -285,8 +274,6 @@ Dir {
             log ("error: ",format_error (errno));
         }
     }
-
-    alias E = linux_dirent64;
 
 version (linux_X86_64) {  // Posix
     pragma (msg,"linux_X86_64");
@@ -375,4 +362,3 @@ unittest {
         writeln ();   
     }     
 }
-

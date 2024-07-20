@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"bindbc-freetype": "~>1.2.6",
-		"syscall-d": "~>0.5.0",
+		"syscall-d": {"path":"deps/syscall-d"},
 	},
 	"libs": [
 		"freetype"
