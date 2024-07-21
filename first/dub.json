@@ -7,7 +7,7 @@
 		"urld": {"path":"deps/urld"},
         "mime": {"path":"deps/mime"},
         "unix_socket": {"path":"deps/unix_socket"},
-        "dir": {"path":"deps/dir"},
+        "file_dir": {"path":"deps/file_dir"},
 	},
 	"description": "A minimal D application.",
 	"license": "proprietary",

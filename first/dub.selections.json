@@ -4,14 +4,13 @@
 		"bindbc-common": "0.1.6",
 		"bindbc-freetype": "1.2.6",
 		"bindbc-loader": "1.1.5",
-		"dir": {"path":"deps/dir"},
 		"dxml": "0.4.4",
-		"file_dir": {"path":"deps/unix_socket/deps/file_dir"},
+		"file_dir": {"path":"deps/file_dir"},
 		"isfreedesktop": "0.1.1",
 		"mime": {"path":"deps/mime"},
-		"syscall-d": {"path":"deps/dir/deps/syscall-d"},
+		"syscall-d": {"path":"deps/file_dir/deps/syscall-d"},
 		"unix_socket": {"path":"deps/unix_socket"},
-		"urld": "2.1.1",
+		"urld": {"path":"deps/urld"},
 		"xdgpaths": "0.2.5"
 	}
 }

@@ -80,9 +80,9 @@ File {
             this.fd = fd;
         }
 
-        Iterator!E
-        read (E) (E[] buffer) {
-            return Iterator!E (fd,buffer);
+        Iterator
+        read (ubyte[] buffer) {
+            return Iterator (fd,buffer);
         }
 
         void
@@ -115,16 +115,16 @@ File {
 
         //
         struct 
-        Iterator (E) {
-            FD  fd;
-            E[] buffer;
+        Iterator {
+            FD      fd;
+            ubyte[] buffer;
 
-            alias DG = int delegate (E[] buffer);
+            alias DG = int delegate (ubyte[] buffer);
 
             int 
             opApply (scope DG dg) {
                 for (;;) {  // for read more than buffer size
-                    auto nbytes = .read (fd,buffer.ptr,E.sizeof*buffer.length);
+                    auto nbytes = .read (fd,buffer.ptr,buffer.length);
 
                     if (nbytes == _FILE_READ_EOF) {
                         break;
@@ -144,7 +144,7 @@ File {
                             throw new Errno_exception ("read");
                     }
                     else {  // OK
-                        int result = dg (buffer);
+                        int result = dg (buffer[0..nbytes]);
                         if (result)
                             return result;
                     }
@@ -155,9 +155,9 @@ File {
         }
     }
 
-    alias E = ubyte;
-    alias EIterator = ID.Iterator!E;
-    alias UByteIterator = ID.Iterator!ubyte;
+    //alias E = ubyte;
+    //alias EIterator = ID.Iterator!E;
+    //alias UByteIterator = ID.Iterator!ubyte;
 
     enum _FILE_OPEN_ERROR = -1;
     enum _FILE_READ_ERROR = -1;
@@ -211,19 +211,19 @@ Dir {
                 throw new Errno_exception ("open");
         }
 
-        Iterator!E
-        read (E[] buffer) {
-            return Iterator!E (fd, buffer);
+        Iterator
+        read (ubyte[] buffer) {
+            return Iterator (fd,buffer);
         }
 
-        alias E = linux_dirent64;
+        //alias E = linux_dirent64;
 
         struct 
-        Iterator (E) {
-            FD  fd;
-            E[] buffer;
+        Iterator {
+            FD      fd;
+            ubyte[] buffer;
 
-            alias DG = int delegate (E* e);  // dirent pointer
+            alias DG = int delegate (linux_dirent64* e);  // dirent pointer
 
             int 
             opApply (scope DG dg) {
@@ -232,7 +232,7 @@ Dir {
                 size_t nbytes;
 
                 for ( ; ; ) {
-                    nbytes = .syscall (GETDENTS64,fd,cast(size_t) buffer.ptr,cast(size_t) E.sizeof*buffer.length); // Bytes
+                    nbytes = .syscall (GETDENTS64,fd,cast(size_t) buffer.ptr,cast(size_t) buffer.length); // Bytes
 
                     if (nbytes == _DIR_READ_EOF) {
                         break;
@@ -245,8 +245,8 @@ Dir {
                     e = buffer.ptr;
                     limit = (cast (void*) e) + nbytes;
 
-                    for (; e < limit; e += (cast (E*) e).d_reclen) {
-                        int result = dg (cast (E*) e);
+                    for (; e < limit; e += (cast (linux_dirent64*) e).d_reclen) {
+                        int result = dg (cast (linux_dirent64*) e);
 
                         if (result)
                             return result;
@@ -357,7 +357,6 @@ unittest {
     foreach (_dirent; iterator) {
         writef ("%8X ", _dirent.d_ino);
         writef ("%-7s ", _dirent.d_type);
-
         writef ("%s", _dirent.d_name.fromStringz);
         writeln ();   
     }     

@@ -7,6 +7,7 @@ import bindbc.sdl;
 import gl_side;
 import font_cache;
 import font;
+import types;
 alias log = writeln;
 
 FT_Library ftLib;
@@ -390,8 +391,6 @@ Point {
 //   chars
 //   glyphs
 //   draws
-string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-int     font_size = 96;
 
 
 //
@@ -468,7 +467,7 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
         }
 
         // Delay
-        SDL_Delay (100);
+        SDL_Delay (500);
     }        
 }
 
@@ -508,12 +507,12 @@ Frame {
         // Resource.id
         // Resource conertor
         // Resource to draws
-        auto r = 
-            Font!(ftLib)
-                .open (font_pathname)
-                .open (font_size)
-                .open ('A')
-                .read!E ();
+        //auto r = 
+        //    Font!(ftLib)
+        //        .open (font_pathname)
+        //        .open (font_size)
+        //        .open ('A')
+        //        .read!E ();
 
         //foreach (e; r)
         //    log (e);
@@ -526,7 +525,71 @@ Frame {
         //    );
 
         SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
-        gl_side.__draw_draws (r);  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+        //gl_side.__draw_draws (r);  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+
+        //Render (renderer)
+        //    .render_char ('A');
+        //Render (renderer)
+        //    .render_chars (['A','B']);
+        //Render (renderer)
+        //    .render_chars ("Hi!");
+        //Render (renderer)
+        //    .render_int (123);
+        //Render (renderer)
+        //    .render_field!int (123);
+        //Render (renderer)
+        //    .render_field!string ("Hi!");
+        //
+        //struct 
+        //Struct {
+        //    int a;
+        //    int b = 1;
+        //    string c = "Hi!";
+        //}
+        //Struct _struct;
+        //Render (renderer)
+        //    .render_struct (_struct);
+
+        import file : Dir;
+        import std.string : fromStringz;
+        import std.algorithm : sum;
+
+        ubyte[] buffer;
+        buffer.length = 1000;
+
+        auto iterator =
+            Dir
+                .open ("/")
+                .read (buffer);
+
+
+        int  x,y;
+        Size size;
+
+        size = 
+            Render (renderer,x,y)
+                .render_selection (0,0,[120,120,400].sum,50);
+
+        foreach (_dirent; iterator) {
+            size = 
+                Render (renderer,x,y)
+                    .render_struct (_dirent, [120,120,400]);
+            y += size.h - 24;
+            if (y > 640)
+                break;
+        }
+
+
+        //auto r = [Struct(0,1),Struct(2,3)];
+
+        //int x,y;
+        //foreach (e; r) {
+        //    auto size = 
+        //        Render (renderer,x,y)
+        //            .render_struct (e);
+
+        //    y += size.h;
+        //}
 
         // cahce
         // path -> cahce_id
@@ -597,61 +660,157 @@ Key_Sensable {
 // m8   m8   m16
 // byte byte short
 // font size wchar
+//
+// char         - Cache     - GL_Side
+//              - resource    draws
+// resource_id -> cache    -> resource.draws
+//
+// draw_A
+//   look cache -> draws
+//     OK:   
+//       _draw draws
+//     FAIL: 
+//       draws > cache
+//       _draw draws
+
+auto 
+cache (R) (R range, Cache_id cache_id) {
+    import std.range : ElementType;
+
+    struct
+    _cache {
+        R        range;
+        Cache_id cache_id;
+        int      w;
+        int      h;
+        static E[][Cache_id] _cache;
+
+        alias E = ElementType!R;
+        alias DG = int delegate (E e);
+
+        E front () { return E ();};
+
+        int 
+        opApply (scope DG dg) {
+            auto cached = cache_id in _cache;
+            if (cached !is null) 
+            {  // cached
+                foreach (e; *cached) {
+                    int result = dg (e);
+                    if (result)
+                        return result;
+                }
+                return 0;
+            }
+            else 
+            {  // non-cached
+                _cache[cache_id] = [];
+                auto es = cache_id in _cache;
+                foreach (e; range) {
+                    *es ~= e;  // to cache
+                    int result = dg (e);
+                    if (result)
+                        return result;
+                }
+            }
+
+            return 0;
+        }    
+    }
+
+    return _cache (range,cache_id,range.w,range.h);
+}
+
+struct
+Cache_id {
+    size_t _super;
+    //alias _super this;
+
+    this (string font_pathname, int font_size, char c) {
+        this._super = c;
+    }
+
+    size_t 
+    toHash () const @safe pure nothrow {
+        return _super;
+    }
+
+    bool 
+    opEquals (ref const Cache_id b) const @safe pure nothrow {
+        return this._super == b._super;
+    }
+}
+
+
 alias Draws = GL_Side._char;
 
 struct
+Style {
+    string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
+    int     font_size      = 48;
+}
+
+struct
 Render {
-    Resources  resources;  // draws = resources[id]
-    Font_cache!Draws font_cache;
+       SDL_Renderer*    renderer;
+       int              x,y;        // _cur_pos
+       int              field_dx =  50;
+       Resources        resources;  // draws    = resources[id]
+       Font_cache!Draws font_cache;
+       Style            style;
 //    auto draws = font_cache.get_draws (font_pathname,font_size,'A');
 //
 //    pos,draws  // SDL_Point,(type,SDL_Point[])
 //    SDL_RenderDrawLines (renderer,sdl_points.ptr,cast (int) sdl_points.length);
-    Pos _cur_pos;
 
-    auto
-    cur_pos () {
-        return _cur_pos;
-    }
+    //auto
+    //cur_pos () {
+    //    return _cur_pos;
+    //}
 
-    void
+    Size
     render_char (char c) { // resource_id
         // pos,char
-        string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-        int     font_size      = 96;
-        SDL_Renderer* renderer;
-        auto    gl_side = GL_Side (renderer);
-
-        gl_side.
-            __draw_draws (  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                Font!(ftLib)
-                    .open (font_pathname)
-                    .open (font_size)
-                    .open (c)
-                    .read!E ()
-            );
+        // current_style
+        return 
+            Font!(ftLib)
+                .open (style.font_pathname)
+                .open (style.font_size)
+                .open (c)
+                .read!E ()
+                .cache (Cache_id (style.font_pathname,style.font_size,c))
+                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                ;
     }
 
-    void
+    Size 
+    render_chars (string s) { // resource_id 
+        return render_chars ((cast (char*) s.ptr)[0..s.length]);
+    }
+
+    Size
     render_chars (char[] s) { // resource_id 
         // each char in chars:
         //   pos,char
         //   pos += step
-        string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-        int     font_size      = 96;
-        SDL_Renderer* renderer;
-        auto    gl_side = GL_Side (renderer);
+        Size size;
 
         foreach (c; s) {
             SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
-            gl_side.
-                __draw_draws (  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                    Font!(ftLib)
-                        .open (font_pathname)
-                        .open (font_size)
-                        .open (c)
-                        .read!E ()
-                );
+
+            auto _size = 
+                Font!(ftLib)
+                .open (style.font_pathname)
+                .open (style.font_size)
+                .open (c)
+                .read!E ()
+                .cache (Cache_id (style.font_pathname,style.font_size,c))
+                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                ;
+
+            x += _size.w;
+            size.w += _size.w;
+            size.h  = size.h < _size.h ? _size.h : size.h;
 
             //dx = 2;
             //dy = 0;
@@ -661,29 +820,113 @@ Render {
             //step = Size (m.horiAdvance/64,m.vertAdvance/64);
             //pos += step;
         }
+
+        return size;
     }
 
-    void
-    render_field () { // resource_id
+    Size
+    render_int (int a) {
+        import std.conv;
+        auto s = a.to!string;
+        return render_chars ((cast (char*) s.ptr)[0..s.length]);
+    }
+
+    Size
+    render_field (T) (T a) { // resource_id
         // switch type
         //   case chars[]
         //     pos,chars
         //   case int
         //     to_chars
         //     pos,chars
+        static if (is (T == char))
+            return render_char (a);
+        else
+        static if (is (T == char[]))
+            return render_chars (a);
+        else
+        static if (is (T == string))
+            return render_chars (a);
+        else
+        static if (is (T == int))
+            return render_int (a);
+        else
+        static if (
+            is (T == byte) ||
+            is (T == ubyte) ||
+            is (T == short) ||
+            is (T == ushort)
+        )
+            return render_int (cast (int) a);
+        else
+            return Size ();
     }
 
-    void
-    render_struct () { // resource_id
+    Size
+    render_struct_ptr (T) (T* a, int[] cols) { // resource_id
+        return render_struct!T (a,cols);
+    }
+
+    Size
+    render_struct (T) (T* a, int[] cols) { // resource_id
         // each field in fields
         //   pos,field
+        Size   size;
+        Size   wh;
+        size_t i;
+        int    col_x;
+
+        enum members = __traits (allMembers, T);
+        static foreach (_var; T.tupleof) {
+            //pragma (msg, ".", __traits(identifier,_var), ": ", typeof(_var));
+            static if (is (typeof(_var) == char[255])) {
+                import std.string : fromStringz;
+                x      = col_x;
+                wh = render_field (__traits (getMember,a,__traits(identifier,_var)).fromStringz);
+                size.w = cols[i];
+                size.h = size.h < wh.h ? wh.h : size.h;
+                col_x += cols[i];
+                i++;
+            }
+            else
+            static if (
+                is (typeof(_var) == int) ||
+                is (typeof(_var) == uint) ||
+                is (typeof(_var) == byte) ||
+                is (typeof(_var) == ubyte) ||
+                is (typeof(_var) == short) ||
+                is (typeof(_var) == ushort)
+            ) {
+                x      = col_x;
+                wh = render_field (__traits (getMember,a,__traits(identifier,_var)));
+                size.w = cols[i];
+                size.h = size.h < wh.h ? wh.h : size.h;
+                col_x += cols[i];
+                i++;
+            }
+        }
+
+        return size;
     }
+
+    Size
+    render_selection (int x, int y, int w, int h) { // resource_id
+        auto rect = SDL_Rect (x,y,w,h);
+        SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
+        SDL_RenderFillRect (renderer,&rect);
+        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        SDL_RenderDrawRect (renderer,&rect);
+        return Size (w,h);
+    }
+
 
     //
     struct
     E {
         Type    type;
         Point[] points;  // rel
+        int     w;
+        int     h;
 
         enum Type {
             POINTS,
@@ -735,14 +978,14 @@ Dir_Grid {
     // resources
     //   draws[id]  // [type,points],[type,points],...  // points,lines,lines2
 
-	Dirent_ext[] dir_s;
-	Sensable[]   sensables;
-	size_t       data_start_i;
-	Col[]        cols;
+	Dirent_ext[]  dir_s;
+	Sensable[]    sensables;
+	size_t        data_start_i;
+	Col[]         cols;
 	Dirent_ext[] _sensable_data_s;  // slice of dir_s
 
 	enum grid_h = 600;
-	enum grid_w = 400;
+	enum grid_w = 480;
 	enum sensable_h = 50;
 	enum sensable_w = grid_w;
 
@@ -758,20 +1001,12 @@ Dir_Grid {
 
 	void
 	load () {
-        //import dir : Dir,linux_dirent64;
-		//string pathname = "/tmp";
-
-        //auto ds = Dir2 (pathname);
-        //ds.load ();
-        //ds.sort ();
-
-        //foreach (linux_dirent* d; ds) {
-        //    //writef ("%8x ", d.d_ino);
-        //    //writef ("%-7s ", d.d_type);
-
-        //    //writef ("%s", d.d_name.fromStringz);
-        //    //writeln ();        
-        //}
+        import  file : Dir;
+        import  std.string : fromStringz;
+        import  std.algorithm : sum;
+        ubyte[] buffer;
+        buffer.length = 1000;
+        auto    iterator = Dir.open ("/").read (buffer);
 	}
 
 	void
@@ -782,6 +1017,7 @@ Dir_Grid {
 
 	void
 	draw () {
+version (linux) {
 		X x = 0;
         Y y = 0;
 		Resource_id resource_id;
@@ -803,6 +1039,22 @@ Dir_Grid {
             //
             y += sensable_h;
 	    }
+}
+else {
+        int  x,y;
+        Size size;
+
+        size = 
+            Render (renderer,x,y)
+                .render_selection (0,0,[120,120,400].sum,50);
+
+        foreach (_dirent; iterator) {
+            size = 
+                Render (renderer,x,y)
+                    .render_struct (_dirent, [120,120,400]);
+            y += size.h - 24;
+        }
+}
 	}
 
 	auto
@@ -834,79 +1086,11 @@ Dir_Grid {
 }
 
 struct
-Render_Struct (T) {
-    void
-    go (T a) {
-        //
-    }
-
-    struct
-    Render_Field (T_FIELD) {
-        void
-        go (T_FIELD a) {
-            static if (is(T_FIELD == char))
-                Render_chars ().go ();
-        }
-    }
-
-    struct
-    Render_chars {
-        char[] s;
-        string font_pathname;
-        int    font_size;
-
-        void
-        go () {
-            Draws new_draws;
-
-            foreach (e ;s) {
-                Render_char (a,font_pathname,font_size).go ();
-                // draws
-                // draws + interval_between_chars
-                // = new_draws
-            }
-        }
-    }
-
-    struct
-    Render_char {
-        char a;
-        string font_pathname;
-        int    font_size;
-
-        void
-        go () {
-            draw_char_resource (a);
-        }
-
-        void
-        draw_char_resource (char a) {
-            auto draws = 
-                font_cache.get_draws (font_pathname,font_size,a);
-        }
-    }
-}
-
-struct
 Sensable {
 	Pos  pos;
 	Size size;
 }
 
-struct
-Pos {
-   X x;
-   Y y; 
-}
-
-struct
-Size {
-   X x;
-   Y y; 
-}
-
-alias X=int;
-alias Y=int;
 
 struct
 Dirent_ext {

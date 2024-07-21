@@ -82,14 +82,57 @@ Custom_file {
 	    on_select () {
 	    	log ("  on_select");
 	    	log ("    fd: ",fd);
-	    	Input_event[] buffer;
-	    	buffer.length = 1;
-	        auto iterator = this.read (buffer);
-	        foreach (e; iterator)
-	            log (e);
+	    	ubyte[] buffer;
+	    	buffer.length = Input_event.sizeof;  // for 1 Input_event
+	        foreach (e; this.read (buffer).by_type!Input_event)
+	            log ("    ", e);
 	    }
 	}
 }
+
+auto
+by_type (T,R) (R buffers) {
+	struct 
+	_by_type {
+	    R buffers;
+
+	    alias DG = int delegate (T e);
+
+	    int 
+	    opApply (scope DG dg) {
+	    	int result;
+	    	T e;
+	    	size_t i;
+
+	    	foreach (buffer; buffers) {
+		    	foreach (c; buffer) {
+		    		(cast (ubyte*) (&e))[i] = c;
+
+		    		i++;
+
+		    		if (i == T.sizeof) {
+		    			result = dg (e);
+		    			if (result)
+		    				return result;
+
+		    			i = 0;
+		    		}
+	    		}
+	    	}
+
+	    	// last line without '\n'
+	    	if (i != 0) {
+	    		// incomplete e
+	    	}
+
+
+	        return 0;
+	    }
+	}
+
+	return _by_type (buffers);
+}
+
 
 struct
 Custom_server {

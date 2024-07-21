@@ -104,13 +104,18 @@ Font_Glyph {
 
         Iterator!E
         read (E) () {  // conturs
-            return Iterator!E (ftface,size);
+            FT_Glyph_Metrics m = ftface.glyph.metrics;
+            auto w = cast (int) m.horiAdvance/64;
+            auto h = cast (int) m.vertAdvance/64;
+            return Iterator!E (ftface,size,w,h);
         }
 
         struct
         E {
             Type    type;
             Point[] points;  // rel
+            int     base_x;
+            int     base_y;
 
             enum Type {
                 POINTS,
@@ -129,7 +134,10 @@ Font_Glyph {
         Iterator (E) {
             FT_Face ftface;
             int     size;
+            int     w;
+            int     h;
             Glyph_to_points!E gp;
+
 
             alias DG = int delegate (E e);
 

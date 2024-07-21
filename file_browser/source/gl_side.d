@@ -1,5 +1,8 @@
 import bindbc.sdl;
 import std.range : ElementType;
+import types;
+import std.stdio : writeln;
+alias log = writeln;
 
 
 struct
@@ -242,4 +245,34 @@ GL_Side {
             }
         }
     }
+}
+
+
+Size
+draw_draws (R) (R range, SDL_Renderer* renderer, int x=0, int y=0) {
+    alias E = ElementType!R;
+
+    foreach (e; range) {
+        // move points
+        auto points = e.points.dup;
+        foreach (ref p; points) {
+            p.x += x;
+            p.y += y;
+        }
+
+        final
+        switch (e.type) {
+            case E.Type.POINTS: 
+                SDL_RenderDrawPoints (renderer,points.ptr,cast (int) points.length);
+                break;
+            case E.Type.LINES: 
+                SDL_RenderDrawLines (renderer,points.ptr,cast (int) points.length);
+                break;
+            case E.Type.LINES2: 
+                // ...
+                break;
+        }
+    }
+
+    return Size (range.w,range.h);
 }
