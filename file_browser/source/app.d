@@ -565,16 +565,22 @@ Frame {
 
         int  x,y;
         Size size;
+        Pad  pad = Pad (10,10,10,10);
 
         size = 
-            Render (renderer,x,y)
-                .render_selection (0,0,[120,120,400].sum,50);
+            Render (renderer,x+pad.l,y+pad.t)
+                .render_selection (
+                    0,
+                    0, 
+                    [120,120,400].sum, 
+                    64 + pad.t + pad.b
+                );
 
         foreach (_dirent; iterator) {
             size = 
-                Render (renderer,x,y)
+                Render (renderer,x+pad.l,y+pad.t)
                     .render_struct (_dirent, [120,120,400]);
-            y += size.h - 24;
+            y += size.h + pad.t + pad.b;
             if (y > 640)
                 break;
         }
@@ -874,7 +880,7 @@ Render {
         Size   size;
         Size   wh;
         size_t i;
-        int    col_x;
+        int    col_x=x;
 
         enum members = __traits (allMembers, T);
         static foreach (_var; T.tupleof) {
@@ -951,6 +957,14 @@ Resource {
 }
 
 
+struct 
+Pad {
+    int t;
+    int r;
+    int b;
+    int l;
+}
+
 struct
 Dir_Grid {
     // return
@@ -998,7 +1012,6 @@ Dir_Grid {
 	    X width;
 	}
 
-
 	void
 	load () {
         import  file : Dir;
@@ -1043,6 +1056,7 @@ version (linux) {
 else {
         int  x,y;
         Size size;
+        Pad  pad = Pad (10,10,10,10);
 
         size = 
             Render (renderer,x,y)
@@ -1050,9 +1064,13 @@ else {
 
         foreach (_dirent; iterator) {
             size = 
-                Render (renderer,x,y)
+                Render (renderer,x_pad.l,y+pad.t)
                     .render_struct (_dirent, [120,120,400]);
-            y += size.h - 24;
+
+            y += size.h + pad.t + pad.b;
+
+            if (y >= grid_h)
+                break;
         }
 }
 	}
