@@ -1,6 +1,7 @@
-module ui.select_2;
+module ui.select;
 
 import std.stdio : writeln;
+import std.range : ElementType;
 import bindbc.sdl;
 import ui.render;
 import ui.style;
@@ -9,36 +10,44 @@ alias log = writeln;
 
 
 auto
-Select_2 (E1,E2) (E1 e1, E2 e2, Pos pos, Size size, Pad pad=Pad()) {
-    return _Select_2!(E1,E2) (e1,e2,pos,size,pad);
+Select (R) (R range, Pos pos, Size size, Pad pad=Pad()) {
+    return _Select!(R) (range,pos,size,pad);
 }
 
 struct
-_Select_2 (E1,E2) {
-    E1   e1;
-    E2   e2;
+_Select (R) {
+    R    range;
     Pos  pos;
     Size size;
     Pad  pad;
 
     int  selected; // 1 or 2
 
+    alias E = ElementType!R;
+
     // 1
     // 2
     Size
     draw (SDL_Renderer* renderer) {
-        Size sz;
-        sz = _draw_selection (renderer);
-        sz = _draw_1 (renderer,pos,size);
-        sz = _draw_2 (renderer,Pos (pos.x,pos.y+sz.h),size);
+        Size   sz;
+        size_t i;
+
+        foreach (e; range) {
+            if (selected == i)
+                sz = _draw_selection (renderer,e);
+
+            sz = _draw_e (renderer, i, e, Pos (pos.x,pos.y+sz.h), size);
+
+            i++;
+        }
 
         return size;
     }
 
     Size
-    _draw_selection (SDL_Renderer* renderer) {
-        Pos  _pos  = _selection_pos ();
-        Size _size = _selection_size ();
+    _draw_selection (SDL_Renderer* renderer, E e) {
+        Pos  _pos  = _selection_pos (e);
+        Size _size = _selection_size (e);
 
         //
         auto rect = to_SDL_Rect (_pos,Size (size.w,_size.h));
@@ -55,45 +64,38 @@ _Select_2 (E1,E2) {
     }
 
     Size
-    _draw_1 (SDL_Renderer* renderer, Pos pos, Size size) {
+    _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
         return
-            Render (renderer,_e_pos (0))
-                .render (e1);
-    }
-
-    Size
-    _draw_2 (SDL_Renderer* renderer, Pos pos, Size size) {
-        return
-        Render (renderer,_e_pos (1))
-                .render (e2);
+            Render (renderer,_e_pos (i,e))
+                .render (e);
     }
 
     Pos
-    _e_pos (size_t i) {
+    _e_pos (size_t i, E e) {
         if (i == 0)
             return Pos (pad.l,pad.t);
         else
-            return Pos (pad.l,pad.t + _selection_size.h);
+            return Pos (pad.l,pad.t + _selection_size (e).h);
     }
 
     Pos
-    _selection_pos () {
+    _selection_pos (E e) {
         if (selected == 0)
             return Pos (0,0);
         else
-            return Pos (0,_selection_size.h);
+            return Pos (0,_selection_size (e).h);
     }
 
     Size
-    _selection_size () {
-        return _e_size + pad;
+    _selection_size (E e) {
+        return _e_size (e) + pad;
     }
 
     Size
-    _e_size () {
+    _e_size (E e) {
         return
             Render (null,Pos (),Render_Flags.NO_RENDER_SIZE_ONLY)
-                .render (e1);
+                .render (e);
     }
 
     void

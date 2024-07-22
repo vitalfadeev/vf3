@@ -9,9 +9,9 @@ import font_cache;
 import font;
 import types;
 import ui.style;
-import ui.pad;
 import ui.render;
 import ui.select_2;
+import ui.select;
 alias log = writeln;
 
 
@@ -458,6 +458,9 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
                 case SDL_MOUSEBUTTONDOWN:
                     frame.event (&e);
                     break;
+                case SDL_KEYDOWN:
+                    frame.event (&e);
+                    break;
                 default:
             }
 
@@ -494,6 +497,35 @@ Frame {
     //    font_id = font_cache.fonts.add (font_pathname);
     //}
 
+
+    struct 
+    E1 {
+        string abc = "ABC";
+    }
+    struct 
+    E2 {
+        string def = "DEF";
+    }
+    struct 
+    E {
+        string abc = "abc";
+    }
+
+    E1 e1;
+    E2 e2;
+    E[] range = [E(),E("def")];
+
+    // elements
+    import std.traits : ReturnType;
+    ReturnType!(Select_2!(E1*,E2*)) select_2;
+    ReturnType!(Select!(E[]))       select;
+
+    this (GL_Side gl_side) {
+        this.gl_side = gl_side;
+        this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
+        this.select = Select (range, Pos (0,0), Size (640,400), Pad (50,50,50,50));
+    }
+
     void
     draw (SDL_Renderer* renderer) {
         //import std.range : back;
@@ -509,18 +541,8 @@ Frame {
         // SDL_RenderDrawRect (renderer,&rect);
         // ...
 
-        struct 
-        E1 {
-            string abc = "ABC";
-        }
-        struct 
-        E2 {
-            string def = "DEF";
-        }
-        E1 e1;
-        E2 e2;
-        Select_2 (&e1,&e2, Pos (0,0), Size (640,400), Pad (10,10,10,10))
-            .draw (renderer);
+        //select_2.draw (renderer);
+        select.draw (renderer);
 
         // Load Resource
         // Resource.id
@@ -652,6 +674,9 @@ version (_DIR_GRID_) {
                 break;
             default:
         }
+
+        select_2.event (e);
+        select.event (e);
     }
 }
 

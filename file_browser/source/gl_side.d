@@ -248,16 +248,25 @@ GL_Side {
 }
 
 
+enum Render_Flags : int {
+    NO_RENDER_SIZE_ONLY = 0b0000_0001,
+}
+
+
 Size
-draw_draws (R) (R range, SDL_Renderer* renderer, int x=0, int y=0) {
+draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias E = ElementType!R;
 
+    if (flags & Render_Flags.NO_RENDER_SIZE_ONLY)
+        return Size (range.w,range.h);
+
+    // 
     foreach (e; range) {
         // move points
         auto points = e.points.dup;
         foreach (ref p; points) {
-            p.x += x;
-            p.y += y;
+            p.x += pos.x;
+            p.y += pos.y;
         }
 
         final

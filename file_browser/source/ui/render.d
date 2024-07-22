@@ -8,13 +8,17 @@ import font;
 import types;
 import cache : cache, Cache_id;
 import gl_side : draw_draws;
+public import gl_side : Render_Flags;
 alias log = writeln;
+
 
 
 struct
 Render {
        SDL_Renderer*    renderer;
-       int              x,y;        // _cur_pos
+       Pos              pos;        // _cur_pos
+       int              render_flags;
+       //
        int              field_dx =  50;
        //Resources        resources;  // draws    = resources[id]
        //Font_cache!Draws font_cache;
@@ -33,6 +37,8 @@ Render {
     render_char (char c) { // resource_id
         // pos,char
         // current_style
+        SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
+
         return 
             Font!(ftlib)
                 .open (style.font_pathname)
@@ -40,7 +46,7 @@ Render {
                 .open (c)
                 .read!E ()
                 .cache (Cache_id (style.font_pathname,style.font_size,c))
-                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
                 ;
     }
 
@@ -56,15 +62,15 @@ Render {
 
             auto _size = 
                 Font!(ftlib)
-                .open (style.font_pathname)
-                .open (style.font_size)
-                .open (c)
-                .read!E ()
-                .cache (Cache_id (style.font_pathname,style.font_size,c))
-                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                ;
+                    .open (style.font_pathname)
+                    .open (style.font_size)
+                    .open (c)
+                    .read!E ()
+                    .cache (Cache_id (style.font_pathname,style.font_size,c))
+                    .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                    ;
 
-            x += _size.w;
+            pos.x  += _size.w;
             size.w += _size.w;
             size.h  = size.h < _size.h ? _size.h : size.h;
 
@@ -132,7 +138,7 @@ Render {
         Size   size;
         Size   sz;
         size_t i;
-        int    col_x=x;
+        int    col_x=pos.x;
 
         if (cols is null)
             cols = [];
@@ -142,7 +148,7 @@ Render {
         static foreach (_var; T.tupleof) {
             //pragma (msg, ".", __traits(identifier,_var), ": ", typeof(_var));
             static if (is (typeof(_var) == string)) {
-                x      = col_x;
+                pos.x  = col_x;
                 sz     = render_field (__traits (getMember,a,__traits(identifier,_var)));
                 size.w = cols[i];
                 size.h = size.h < sz.h ? sz.h : size.h;
@@ -197,7 +203,7 @@ Render {
             return render_struct (a,cols);
         else
         static if (is (T == struct))
-            render_struct (&a,cols);
+            return render_struct (&a,cols);
         else
             return render_field (a);
     }
