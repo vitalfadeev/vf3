@@ -418,11 +418,11 @@ new_window (ref SDL_Window* window) {
     // Window
     window = 
         SDL_CreateWindow (
-            "SDL2 Window",
+            __FILE_FULL_PATH__, // "SDL2 Window",
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
-            640, 480,
-            0
+            640, 480, //1366, 768
+            0 //SDL_WINDOW_OPENGL
         );
 
     if (!window)
@@ -448,15 +448,17 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
     while (_go) {
         SDL_Event e;
 
-        while (SDL_PollEvent (&e) > 0) {
+        while (SDL_WaitEvent (&e) > 0) {
             // Process Event
             // Process Event
             switch (e.type) {
                 case SDL_QUIT:
                     _go = false;
+                    return;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     frame.event (&e);
+                    return;
                     break;
                 case SDL_KEYDOWN:
                     frame.event (&e);
@@ -472,7 +474,7 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
         }
 
         // Delay
-        SDL_Delay (100);
+        //SDL_Delay (100);
     }        
 }
 
@@ -529,7 +531,7 @@ Frame {
     this (GL_Side gl_side) {
         this.gl_side = gl_side;
         this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
-        this.select = Select (range, Pos (0,0), Size (640,400), Pad (50,50,50,50));
+        this.select = Select (range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
     }
 
     void

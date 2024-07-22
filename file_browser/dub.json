@@ -18,5 +18,13 @@
 		"SDL_2_6",
 		"SDL_2_6_5",
 		"FT_2_13"
+	],
+	"buildTypes": {
+	    "release-shared": {
+	        "dflags": ["-link-defaultlib-shared", "-release", "-O3"]
+	    }
+	},
+	"postBuildCommands": [
+	    "strip ./file_browser"
 	]
 }
