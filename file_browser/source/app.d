@@ -8,6 +8,8 @@ import gl_side;
 import font_cache;
 import font;
 import types;
+import ui.pad;
+import ui.select_2;
 alias log = writeln;
 
 FT_Library ftLib;
@@ -22,9 +24,9 @@ main() {
     init_ft ();
 
     //
-	auto grid = Dir_Grid ();
-	grid.load ();
-	grid.create_cols ();
+	//auto grid = Dir_Grid ();
+	//grid.load ();
+	//grid.create_cols ();
 
 	// Init
 	init_sdl ();
@@ -498,8 +500,10 @@ Frame {
 
         SDL_SetRenderDrawColor (renderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderClear (renderer);
+        // SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
         // SDL_RenderDrawPoint (renderer, x, y);
         // SDL_RenderDrawLine (renderer,0,0,100,100);
+        // SDL_RenderFillRect (renderer,&rect);
         // SDL_RenderDrawRect (renderer,&rect);
         // ...
 
@@ -524,7 +528,6 @@ Frame {
         //        cast (dchar) 'A'
         //    );
 
-        SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
         //gl_side.__draw_draws (r);  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
 
         //Render (renderer)
@@ -550,6 +553,7 @@ Frame {
         //Render (renderer)
         //    .render_struct (_struct);
 
+version (_DIR_GRID_) {
         import file : Dir;
         import std.string : fromStringz;
         import std.algorithm : sum;
@@ -622,6 +626,8 @@ Frame {
 
         alias Point = SDL_Point;
     }
+}
+
 
     void
     event (SDL_Event* e) {
@@ -956,14 +962,6 @@ Resource {
     alias draws this;
 }
 
-
-struct 
-Pad {
-    int t;
-    int r;
-    int b;
-    int l;
-}
 
 struct
 Dir_Grid {
