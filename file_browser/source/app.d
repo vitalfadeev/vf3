@@ -508,12 +508,18 @@ Frame {
     }
     struct 
     E {
-        string abc = "abc";
+        string f1 = "abc";
+        string f2 = "123";
+        int    f3 = 4;
     }
 
     E1 e1;
     E2 e2;
-    E[] range = [E(),E("def")];
+    E[] range = [
+        E("Abc","123",101),
+        E("Def","456",102),
+        E("ghi","789",103)
+    ];
 
     // elements
     import std.traits : ReturnType;

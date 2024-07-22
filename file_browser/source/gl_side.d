@@ -257,8 +257,9 @@ Size
 draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias E = ElementType!R;
 
-    if (flags & Render_Flags.NO_RENDER_SIZE_ONLY)
+    if (flags & Render_Flags.NO_RENDER_SIZE_ONLY) {
         return Size (range.w,range.h);
+    }
 
     // 
     foreach (e; range) {

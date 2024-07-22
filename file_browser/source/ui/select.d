@@ -22,6 +22,7 @@ _Select (R) {
     Pad  pad;
 
     int  selected; // 1 or 2
+    int  max_i;
 
     alias E = ElementType!R;
 
@@ -34,20 +35,25 @@ _Select (R) {
 
         foreach (e; range) {
             if (selected == i)
-                sz = _draw_selection (renderer,e);
+                sz = _draw_selection (renderer,i,e);
 
             sz = _draw_e (renderer, i, e, Pos (pos.x,pos.y+sz.h), size);
 
             i++;
         }
 
+        if (i > 0)
+            max_i = cast (int) i-1;
+        else
+            max_i = 0;
+
         return size;
     }
 
     Size
-    _draw_selection (SDL_Renderer* renderer, E e) {
-        Pos  _pos  = _selection_pos (e);
-        Size _size = _selection_size (e);
+    _draw_selection (SDL_Renderer* renderer, size_t i, E e) {
+        Pos  _pos  = _selection_pos (i,e);
+        Size _size = _selection_size (i,e);
 
         //
         auto rect = to_SDL_Rect (_pos,Size (size.w,_size.h));
@@ -59,6 +65,13 @@ _Select (R) {
         // border
         SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
         SDL_RenderDrawRect (renderer,&rect);
+
+        // content
+        auto _ep = _e_pos (i,e);
+        auto _es = _e_size (i,e);
+        auto _cr = to_SDL_Rect (_ep,_es);
+        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        SDL_RenderDrawRect (renderer,&_cr);
 
         return _size;
     }
@@ -75,27 +88,27 @@ _Select (R) {
         if (i == 0)
             return Pos (pad.l,pad.t);
         else
-            return Pos (pad.l,pad.t + _selection_size (e).h);
-    }
-
-    Pos
-    _selection_pos (E e) {
-        if (selected == 0)
-            return Pos (0,0);
-        else
-            return Pos (0,_selection_size (e).h);
+            return Pos (pad.l,pad.t + _selection_size (i,e).h * cast (int) i);
     }
 
     Size
-    _selection_size (E e) {
-        return _e_size (e) + pad;
-    }
-
-    Size
-    _e_size (E e) {
+    _e_size (size_t i, E e) {
         return
             Render (null,Pos (),Render_Flags.NO_RENDER_SIZE_ONLY)
                 .render (e);
+    }
+
+    Pos
+    _selection_pos (size_t i, E e) {
+        if (selected == 0)
+            return Pos (0,0);
+        else
+            return Pos (0,_selection_size (i,e).h * cast (int) i);
+    }
+
+    Size
+    _selection_size (size_t i, E e) {
+        return _e_size (i,e) + pad;
     }
 
     void
@@ -119,7 +132,7 @@ _Select (R) {
 
     void
     _on_key_down (SDL_KeyboardEvent* e) {
-        if (selected == 1)
+        if (selected == max_i)
             selected = 0;
         else
             selected++;
@@ -128,7 +141,7 @@ _Select (R) {
     void
     _on_key_up (SDL_KeyboardEvent* e) {
         if (selected == 0)
-            selected = 1;
+            selected = max_i;
         else
             selected--;
     }

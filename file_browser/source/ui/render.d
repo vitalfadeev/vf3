@@ -55,12 +55,12 @@ Render {
         // each char in chars:
         //   pos,char
         //   pos += step
-        Size size;
+        Size size, _size;
 
         foreach (c; s) {
             SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
 
-            auto _size = 
+            _size = 
                 Font!(ftlib)
                     .open (style.font_pathname)
                     .open (style.font_size)
@@ -133,38 +133,34 @@ Render {
 
     Size
     render_struct (T) (T* a, int[] cols) { // resource_id
+        import std.string : fromStringz;
+
         // each field in fields
         //   pos,field
         Size   size;
         Size   sz;
         size_t i;
         int    col_x=pos.x;
+        int    col_step = 20;
 
+        bool _with_cols;
         if (cols is null)
             cols = [];
+        else
+            _with_cols = true;
         if (cols.length == 0)
             cols.length = T.tupleof.length;
 
         static foreach (_var; T.tupleof) {
             //pragma (msg, ".", __traits(identifier,_var), ": ", typeof(_var));
-            static if (is (typeof(_var) == string)) {
-                pos.x  = col_x;
-                sz     = render_field (__traits (getMember,a,__traits(identifier,_var)));
-                size.w = cols[i];
-                size.h = size.h < sz.h ? sz.h : size.h;
-                col_x += cols[i];
-                i++;
-            }
+            pos.x = col_x;
+            sz = sz.init;
+
+            static if (is (typeof(_var) == string))
+                sz = render_field (__traits (getMember,a,__traits(identifier,_var)));
             else
-            static if (is (typeof(_var) == char[255])) {
-                import std.string : fromStringz;
-                x      = col_x;
-                sz     = render_field (__traits (getMember,a,__traits(identifier,_var)).fromStringz);
-                size.w = cols[i];
-                size.h = size.h < sz.h ? sz.h : size.h;
-                col_x += cols[i];
-                i++;
-            }
+            static if (is (typeof(_var) == char[255]))
+                sz  = render_field (__traits (getMember,a,__traits(identifier,_var)).fromStringz);
             else
             static if (
                 is (typeof(_var) == int) ||
@@ -173,15 +169,18 @@ Render {
                 is (typeof(_var) == ubyte) ||
                 is (typeof(_var) == short) ||
                 is (typeof(_var) == ushort)
-            ) {
-                x      = col_x;
-                sz     = render_field (__traits (getMember,a,__traits(identifier,_var)));
-                size.w = cols[i];
-                size.h = size.h < sz.h ? sz.h : size.h;
-                col_x += cols[i];
-                i++;
-            }
+            )
+                sz = render_field (__traits (getMember,a,__traits(identifier,_var)));
+
+            size.w += col_step + (_with_cols ? cols[i] : sz.w);
+            size.h  = size.h < sz.h ? sz.h : size.h;
+            col_x  += col_step + (_with_cols ? cols[i] : sz.w);
+
+            i++;
         }
+
+        //
+        size.w -= col_step;
 
         return size;
     }
