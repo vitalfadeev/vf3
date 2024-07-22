@@ -8,10 +8,10 @@ import errno_exception;
 alias log=writeln;
 
 
-FT_Library ftlib;
+//FT_Library ftlib;
 
 struct
-Font (alias FT_Library ftlib) {  // Resource : File
+_Font_ (alias FT_Library ftlib) {  // Resource : File
     //File _super;
     //alias _super this;
 

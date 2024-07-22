@@ -259,9 +259,8 @@ draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias Contur = E.Contur;
 
     foreach (e; range) {        
-        if (flags & Render_Flags.NO_RENDER_SIZE_ONLY) {
+        if (flags & Render_Flags.NO_RENDER_SIZE_ONLY)
             return Size (e.w,e.h);
-        }
 
         // 
         foreach (contur; e.s) {

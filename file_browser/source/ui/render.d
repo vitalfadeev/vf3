@@ -40,14 +40,20 @@ Render {
         SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
 
         return 
-            Font!(ftlib)
-                .open (style.font_pathname)
-                .open (style.font_size)
-                .open (c)
-                .read!E ()
+            Font
+                .open (style.font_pathname,style.font_size,c)
+                .read ()
                 .cache (Cache_id (style.font_pathname,style.font_size,c))
                 .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
                 ;
+            //Font!(ftlib)
+            //    .open (style.font_pathname)
+            //    .open (style.font_size)
+            //    .open (c)
+            //    .read!E ()
+            //    .cache (Cache_id (style.font_pathname,style.font_size,c))
+            //    .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+            //    ;
     }
 
     Size
@@ -60,15 +66,23 @@ Render {
         foreach (c; s) {
             SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
 
-            _size = 
-                Font!(ftlib)
-                    .open (style.font_pathname)
-                    .open (style.font_size)
-                    .open (c)
-                    .read!E ()
-                    .cache (Cache_id (style.font_pathname,style.font_size,c))
-                    .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                    ;
+            _size = render_char (c);
+                //Font
+                //    .open (style.font_pathname,style.font_size,c)
+                //    .read ()
+                //    .cache (Cache_id (style.font_pathname,style.font_size,c))
+                //    .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+                //    ;
+
+            //_size = 
+            //    Font!(ftlib)
+            //        .open (style.font_pathname)
+            //        .open (style.font_size)
+            //        .open (c)
+            //        .read!E ()
+            //        .cache (Cache_id (style.font_pathname,style.font_size,c))
+            //        .draw_draws (renderer,pos,render_flags)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
+            //        ;
 
             pos.x  += _size.w;
             size.w += _size.w;

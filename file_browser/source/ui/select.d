@@ -6,6 +6,8 @@ import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
+import std.algorithm.searching : find;
+import std.algorithm.searching : countUntil;
 alias log = writeln;
 
 
@@ -16,14 +18,15 @@ Select (R) (R range, Pos pos, Size size, Pad pad=Pad()) {
 
 struct
 _Select (R) {
-    R    range;
+    R    range;  // [0..length]
     Pos  pos;
     Size size;
     Pad  pad;
 
-    int  selected; // 1 or 2
-    int  max_i;
-    int[] cols = [50,50,50,50,50,50,50];
+    size_t selected; // 1 or 2
+    int[]  cols = [50,50,50,50,150,50,50];
+
+    E[]    frame; // = range [start..end]
 
     alias E = ElementType!R;
 
@@ -34,7 +37,10 @@ _Select (R) {
         Size   sz;
         size_t i;
 
-        foreach (e; range) {
+        if (frame.length == 0 && range.length != 0)
+            frame = range[];
+
+        foreach (e; frame) {
             if (_e_pos (i,e).y > size.h)
                 break;
 
@@ -46,10 +52,10 @@ _Select (R) {
             i++;
         }
 
-        if (i > 0)
-            max_i = cast (int) i-1;
-        else
-            max_i = 0;
+        frame.length = i;
+
+        //
+        _draw_scrollbar (renderer);
 
         return size;
     }
@@ -84,8 +90,12 @@ _Select (R) {
     _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
         return
             Render (renderer,_e_pos (i,e))
-                .render (e);
-                //.render (e,cols);
+                .render (e,cols);
+    }
+
+    void
+    _draw_scrollbar (SDL_Renderer* renderer) {
+        //
     }
 
     Pos
@@ -100,7 +110,7 @@ _Select (R) {
     _e_size (size_t i, E e) {
         return
             Render (null,Pos (),Render_Flags.NO_RENDER_SIZE_ONLY)
-                .render (e);
+                .render (e,cols);
     }
 
     Pos
@@ -129,26 +139,64 @@ _Select (R) {
     void
     on_key (SDL_KeyboardEvent* e) {
         switch (e.keysym.scancode) {
-            case SDL_SCANCODE_DOWN : _on_key_down (e); break;
-            case SDL_SCANCODE_UP   : _on_key_up (e);  break;
+            case SDL_SCANCODE_DOWN   : _on_key_down (e); break;
+            case SDL_SCANCODE_UP     : _on_key_up (e);  break;
+            case SDL_SCANCODE_RETURN : _on_key_return (e);  break;
             default:
         }
     }
 
     void
     _on_key_down (SDL_KeyboardEvent* e) {
-        if (selected == max_i)
-            selected = 0;
+        if (selected == frame.length-1) {
+            if (frame[$-1] != range[$-1]) {
+                auto i = range.countUntil (frame[0]);
+                if (i != -1) {
+                    if (i == 0)
+                        frame = range[1..$];
+                    else
+                        frame = range[i+1..$];
+                }
+                else {
+                    frame = range[];
+                }
+            }
+            else {
+                //frame = range[];
+                //selected = 0;
+            }
+        }
         else
             selected++;
     }
 
     void
     _on_key_up (SDL_KeyboardEvent* e) {
-        if (selected == 0)
-            selected = max_i;
+        if (selected == 0) {
+            if (frame[0] == range[0]) {
+                //
+            }
+            else {
+                auto i = range.countUntil (frame[0]);
+                if (i != -1) {
+                    if (i == 0)
+                        frame = range[0..$];
+                    else
+                        frame = range[i-1..$];
+                }
+                else {
+                    frame = range[];
+                }
+            }
+        }
         else
             selected--;
+    }
+
+    void
+    _on_key_return (SDL_KeyboardEvent* e) {
+        import std.string : fromStringz;
+        log (selected, ": ", frame[selected].d_name.fromStringz);
     }
 }
 

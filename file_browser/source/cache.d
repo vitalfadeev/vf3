@@ -42,8 +42,8 @@ cache (R) (R range, Cache_id cache_id) {
                 _cache[cache_id] = _Cached ();
                 _cached = cache_id in _cache;
                 foreach (e; range) {
-                    _cached.s ~= e;  // to cache
-                    int result = dg (e);
+                    _cached.s ~= e;       // to cache
+                    int result = dg (e);  // to dg
                     if (result)
                         return result;
                 }
