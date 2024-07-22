@@ -1,303 +1,303 @@
 ------------------
 	    1	_Dmain
-FT_Add_Default_Modules	1	83715	2663
+FT_Add_Default_Modules	1	201203	2975
 	   21	FT_Add_Module
 ------------------
 	   21	FT_Add_Default_Modules
-FT_Add_Module	21	81052	79443
+FT_Add_Module	21	198228	196811
 	    1	FT_Get_Module
 	    5	FT_List_Add
 	    1	FT_Library_SetLcdFilter
 ------------------
-	 5013	FT_Request_Size
-	  136	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_DivFix	5149	500875	500875
+	   54	FT_Request_Size
+	   97	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_DivFix	151	13449	13449
 ------------------
-	   24	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_Get_Font_Format	24	15844	15844
-------------------
-	    1	FT_Add_Module
-	 9882	_D2ui6render6Render12render_charsMFAaZS5types4Size
-FT_Get_Module	9883	2070613	2070613
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_Get_Font_Format	18	8794	8794
 ------------------
 	    1	FT_Add_Module
-FT_Library_SetLcdFilter	1	511	511
+	 6420	_D2ui6render6Render12render_charsMFAaZS5types4Size
+FT_Get_Module	6421	1088875	1088875
+------------------
+	    1	FT_Add_Module
+FT_Library_SetLcdFilter	1	443	443
 ------------------
 	    5	FT_Add_Module
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-	 1647	FT_New_Size
-FT_List_Add	3299	254397	254397
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+	 1070	FT_New_Size
+FT_List_Add	2145	165987	165987
 ------------------
-	   24	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_List_Finalize	24	4116	4116
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_List_Finalize	18	2446	2446
 ------------------
-	 1671	FT_Request_Size
-	 9784	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_MulDiv	11455	1647941	1647941
+	   18	FT_Request_Size
+	 7338	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_MulDiv	7356	698116	698116
 ------------------
-	 6684	FT_Request_Size
-FT_MulFix	6684	202616	202616
-------------------
-	    1	_Dmain
-FT_New_Library	1	10587	10587
-------------------
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-FT_New_Size	1647	3326258	3286477
-	 1647	FT_List_Add
-------------------
-	   24	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_Outline_Check	24	9076	9076
-------------------
-	   48	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_Outline_Get_CBox	48	22540	22540
-------------------
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-	   24	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-FT_Request_Size	1671	3573373	2702553
-	 5013	FT_DivFix
-	 6684	FT_MulFix
-	 1671	FT_MulDiv
+	   72	FT_Request_Size
+FT_MulFix	72	3636	3636
 ------------------
 	    1	_Dmain
-FT_Set_Default_Properties	1	1651	1651
+FT_New_Library	1	7999	7999
 ------------------
-	  837	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
-SDL_RenderDrawLines	837	5231987	5231987
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+FT_New_Size	1070	2016028	1980126
+	 1070	FT_List_Add
 ------------------
-	  675	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
-_D2ui6render6Render12render_charsMFAaZS5types4Size	675	261487979	222493213
-	 1647	_D3std5range10primitives__T5emptyTAxaZQlFNaNbNdNiNfMKQtZb
-	 1647	_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_
-	 1647	_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb
-	 9882	FT_Get_Module
-	 1647	FT_List_Add
-	 1647	FT_New_Size
-	 1647	FT_Request_Size
-	 1647	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFNaNbNiNfQCtSQDj8Cache_idZSQDx__TQEdTQDvZQElFQEdQBkZ6_cache
-	 1647	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_Outline_Check	18	5034	5034
 ------------------
-	   18	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size
-	  207	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
-_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size	225	263367614	651551
-	  153	_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAiTiZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm
-	  450	_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd
-	  450	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
-	  675	_D2ui6render6Render12render_charsMFAaZS5types4Size
-	  225	_D3std6string__T11fromStringzTaZQqFNaNbNiNfNkMANgaZQf
+	   36	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_Outline_Get_CBox	36	12860	12860
 ------------------
-	    9	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
-_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size	9	23244561	225075
-	   18	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+FT_Request_Size	18	72522	56718
+	   54	FT_DivFix
+	   72	FT_MulFix
+	   18	FT_MulDiv
 ------------------
-	    9	_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv
-_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size	9	263921404	328715
-	    9	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size
-	  207	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+	    1	_Dmain
+FT_Set_Default_Properties	1	1907	1907
+------------------
+	  530	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
+SDL_RenderDrawLines	530	2967514	2967514
+------------------
+	  480	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+_D2ui6render6Render12render_charsMFAaZS5types4Size	480	163364269	139276042
+	 1070	_D3std5range10primitives__T5emptyTAxaZQlFNaNbNdNiNfMKQtZb
+	 1070	_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_
+	 1070	_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb
+	 6420	FT_Get_Module
+	 1070	FT_List_Add
+	 1070	FT_New_Size
+	 1070	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFNaNbNiNfQCtSQDj8Cache_idZSQDx__TQEdTQDvZQElFQEdQBkZ6_cache
+	 1070	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size
+------------------
+	   20	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size
+	  140	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
+_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size	160	164716216	431017
+	  110	_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAiTiZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm
+	  320	_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd
+	  320	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
+	  480	_D2ui6render6Render12render_charsMFAaZS5types4Size
+	  160	_D3std6string__T11fromStringzTaZQqFNaNbNiNfNkMANgaZQf
+------------------
+	   10	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
+_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size	10	31063712	198079
+	   20	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+------------------
+	   10	_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv
+_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size	10	165101393	187098
+	   10	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size
+	  140	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
 ------------------
 	    1	_D3app5Frame5eventMFPS3sdl6events9SDL_EventZv
-_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv	1	23	23
+_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv	1	51	51
 ------------------
 	    1	_D3app5Frame5eventMFPS3sdl6events9SDL_EventZv
-_D2ui8select_2__T9_Select_2TPS3app5Frame2E1TPSQqQo2E2ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv	1	51	51
+_D2ui8select_2__T9_Select_2TPS3app5Frame2E1TPSQqQo2E2ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv	1	55	55
 ------------------
 	    1	_Dmain
-_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv	1	584095146	320172393
-	    9	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
+_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv	1	501926044	336822590
+	   10	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size
 	    1	_D3app5Frame5eventMFPS3sdl6events9SDL_EventZv
 ------------------
 	    1	_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv
-_D3app5Frame5eventMFPS3sdl6events9SDL_EventZv	1	1349	1275
+_D3app5Frame5eventMFPS3sdl6events9SDL_EventZv	1	2061	1955
 	    1	_D2ui8select_2__T9_Select_2TPS3app5Frame2E1TPSQqQo2E2ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv
 	    1	_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl5eventMFNaNbNiNfPS3sdl6events9SDL_EventZv
 ------------------
 	   31	_D4file3Dir2ID8Iterator7opApplyMFMDFPSQBkQBi14linux_dirent64ZiZi
-_D3app5Frame9_load_dirMFZ14__foreachbody3MFNaNbNfPS4file3Dir14linux_dirent64Zi	31	132474	23053
+_D3app5Frame9_load_dirMFZ14__foreachbody3MFNaNbNfPS4file3Dir14linux_dirent64Zi	31	120694	15509
 	   31	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS4file3Dir14linux_dirent64TQBbZQCbFNaNbNcNeMNkKQBwmZQCb
 ------------------
 	    1	_Dmain
-_D3app5Frame9_load_dirMFZv	1	461151	21347
+_D3app5Frame9_load_dirMFZv	1	308087	18495
 	    1	_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb
 	    1	_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAhThZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm
 	    1	_D4file3Dir2ID8Iterator7opApplyMFMDFPSQBkQBi14linux_dirent64ZiZi
 ------------------
 	    1	_Dmain
-_D3app7load_FTFZv	1	322526	547
+_D3app7load_FTFZv	1	325350	527
 	    1	_D6bindbc8freetype7dynload12loadFreeTypeFNbNiZEQBtQBp6config9FTSupport
 ------------------
 	    1	_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport
-_D3sdl5video17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	39217	7519
+_D3sdl5video17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	39741	7259
 	   70	_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv
 ------------------
 	    1	_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport
-_D3sdl6render17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	29871	5423
+_D3sdl6render17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	30295	5643
 	   52	_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv
 ------------------
 	    1	_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport
-_D3sdl6stdinc17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	34079	7315
+_D3sdl6stdinc17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv	1	33659	7067
 	   68	_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv
 ------------------
 	    3	_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport
 	    1	_Dmain
-_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport	4	25755332	25478496
+_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport	4	22579284	22306484
 	  319	_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv
 	    1	_D3sdl6render17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
 	    1	_D3sdl6stdinc17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
 	    1	_D3sdl5video17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
 ------------------
 	    1	_Dmain
-_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport	1	25523296	1443
+_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport	1	22349504	1395
 	    3	_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport
 ------------------
 	    1	_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-_D3std5range10primitives__T5emptyTAxaZQlFNaNbNdNiNfMKQtZb	1648	49468	49468
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+_D3std5range10primitives__T5emptyTAxaZQlFNaNbNdNiNfMKQtZb	1071	14216	14216
 ------------------
-	  225	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
-_D3std6string__T11fromStringzTaZQqFNaNbNiNfNkMANgaZQf	225	18423	18423
+	  160	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+_D3std6string__T11fromStringzTaZQqFNaNbNiNfNkMANgaZQf	160	11280	11280
 ------------------
-	  837	_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv
-_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa	837	1456841	477279
-	  837	_D4core8internal5array5utils__T12__arrayAllocTS3sdl4rect9SDL_PointZQBkFNaNbNemZSQDa6memory8BlkInfo_
-	  837	_D4core8internal5array5utils__T21__setArrayAllocLengthTS3sdl4rect9SDL_PointZQBtFNaNbNiKSQDi6memory8BlkInfo_mbmZb
+	  530	_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv
+_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa	530	862690	321882
+	  530	_D4core8internal5array5utils__T12__arrayAllocTS3sdl4rect9SDL_PointZQBkFNaNbNemZSQDa6memory8BlkInfo_
+	  530	_D4core8internal5array5utils__T21__setArrayAllocLengthTS3sdl4rect9SDL_PointZQBtFNaNbNiKSQDi6memory8BlkInfo_mbmZb
 ------------------
-	  450	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
-_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa	450	506174	158642
-	  450	_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_
-	  450	_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb
+	  320	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa	320	425254	125105
+	  320	_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_
+	  320	_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb
 ------------------
-	  837	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
-_D4core8internal5array5utils__T12__arrayAllocTS3sdl4rect9SDL_PointZQBkFNaNbNemZSQDa6memory8BlkInfo_	837	890291	890291
-------------------
-	    1	_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb
-	  450	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_	2098	1686710	1686710
-------------------
-	  837	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
-_D4core8internal5array5utils__T21__setArrayAllocLengthTS3sdl4rect9SDL_PointZQBtFNaNbNiKSQDi6memory8BlkInfo_mbmZb	837	89271	89271
+	  530	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
+_D4core8internal5array5utils__T12__arrayAllocTS3sdl4rect9SDL_PointZQBkFNaNbNemZSQDa6memory8BlkInfo_	530	509050	509050
 ------------------
 	    1	_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb
-	  450	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb	2098	64086	64086
+	  320	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_	1391	1098645	1098645
+------------------
+	  530	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
+_D4core8internal5array5utils__T21__setArrayAllocLengthTS3sdl4rect9SDL_PointZQBtFNaNbNiKSQDi6memory8BlkInfo_mbmZb	530	31758	31758
+------------------
+	    1	_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb
+	  320	_D4core8internal5array11duplication__T4_dupTxaTaZQlFNaNbNeMAxaZAa
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb	1391	39631	39631
 ------------------
 	    1	_D3app5Frame9_load_dirMFZv
-_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAhThZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm	1	28751	28751
+_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAhThZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm	1	11531	11531
 ------------------
-	  153	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
-_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAiTiZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm	153	567655	567655
+	  110	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+_D4core8internal5array8capacity__T22_d_arraysetlengthTImplHTAiTiZ18_d_arraysetlengthTFNaNbNeNkMKQBkmZm	110	396832	396832
 ------------------
-_D4core8internal5array8equality__T8__equalsTaTaZQoFNaNbNiNeMxAaMxQeZb	0	496	496
+_D4core8internal5array8equality__T8__equalsTaTaZQoFNaNbNiNeMxAaMxQeZb	0	500	500
 ------------------
-	   37	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
-	   37	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
-_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1ETQvZQBuFNaNbNcNeMNkKQBpmZQBu	74	186814	186814
+	   27	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
+_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1E6ConturTQBcZQCcFNaNbNcNeMNkKQBxmZQCc	27	116525	116525
 ------------------
-	   37	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
-	  175	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
-	  346	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi
-_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu	558	507454	507454
+	   18	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
+_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1ETQvZQBuFNaNbNcNeMNkKQBpmZQBu	18	17182	17182
+------------------
+	   27	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
+	  142	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
+	  229	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi
+_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu	398	233338	233338
 ------------------
 	   31	_D3app5Frame9_load_dirMFZ14__foreachbody3MFNaNbNfPS4file3Dir14linux_dirent64Zi
-_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS4file3Dir14linux_dirent64TQBbZQCbFNaNbNcNeMNkKQBwmZQCb	31	109421	109421
+_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS4file3Dir14linux_dirent64TQBbZQCbFNaNbNcNeMNkKQBwmZQCb	31	105185	105185
 ------------------
-	  450	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
-_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd	450	135832	109106
-	  450	_D4core8internal6string__T20unsignedToTempStringVki10Vbi0TaZQBiFNaNbNiNfmNkMAaZQd
+	  320	_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size
+_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd	320	87564	71248
+	  320	_D4core8internal6string__T20unsignedToTempStringVki10Vbi0TaZQBiFNaNbNiNfmNkMAaZQd
 ------------------
-	  450	_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd
-_D4core8internal6string__T20unsignedToTempStringVki10Vbi0TaZQBiFNaNbNiNfmNkMAaZQd	450	26726	26726
+	  320	_D4core8internal6string__T18signedToTempStringVii10Vbi0TaZQBgFNaNbNiNflNkMAaZQd
+_D4core8internal6string__T20unsignedToTempStringVki10Vbi0TaZQBiFNaNbNiNfmNkMAaZQd	320	16316	16316
 ------------------
-_D4core8internal6string__T7dstrcmpZQjFNaNbNiNeMxAaMxQeZi	0	366	366
+_D4core8internal6string__T7dstrcmpZQjFNaNbNiNeMxAaMxQeZi	0	494	494
 ------------------
 	    1	_D3app5Frame9_load_dirMFZv
-_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb	1	194232	177087
+_D4file3Dir2ID6__ctorMFNcAyaikZSQBeQBcQBb	1	77196	60419
 	    1	_D3std5range10primitives__T5emptyTAxaZQlFNaNbNdNiNfMKQtZb
 	    1	_D4core8internal5array5utils__T12__arrayAllocTaZQrFNaNbNemZSQCg6memory8BlkInfo_
 	    1	_D4core8internal5array5utils__T21__setArrayAllocLengthTaZQBaFNaNbNiKSQCp6memory8BlkInfo_mbmZb
 ------------------
 	    1	_D3app5Frame9_load_dirMFZv
-_D4file3Dir2ID8Iterator7opApplyMFMDFPSQBkQBi14linux_dirent64ZiZi	1	216821	84347
+_D4file3Dir2ID8Iterator7opApplyMFMDFPSQBkQBi14linux_dirent64ZiZi	1	200865	80171
 	   31	_D3app5Frame9_load_dirMFZ14__foreachbody3MFNaNbNfPS4file3Dir14linux_dirent64Zi
 ------------------
-	   24	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
-_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi	24	20678811	17770376
-	   24	FT_Request_Size
-	   24	FT_Get_Font_Format
-	 9784	FT_MulDiv
-	  136	FT_DivFix
-	   48	FT_Outline_Get_CBox
-	   24	FT_List_Finalize
-	   24	FT_Outline_Check
-	   37	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
-	  175	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
-	  346	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi
-	   37	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
+	   18	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
+_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi	18	14521806	13280734
+	   18	FT_Request_Size
+	   18	FT_Get_Font_Format
+	 7338	FT_MulDiv
+	   97	FT_DivFix
+	   36	FT_Outline_Get_CBox
+	   18	FT_List_Finalize
+	   18	FT_Outline_Check
+	   27	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
+	  142	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi
+	  229	_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi
+	   18	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
 ------------------
-	  346	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi	346	211868	45386
-	  346	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
+	  229	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10coni_to_cbUNaNbxPS2ft5image9FT_VectorxQwPvZi	229	139550	29139
+	  229	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
 ------------------
-	  175	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi	175	331210	23705
-	  175	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
+	  142	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10line_to_cbUNaNbxPS2ft5image9FT_VectorPvZi	142	115284	18422
+	  142	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
 ------------------
-	   37	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi	37	205469	21131
-	   37	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1ETQvZQBuFNaNbNcNeMNkKQBpmZQBu
-	   37	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
+	   27	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+_D4font__T15Glyph_to_pointsTS2ui6render6Render1EZQBn10move_to_cbUNaNbxPS2ft5image9FT_VectorPvZi	27	156691	14101
+	   27	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1E6ConturTQBcZQCcFNaNbNcNeMNkKQBxmZQCc
+	   27	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS3sdl4rect9SDL_PointTQvZQBuFNaNbNcNeMNkKQBpmZQBu
 ------------------
-	  578	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
-_D5cache8Cache_id6toHashMxFNaNbNfZm	578	10098	10098
+	 1105	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
+_D5cache8Cache_id6toHashMxFNaNbNfZm	1105	14323	14323
 ------------------
-	  531	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
-_D5cache8Cache_id8opEqualsMxFNaNbNfKxSQBkQBhZb	531	76525	76525
+	 1070	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
+_D5cache8Cache_id8opEqualsMxFNaNbNfKxSQBkQBhZb	1070	41494	41494
 ------------------
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFNaNbNiNfQCtSQDj8Cache_idZSQDx__TQEdTQDvZQElFQEdQBkZ6_cache	1647	79773	79773
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFNaNbNiNfQCtSQDj8Cache_idZSQDx__TQEdTQDvZQElFQEdQBkZ6_cache	1070	57130	57130
 ------------------
-	   37	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy	37	595376	15843
-	   37	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1ETQvZQBuFNaNbNcNeMNkKQBpmZQBu
-	   37	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy	18	28494	9254
+	   18	_D4core8internal5array9appending__T17_d_arrayappendcTXHTAS2ui6render6Render1ETQvZQBuFNaNbNcNeMNkKQBpmZQBu
+	   18	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
 ------------------
-	  531	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size
-_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi	531	28173783	799425
-	  578	_D5cache8Cache_id6toHashMxFNaNbNfZm
-	  531	_D5cache8Cache_id8opEqualsMxFNaNbNfKxSQBkQBhZb
-	   24	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
-	  800	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
+	 1070	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size
+_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi	1070	19797347	1021954
+	 1105	_D5cache8Cache_id6toHashMxFNaNbNfZm
+	 1070	_D5cache8Cache_id8opEqualsMxFNaNbNfKxSQBkQBhZb
+	   18	_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi
+	 1052	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
 ------------------
 	  215	_D6bindbc8freetype7dynload12loadFreeTypeFNbNiPxaZEQBwQBs6config9FTSupport
 	  319	_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport
 	   52	_D3sdl6render17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
 	   68	_D3sdl6stdinc17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
 	   70	_D3sdl5video17bindModuleSymbolsFNbNiS6bindbc6loader9sharedlib9SharedLibZv
-_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv	724	371640	371640
+_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv	724	366588	366588
 ------------------
 	    1	_D6bindbc8freetype7dynload12loadFreeTypeFNbNiZEQBtQBp6config9FTSupport
-_D6bindbc8freetype7dynload12loadFreeTypeFNbNiPxaZEQBwQBs6config9FTSupport	1	321452	206391
+_D6bindbc8freetype7dynload12loadFreeTypeFNbNiPxaZEQBwQBs6config9FTSupport	1	324300	210543
 	  215	_D6bindbc6loader9sharedlib10bindSymbolFNbNiSQBqQBmQBi9SharedLibPPvPxaZv
 ------------------
 	    1	_D3app7load_FTFZv
-_D6bindbc8freetype7dynload12loadFreeTypeFNbNiZEQBtQBp6config9FTSupport	1	321979	527
+_D6bindbc8freetype7dynload12loadFreeTypeFNbNiZEQBtQBp6config9FTSupport	1	324823	523
 	    1	_D6bindbc8freetype7dynload12loadFreeTypeFNbNiPxaZEQBwQBs6config9FTSupport
 ------------------
-	  837	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
-_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv	837	1558592	101751
-	  837	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
+	  530	_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi
+_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv	530	925560	62870
+	  530	_D4core8internal5array11duplication__T4_dupTxS3sdl4rect9SDL_PointTSQvQtQqZQBkFNaNbNeMAxQBqZAQBa
 ------------------
-	   37	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
-	  800	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
-_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi	837	7152514	361935
-	  837	_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv
-	  837	SDL_RenderDrawLines
+	   18	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZ14__foreachbody8MQy
+	 1052	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
+_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZ14__foreachbody5MFNbQEnZi	1070	4199828	306754
+	  530	_D6object__T3dupTS3sdl4rect9SDL_PointZQBaFNaNbNdNfAxSQBjQBiQBgZAQBv
+	  530	SDL_RenderDrawLines
 ------------------
-	 1647	_D2ui6render6Render12render_charsMFAaZS5types4Size
-_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size	1647	28327968	154185
-	  531	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
+	 1070	_D2ui6render6Render12render_charsMFAaZS5types4Size
+_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size	1070	19961517	164170
+	 1070	_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi
 ------------------
-_Dmain	0	1028705906	417974355
+_Dmain	0	1022752195	497400926
 	    1	_D3app7load_FTFZv
 	    1	FT_New_Library
 	    1	FT_Add_Default_Modules
@@ -312,71 +312,72 @@ _Dmain	0	1028705906	417974355
   Num          Tree        Func        Per
   Calls        Time        Time        Call
 
-      1        1028         417         417     _Dmain
-      1         584         320         320     void app.event_loop(ref sdl.video.SDL_Window*, sdl.render.SDL_Renderer*, ref app.Frame)
-    675         261         222           0     types.Size ui.render.Render.render_chars(char[])
-      4          25          25           6     nothrow @nogc bindbc.sdl.config.SDLSupport sdl.loadSDL(const(char)*)
-     24          20          17           0     int font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator.opApply(scope int delegate(ui.render.Render.E))
-    837           5           5           0     SDL_RenderDrawLines
-   1647           3           3           0     FT_New_Size
-   1671           3           2           0     FT_Request_Size
-   9883           2           2           0     FT_Get_Module
-   2098           1           1           0     pure nothrow @trusted core.memory.BlkInfo_ core.internal.array.utils.__arrayAlloc!(char).__arrayAlloc(ulong)
-  11455           1           1           0     FT_MulDiv
-    837           0           0           0     pure nothrow @trusted core.memory.BlkInfo_ core.internal.array.utils.__arrayAlloc!(sdl.rect.SDL_Point).__arrayAlloc(ulong)
-    531          28           0           0     int cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache.opApply(scope int delegate(ui.render.Render.E))
-    225         263           0           0     types.Size ui.render.Render.render_struct!(file.Dir.linux_dirent64).render_struct(file.Dir.linux_dirent64*, int[])
-    153           0           0           0     pure nothrow @trusted ulong core.internal.array.capacity._d_arraysetlengthTImpl!(int[], int)._d_arraysetlengthT(return scope ref int[], ulong)
-    558           0           0           0     pure nothrow ref @trusted sdl.rect.SDL_Point[] core.internal.array.appending._d_arrayappendcTX!(sdl.rect.SDL_Point[], sdl.rect.SDL_Point)._d_arrayappendcTX(scope return ref sdl.rect.SDL_Point[], ulong)
-   5149           0           0           0     FT_DivFix
-    837           1           0           0     pure nothrow @trusted sdl.rect.SDL_Point[] core.internal.array.duplication._dup!(const(sdl.rect.SDL_Point), sdl.rect.SDL_Point)._dup(scope const(sdl.rect.SDL_Point)[])
+      1        1022         497         497     _Dmain
+      1         501         336         336     void app.event_loop(ref sdl.video.SDL_Window*, sdl.render.SDL_Renderer*, ref app.Frame)
+    480         163         139           0     types.Size ui.render.Render.render_chars(char[])
+      4          22          22           5     nothrow @nogc bindbc.sdl.config.SDLSupport sdl.loadSDL(const(char)*)
+     18          14          13           0     int font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator.opApply(scope int delegate(ui.render.Render.E))
+    530           2           2           0     SDL_RenderDrawLines
+   1070           2           1           0     FT_New_Size
+   1391           1           1           0     pure nothrow @trusted core.memory.BlkInfo_ core.internal.array.utils.__arrayAlloc!(char).__arrayAlloc(ulong)
+   6421           1           1           0     FT_Get_Module
+   1070          19           1           0     int cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache.opApply(scope int delegate(ui.render.Render.E))
+   7356           0           0           0     FT_MulDiv
+    530           0           0           0     pure nothrow @trusted core.memory.BlkInfo_ core.internal.array.utils.__arrayAlloc!(sdl.rect.SDL_Point).__arrayAlloc(ulong)
+    160         164           0           0     types.Size ui.render.Render.render_struct!(file.Dir.linux_dirent64).render_struct(file.Dir.linux_dirent64*, int[])
+    110           0           0           0     pure nothrow @trusted ulong core.internal.array.capacity._d_arraysetlengthTImpl!(int[], int)._d_arraysetlengthT(return scope ref int[], ulong)
     724           0           0           0     nothrow @nogc void bindbc.loader.sharedlib.bindSymbol(bindbc.loader.sharedlib.SharedLib, void**, const(char)*)
-    837           7           0           0     nothrow int gl_side.draw_draws!(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache).draw_draws(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache, sdl.render.SDL_Renderer*, types.Pos, int).__foreachbody5(ui.render.Render.E)
-      9         263           0           0     types.Size ui.select._Select!(file.Dir.linux_dirent64[])._Select.draw(sdl.render.SDL_Renderer*)
-   3299           0           0           0     FT_List_Add
-      9          23           0           0     types.Size ui.select._Select!(file.Dir.linux_dirent64[])._Select._draw_selection(sdl.render.SDL_Renderer*, ulong, file.Dir.linux_dirent64)
+    530           0           0           0     pure nothrow @trusted sdl.rect.SDL_Point[] core.internal.array.duplication._dup!(const(sdl.rect.SDL_Point), sdl.rect.SDL_Point)._dup(scope const(sdl.rect.SDL_Point)[])
+   1070           4           0           0     nothrow int gl_side.draw_draws!(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache).draw_draws(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache, sdl.render.SDL_Renderer*, types.Pos, int).__foreachbody5(ui.render.Render.E)
+    398           0           0           0     pure nothrow ref @trusted sdl.rect.SDL_Point[] core.internal.array.appending._d_arrayappendcTX!(sdl.rect.SDL_Point[], sdl.rect.SDL_Point)._d_arrayappendcTX(scope return ref sdl.rect.SDL_Point[], ulong)
       1           0           0           0     nothrow @nogc bindbc.freetype.config.FTSupport bindbc.freetype.dynload.loadFreeType(const(char)*)
-   6684           0           0           0     FT_MulFix
-     74           0           0           0     pure nothrow ref @trusted ui.render.Render.E[] core.internal.array.appending._d_arrayappendcTX!(ui.render.Render.E[], ui.render.Render.E)._d_arrayappendcTX(scope return ref ui.render.Render.E[], ulong)
-      1           0           0           0     ref file.Dir.ID file.Dir.ID.__ctor(immutable(char)[], int, uint)
-    450           0           0           0     pure nothrow @trusted char[] core.internal.array.duplication._dup!(const(char), char)._dup(scope const(char)[])
-   1647          28           0           0     types.Size gl_side.draw_draws!(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache).draw_draws(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache, sdl.render.SDL_Renderer*, types.Pos, int)
-     31           0           0           0     pure nothrow ref @trusted file.Dir.linux_dirent64[] core.internal.array.appending._d_arrayappendcTX!(file.Dir.linux_dirent64[], file.Dir.linux_dirent64)._d_arrayappendcTX(scope return ref file.Dir.linux_dirent64[], ulong)
-    450           0           0           0     pure nothrow @nogc @safe char[] core.internal.string.signedToTempString!(10, false, char).signedToTempString(long, return scope char[])
-    837           1           0           0     pure nothrow @property @safe sdl.rect.SDL_Point[] object.dup!(sdl.rect.SDL_Point).dup(const(sdl.rect.SDL_Point)[])
-    837           0           0           0     pure nothrow @nogc bool core.internal.array.utils.__setArrayAllocLength!(sdl.rect.SDL_Point).__setArrayAllocLength(ref core.memory.BlkInfo_, ulong, bool, ulong)
-      1           0           0           0     int file.Dir.ID.Iterator.opApply(scope int delegate(file.Dir.linux_dirent64*))
-   1647           0           0           0     pure nothrow @nogc @safe cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)
+     10          31           0           0     types.Size ui.select._Select!(file.Dir.linux_dirent64[])._Select._draw_selection(sdl.render.SDL_Renderer*, ulong, file.Dir.linux_dirent64)
      21           0           0           0     FT_Add_Module
-    531           0           0           0     const pure nothrow @safe bool cache.Cache_id.opEquals(ref const(cache.Cache_id))
-   2098           0           0           0     pure nothrow @nogc bool core.internal.array.utils.__setArrayAllocLength!(char).__setArrayAllocLength(ref core.memory.BlkInfo_, ulong, bool, ulong)
-   1648           0           0           0     pure nothrow @property @nogc @safe bool std.range.primitives.empty!(const(char)[]).empty(scope ref const(char)[])
-    346           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.coni_to_cb(const(ft.image.FT_Vector*), const(ft.image.FT_Vector*), void*)
-      1           0           0           0     pure nothrow @trusted ulong core.internal.array.capacity._d_arraysetlengthTImpl!(ubyte[], ubyte)._d_arraysetlengthT(return scope ref ubyte[], ulong)
-    450           0           0           0     pure nothrow @nogc @safe char[] core.internal.string.unsignedToTempString!(10u, false, char).unsignedToTempString(ulong, return scope char[])
-    175           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.line_to_cb(const(ft.image.FT_Vector*), void*)
-     31           0           0           0     pure nothrow @safe int app.Frame._load_dir().__foreachbody3(file.Dir.linux_dirent64*)
-     48           0           0           0     FT_Outline_Get_CBox
+     10         165           0           0     types.Size ui.select._Select!(file.Dir.linux_dirent64[])._Select.draw(sdl.render.SDL_Renderer*)
+   2145           0           0           0     FT_List_Add
+   1070          19           0           0     types.Size gl_side.draw_draws!(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache).draw_draws(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache, sdl.render.SDL_Renderer*, types.Pos, int)
+    320           0           0           0     pure nothrow @trusted char[] core.internal.array.duplication._dup!(const(char), char)._dup(scope const(char)[])
+     27           0           0           0     pure nothrow ref @trusted ui.render.Render.E.Contur[] core.internal.array.appending._d_arrayappendcTX!(ui.render.Render.E.Contur[], ui.render.Render.E.Contur)._d_arrayappendcTX(scope return ref ui.render.Render.E.Contur[], ulong)
+     31           0           0           0     pure nothrow ref @trusted file.Dir.linux_dirent64[] core.internal.array.appending._d_arrayappendcTX!(file.Dir.linux_dirent64[], file.Dir.linux_dirent64)._d_arrayappendcTX(scope return ref file.Dir.linux_dirent64[], ulong)
+      1           0           0           0     int file.Dir.ID.Iterator.opApply(scope int delegate(file.Dir.linux_dirent64*))
+    320           0           0           0     pure nothrow @nogc @safe char[] core.internal.string.signedToTempString!(10, false, char).signedToTempString(long, return scope char[])
+    530           0           0           0     pure nothrow @property @safe sdl.rect.SDL_Point[] object.dup!(sdl.rect.SDL_Point).dup(const(sdl.rect.SDL_Point)[])
+      1           0           0           0     ref file.Dir.ID file.Dir.ID.__ctor(immutable(char)[], int, uint)
+   1070           0           0           0     pure nothrow @nogc @safe cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)
+     18           0           0           0     FT_Request_Size
+   1070           0           0           0     const pure nothrow @safe bool cache.Cache_id.opEquals(ref const(cache.Cache_id))
+   1391           0           0           0     pure nothrow @nogc bool core.internal.array.utils.__setArrayAllocLength!(char).__setArrayAllocLength(ref core.memory.BlkInfo_, ulong, bool, ulong)
+    530           0           0           0     pure nothrow @nogc bool core.internal.array.utils.__setArrayAllocLength!(sdl.rect.SDL_Point).__setArrayAllocLength(ref core.memory.BlkInfo_, ulong, bool, ulong)
+    229           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.coni_to_cb(const(ft.image.FT_Vector*), const(ft.image.FT_Vector*), void*)
       1           0           0           0     void app.Frame._load_dir()
-     37           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.move_to_cb(const(ft.image.FT_Vector*), void*)
-    225           0           0           0     pure nothrow @nogc @safe inout(char)[] std.string.fromStringz!(char).fromStringz(return scope inout(char)[])
-     24           0           0           0     FT_Get_Font_Format
-     37           0           0           0     int function(ui.render.Render.E) cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache.opApply(scope int delegate(ui.render.Render.E)).__foreachbody8
+    142           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.line_to_cb(const(ft.image.FT_Vector*), void*)
+     18           0           0           0     pure nothrow ref @trusted ui.render.Render.E[] core.internal.array.appending._d_arrayappendcTX!(ui.render.Render.E[], ui.render.Render.E)._d_arrayappendcTX(scope return ref ui.render.Render.E[], ulong)
+    320           0           0           0     pure nothrow @nogc @safe char[] core.internal.string.unsignedToTempString!(10u, false, char).unsignedToTempString(ulong, return scope char[])
+     31           0           0           0     pure nothrow @safe int app.Frame._load_dir().__foreachbody3(file.Dir.linux_dirent64*)
+   1105           0           0           0     const pure nothrow @safe ulong cache.Cache_id.toHash()
+   1071           0           0           0     pure nothrow @property @nogc @safe bool std.range.primitives.empty!(const(char)[]).empty(scope ref const(char)[])
+     27           0           0           0     extern (C) pure nothrow int font.Glyph_to_points!(ui.render.Render.E).Glyph_to_points.move_to_cb(const(ft.image.FT_Vector*), void*)
+    151           0           0           0     FT_DivFix
+     36           0           0           0     FT_Outline_Get_CBox
+      1           0           0           0     pure nothrow @trusted ulong core.internal.array.capacity._d_arraysetlengthTImpl!(ubyte[], ubyte)._d_arraysetlengthT(return scope ref ubyte[], ulong)
+    160           0           0           0     pure nothrow @nogc @safe inout(char)[] std.string.fromStringz!(char).fromStringz(return scope inout(char)[])
+     18           0           0           0     int function(ui.render.Render.E) cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator, cache.Cache_id)._cache.opApply(scope int delegate(ui.render.Render.E)).__foreachbody8
+     18           0           0           0     FT_Get_Font_Format
       1           0           0           0     FT_New_Library
-    578           0           0           0     const pure nothrow @safe ulong cache.Cache_id.toHash()
-     24           0           0           0     FT_Outline_Check
       1           0           0           0     nothrow @nogc void sdl.video.bindModuleSymbols(bindbc.loader.sharedlib.SharedLib)
       1           0           0           0     nothrow @nogc void sdl.stdinc.bindModuleSymbols(bindbc.loader.sharedlib.SharedLib)
       1           0           0           0     nothrow @nogc void sdl.render.bindModuleSymbols(bindbc.loader.sharedlib.SharedLib)
-     24           0           0           0     FT_List_Finalize
+     18           0           0           0     FT_Outline_Check
+     72           0           0           0     FT_MulFix
       1           0           0           0     FT_Add_Default_Modules
-      1           0           0           0     FT_Set_Default_Properties
-      1          25           0           0     nothrow @nogc bindbc.sdl.config.SDLSupport sdl.loadSDL()
+     18           0           0           0     FT_List_Finalize
       1           0           0           0     void app.Frame.event(sdl.events.SDL_Event*)
+      1           0           0           0     FT_Set_Default_Properties
+      1          22           0           0     nothrow @nogc bindbc.sdl.config.SDLSupport sdl.loadSDL()
       1           0           0           0     void app.load_FT()
       1           0           0           0     nothrow @nogc bindbc.freetype.config.FTSupport bindbc.freetype.dynload.loadFreeType()
-      1           0           0           0     FT_Library_SetLcdFilter
       1           0           0           0     pure nothrow @nogc @trusted bool core.internal.array.equality.__equals!(char, char).__equals(scope const(char[]), scope const(char[]))
       1           0           0           0     pure nothrow @nogc @trusted int core.internal.string.dstrcmp!().dstrcmp(scope const(char[]), scope const(char[]))
+      1           0           0           0     FT_Library_SetLcdFilter
       1           0           0           0     pure nothrow @nogc @safe void ui.select_2._Select_2!(app.Frame.E1*, app.Frame.E2*)._Select_2.event(sdl.events.SDL_Event*)
       1           0           0           0     pure nothrow @nogc @safe void ui.select._Select!(file.Dir.linux_dirent64[])._Select.event(sdl.events.SDL_Event*)

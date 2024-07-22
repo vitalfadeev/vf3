@@ -154,13 +154,23 @@ Render {
         static foreach (_var; T.tupleof) {
             //pragma (msg, ".", __traits(identifier,_var), ": ", typeof(_var));
             pos.x = col_x;
-            sz = sz.init;
+            sz    = sz.init;
 
-            static if (is (typeof(_var) == string))
+            static if (is (typeof(_var) == string)) {
                 sz = render_field (__traits (getMember,a,__traits(identifier,_var)));
+
+                size.w += col_step + (_with_cols ? cols[i] : sz.w);
+                size.h  = size.h < sz.h ? sz.h : size.h;
+                col_x  += col_step + (_with_cols ? cols[i] : sz.w);
+            }
             else
-            static if (is (typeof(_var) == char[255]))
+            static if (is (typeof(_var) == char[255])) {
                 sz  = render_field (__traits (getMember,a,__traits(identifier,_var)).fromStringz);
+
+                size.w += col_step + (_with_cols ? cols[i] : sz.w);
+                size.h  = size.h < sz.h ? sz.h : size.h;
+                col_x  += col_step + (_with_cols ? cols[i] : sz.w);
+            }
             else
             static if (
                 is (typeof(_var) == int) ||
@@ -169,12 +179,13 @@ Render {
                 is (typeof(_var) == ubyte) ||
                 is (typeof(_var) == short) ||
                 is (typeof(_var) == ushort)
-            )
+            ) {
                 sz = render_field (__traits (getMember,a,__traits(identifier,_var)));
 
-            size.w += col_step + (_with_cols ? cols[i] : sz.w);
-            size.h  = size.h < sz.h ? sz.h : size.h;
-            col_x  += col_step + (_with_cols ? cols[i] : sz.w);
+                size.w += col_step + (_with_cols ? cols[i] : sz.w);
+                size.h  = size.h < sz.h ? sz.h : size.h;
+                col_x  += col_step + (_with_cols ? cols[i] : sz.w);
+            }
 
             i++;
         }

@@ -84,7 +84,8 @@ _Select (R) {
     _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
         return
             Render (renderer,_e_pos (i,e))
-                .render (e,cols);
+                .render (e);
+                //.render (e,cols);
     }
 
     Pos
