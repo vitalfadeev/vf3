@@ -7,6 +7,7 @@ import errno_exception;
 alias log=writeln;
 
 
+FT_Library ftlib;
 
 struct
 Font (alias FT_Library ftlib) {  // Resource : File

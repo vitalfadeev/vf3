@@ -8,11 +8,11 @@ import gl_side;
 import font_cache;
 import font;
 import types;
+import ui.style;
 import ui.pad;
+import ui.render;
 import ui.select_2;
 alias log = writeln;
-
-FT_Library ftLib;
 
 
 void 
@@ -363,13 +363,13 @@ load_FT () {
 void
 init_ft () {
     FT_Error err;
-    err = FT_Init_FreeType (&ftLib);
+    err = FT_Init_FreeType (&ftlib);
     if (err) {
         printf ("Loading error: %s", FT_Error_String (err));
     }
 
     int maj, min, pat;
-    FT_Library_Version (ftLib, &maj, &min, &pat);
+    FT_Library_Version (ftlib, &maj, &min, &pat);
     assert (maj >= 2);
     assert (min >= 13);
 }
@@ -469,7 +469,7 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
         }
 
         // Delay
-        SDL_Delay (500);
+        SDL_Delay (100);
     }        
 }
 
@@ -496,10 +496,12 @@ Frame {
 
     void
     draw (SDL_Renderer* renderer) {
-        import std.range : back;
+        //import std.range : back;
 
+        // clear screen
         SDL_SetRenderDrawColor (renderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderClear (renderer);
+        // draw
         // SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
         // SDL_RenderDrawPoint (renderer, x, y);
         // SDL_RenderDrawLine (renderer,0,0,100,100);
@@ -507,12 +509,25 @@ Frame {
         // SDL_RenderDrawRect (renderer,&rect);
         // ...
 
+        struct 
+        E1 {
+            string abc = "ABC";
+        }
+        struct 
+        E2 {
+            string def = "DEF";
+        }
+        E1 e1;
+        E2 e2;
+        Select_2 (&e1,&e2, Pos (0,0), Size (640,400), Pad (10,10,10,10))
+            .draw (renderer);
+
         // Load Resource
         // Resource.id
         // Resource conertor
         // Resource to draws
         //auto r = 
-        //    Font!(ftLib)
+        //    Font!(ftlib)
         //        .open (font_pathname)
         //        .open (font_size)
         //        .open ('A')
@@ -685,270 +700,8 @@ Key_Sensable {
 //       draws > cache
 //       _draw draws
 
-auto 
-cache (R) (R range, Cache_id cache_id) {
-    import std.range : ElementType;
-
-    struct
-    _cache {
-        R        range;
-        Cache_id cache_id;
-        int      w;
-        int      h;
-        static E[][Cache_id] _cache;
-
-        alias E = ElementType!R;
-        alias DG = int delegate (E e);
-
-        E front () { return E ();};
-
-        int 
-        opApply (scope DG dg) {
-            auto cached = cache_id in _cache;
-            if (cached !is null) 
-            {  // cached
-                foreach (e; *cached) {
-                    int result = dg (e);
-                    if (result)
-                        return result;
-                }
-                return 0;
-            }
-            else 
-            {  // non-cached
-                _cache[cache_id] = [];
-                auto es = cache_id in _cache;
-                foreach (e; range) {
-                    *es ~= e;  // to cache
-                    int result = dg (e);
-                    if (result)
-                        return result;
-                }
-            }
-
-            return 0;
-        }    
-    }
-
-    return _cache (range,cache_id,range.w,range.h);
-}
-
-struct
-Cache_id {
-    size_t _super;
-    //alias _super this;
-
-    this (string font_pathname, int font_size, char c) {
-        this._super = c;
-    }
-
-    size_t 
-    toHash () const @safe pure nothrow {
-        return _super;
-    }
-
-    bool 
-    opEquals (ref const Cache_id b) const @safe pure nothrow {
-        return this._super == b._super;
-    }
-}
-
 
 alias Draws = GL_Side._char;
-
-struct
-Style {
-    string  font_pathname  = "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf";
-    int     font_size      = 48;
-}
-
-struct
-Render {
-       SDL_Renderer*    renderer;
-       int              x,y;        // _cur_pos
-       int              field_dx =  50;
-       Resources        resources;  // draws    = resources[id]
-       Font_cache!Draws font_cache;
-       Style            style;
-//    auto draws = font_cache.get_draws (font_pathname,font_size,'A');
-//
-//    pos,draws  // SDL_Point,(type,SDL_Point[])
-//    SDL_RenderDrawLines (renderer,sdl_points.ptr,cast (int) sdl_points.length);
-
-    //auto
-    //cur_pos () {
-    //    return _cur_pos;
-    //}
-
-    Size
-    render_char (char c) { // resource_id
-        // pos,char
-        // current_style
-        return 
-            Font!(ftLib)
-                .open (style.font_pathname)
-                .open (style.font_size)
-                .open (c)
-                .read!E ()
-                .cache (Cache_id (style.font_pathname,style.font_size,c))
-                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                ;
-    }
-
-    Size 
-    render_chars (string s) { // resource_id 
-        return render_chars ((cast (char*) s.ptr)[0..s.length]);
-    }
-
-    Size
-    render_chars (char[] s) { // resource_id 
-        // each char in chars:
-        //   pos,char
-        //   pos += step
-        Size size;
-
-        foreach (c; s) {
-            SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
-
-            auto _size = 
-                Font!(ftLib)
-                .open (style.font_pathname)
-                .open (style.font_size)
-                .open (c)
-                .read!E ()
-                .cache (Cache_id (style.font_pathname,style.font_size,c))
-                .draw_draws (renderer,x,y)  // Font_Glyph.ID.Iterator!(Font_Glyph.ID.E)
-                ;
-
-            x += _size.w;
-            size.w += _size.w;
-            size.h  = size.h < _size.h ? _size.h : size.h;
-
-            //dx = 2;
-            //dy = 0;
-            //FT_Glyph_Metrics m = face.glyph.metrics;
-            //// Size (m.width,m.height); 
-            ////   n 26.6 pixel format (i.e., 1/64 of pixels),
-            //step = Size (m.horiAdvance/64,m.vertAdvance/64);
-            //pos += step;
-        }
-
-        return size;
-    }
-
-    Size
-    render_int (int a) {
-        import std.conv;
-        auto s = a.to!string;
-        return render_chars ((cast (char*) s.ptr)[0..s.length]);
-    }
-
-    Size
-    render_field (T) (T a) { // resource_id
-        // switch type
-        //   case chars[]
-        //     pos,chars
-        //   case int
-        //     to_chars
-        //     pos,chars
-        static if (is (T == char))
-            return render_char (a);
-        else
-        static if (is (T == char[]))
-            return render_chars (a);
-        else
-        static if (is (T == string))
-            return render_chars (a);
-        else
-        static if (is (T == int))
-            return render_int (a);
-        else
-        static if (
-            is (T == byte) ||
-            is (T == ubyte) ||
-            is (T == short) ||
-            is (T == ushort)
-        )
-            return render_int (cast (int) a);
-        else
-            return Size ();
-    }
-
-    Size
-    render_struct_ptr (T) (T* a, int[] cols) { // resource_id
-        return render_struct!T (a,cols);
-    }
-
-    Size
-    render_struct (T) (T* a, int[] cols) { // resource_id
-        // each field in fields
-        //   pos,field
-        Size   size;
-        Size   wh;
-        size_t i;
-        int    col_x=x;
-
-        enum members = __traits (allMembers, T);
-        static foreach (_var; T.tupleof) {
-            //pragma (msg, ".", __traits(identifier,_var), ": ", typeof(_var));
-            static if (is (typeof(_var) == char[255])) {
-                import std.string : fromStringz;
-                x      = col_x;
-                wh = render_field (__traits (getMember,a,__traits(identifier,_var)).fromStringz);
-                size.w = cols[i];
-                size.h = size.h < wh.h ? wh.h : size.h;
-                col_x += cols[i];
-                i++;
-            }
-            else
-            static if (
-                is (typeof(_var) == int) ||
-                is (typeof(_var) == uint) ||
-                is (typeof(_var) == byte) ||
-                is (typeof(_var) == ubyte) ||
-                is (typeof(_var) == short) ||
-                is (typeof(_var) == ushort)
-            ) {
-                x      = col_x;
-                wh = render_field (__traits (getMember,a,__traits(identifier,_var)));
-                size.w = cols[i];
-                size.h = size.h < wh.h ? wh.h : size.h;
-                col_x += cols[i];
-                i++;
-            }
-        }
-
-        return size;
-    }
-
-    Size
-    render_selection (int x, int y, int w, int h) { // resource_id
-        auto rect = SDL_Rect (x,y,w,h);
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
-        SDL_RenderFillRect (renderer,&rect);
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&rect);
-        return Size (w,h);
-    }
-
-
-    //
-    struct
-    E {
-        Type    type;
-        Point[] points;  // rel
-        int     w;
-        int     h;
-
-        enum Type {
-            POINTS,
-            LINES,
-            LINES2,
-        }
-
-        alias Point = SDL_Point;
-    }
-}
 
 struct
 Resources {
