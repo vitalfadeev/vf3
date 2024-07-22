@@ -12,6 +12,7 @@ import ui.style;
 import ui.render;
 import ui.select_2;
 import ui.select;
+import file : Dir;
 alias log = writeln;
 
 
@@ -522,16 +523,31 @@ Frame {
         E("Def","456",102),
         E("ghi","789",103)
     ];
+    Dir.linux_dirent64[] file_range;
 
     // elements
     import std.traits : ReturnType;
     ReturnType!(Select_2!(E1*,E2*)) select_2;
-    ReturnType!(Select!(E[]))       select;
+    _Select!(typeof(file_range)) select;
 
     this (GL_Side gl_side) {
         this.gl_side = gl_side;
         this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
-        this.select = Select (range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
+        //this.select = Select (range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
+        _load_dir ();
+        this.select = Select (file_range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
+    }
+
+    void
+    _load_dir () {
+        import std.string : fromStringz;
+
+        auto d = Dir.open ("/");
+        ubyte[] buffer;
+        buffer.length = 1000;
+
+        foreach (Dir.linux_dirent64* _dirent; d.read (buffer))
+            file_range ~= *_dirent;
     }
 
     void

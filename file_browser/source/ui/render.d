@@ -211,18 +211,25 @@ Render {
     //
     struct
     E {
-        Type    type;
-        Point[] points;  // rel
-        int     w;
-        int     h;
+        Contur[] s;
+        int w;
+        int h;
 
-        enum Type {
-            POINTS,
-            LINES,
-            LINES2,
+        struct
+        Contur {
+            Type    type;
+            Point[] points;  // rel
+            int     w;
+            int     h;
+
+            enum Type {
+                POINTS,
+                LINES,
+                LINES2,
+            }
+
+            alias Point = SDL_Point;
         }
-
-        alias Point = SDL_Point;
     }
 }
 

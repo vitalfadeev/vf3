@@ -256,33 +256,38 @@ enum Render_Flags : int {
 Size
 draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias E = ElementType!R;
+    alias Contur = E.Contur;
 
-    if (flags & Render_Flags.NO_RENDER_SIZE_ONLY) {
-        return Size (range.w,range.h);
-    }
-
-    // 
-    foreach (e; range) {
-        // move points
-        auto points = e.points.dup;
-        foreach (ref p; points) {
-            p.x += pos.x;
-            p.y += pos.y;
+    foreach (e; range) {        
+        if (flags & Render_Flags.NO_RENDER_SIZE_ONLY) {
+            return Size (e.w,e.h);
         }
 
-        final
-        switch (e.type) {
-            case E.Type.POINTS: 
-                SDL_RenderDrawPoints (renderer,points.ptr,cast (int) points.length);
-                break;
-            case E.Type.LINES: 
-                SDL_RenderDrawLines (renderer,points.ptr,cast (int) points.length);
-                break;
-            case E.Type.LINES2: 
-                // ...
-                break;
+        // 
+        foreach (contur; e.s) {
+            // move points
+            auto points = contur.points.dup;
+            foreach (ref p; points) {
+                p.x += pos.x;
+                p.y += pos.y;
+            }
+
+            final
+            switch (contur.type) {
+                case Contur.Type.POINTS: 
+                    SDL_RenderDrawPoints (renderer,points.ptr,cast (int) points.length);
+                    break;
+                case Contur.Type.LINES: 
+                    SDL_RenderDrawLines (renderer,points.ptr,cast (int) points.length);
+                    break;
+                case Contur.Type.LINES2: 
+                    // ...
+                    break;
+            }
         }
+
+        return Size (e.w,e.h);
     }
 
-    return Size (range.w,range.h);
+    return Size ();
 }

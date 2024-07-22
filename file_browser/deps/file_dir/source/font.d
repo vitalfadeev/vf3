@@ -1,6 +1,7 @@
 import std.range : back;
 import std.stdio : writeln;
 import std.string : toStringz,fromStringz;
+import std.range : ElementType;
 import bindbc.loader;
 import bindbc.freetype;
 import errno_exception;
@@ -53,8 +54,6 @@ unittest {
 
 struct
 Font_Size {
-    enum font_dpi  = 96;
-
     static
     ID
     open (FT_Face ftface, int size) {
@@ -70,7 +69,6 @@ Font_Size {
         this (FT_Face ftface, int size) {
             this._fd   = ftface;
             this._size = size;
-            FT_Set_Char_Size (ftface, 0, size * 64, font_dpi, font_dpi);
         }
 
         Font_Glyph.ID
@@ -100,34 +98,42 @@ Font_Glyph {
             this.index  = index;
             this.ftface = ftface;
             this.size   = size;
-            FT_Load_Glyph (ftface, FT_Get_Char_Index (ftface,index), FT_LOAD_DEFAULT);
+            //FT_Load_Glyph (ftface, FT_Get_Char_Index (ftface,index), FT_LOAD_DEFAULT);
         }
 
         Iterator!E
         read (E) () {  // conturs
-            FT_Glyph_Metrics m = ftface.glyph.metrics;
-            auto w = cast (int) m.horiAdvance/64;
-            auto h = cast (int) m.vertAdvance/64;
-            return Iterator!E (ftface,size,w,h);
+            //FT_Glyph_Metrics m = ftface.glyph.metrics;
+            //auto w = cast (int) m.horiAdvance/64;
+            //auto h = cast (int) m.vertAdvance/64;
+            //return Iterator!E (ftface,size,w,h,index);
+            return Iterator!E (ftface,size,index);
         }
 
         struct
         E {
-            Type    type;
-            Point[] points;  // rel
-            int     base_x;
-            int     base_y;
+            Contur[] s;
+            int w;
+            int h;
 
-            enum Type {
-                POINTS,
-                LINES,
-                LINES2,
-            }
+            struct
+            Contur {
+                Type    type;
+                Point[] points;  // rel
+                int     base_x;
+                int     base_y;
 
-            struct 
-            Point {  // SDL_Point
-                int x;
-                int y;
+                enum Type {
+                    POINTS,
+                    LINES,
+                    LINES2,
+                }
+
+                struct 
+                Point {  // SDL_Point
+                    int x;
+                    int y;
+                }
             }
         }
 
@@ -135,8 +141,7 @@ Font_Glyph {
         Iterator (E) {
             FT_Face ftface;
             int     size;
-            int     w;
-            int     h;
+            dchar   index;
             Glyph_to_points!E gp;
 
 
@@ -146,14 +151,11 @@ Font_Glyph {
 
             int 
             opApply (scope DG dg) {
-                gp.go (ftface,size);
+                gp.go (ftface,size,index);
 
-                foreach (e; gp.s) {
-                    int result = dg (e);
-
-                    if (result)
-                        return result;
-                }
+                int result = dg (gp.e);
+                if (result)
+                    return result;
 
                 return 0;
             }    
@@ -163,9 +165,10 @@ Font_Glyph {
 
 struct
 Glyph_to_points (E) {
-    E[] s;
+    E e;
     int size;
     alias SELF = typeof(this);
+    alias Contur = E.Contur;
     
     FT_Outline_Funcs _callbacks = {
         &move_to_cb,
@@ -175,7 +178,13 @@ Glyph_to_points (E) {
     };
 
     auto
-    go (FT_Face ftface, int size) {
+    go (FT_Face ftface, int size, dchar index) {
+        enum font_dpi = 96;
+        FT_Set_Char_Size (ftface, 0, size * 64, font_dpi, font_dpi);
+        FT_Load_Glyph (ftface, FT_Get_Char_Index (ftface,index), FT_LOAD_DEFAULT);
+        e.w = cast (int) ftface.glyph.metrics.horiAdvance/64;
+        e.h = cast (int) ftface.glyph.metrics.vertAdvance/64;
+
         this.size = size;
         FT_Outline outline = ftface.glyph.outline;
 
@@ -195,8 +204,8 @@ Glyph_to_points (E) {
         //FT_Pos x = to.x / 64;
         //FT_Pos y = to.y / 64;
 
-        self.s ~= E (E.Type.LINES);
-        self.s.back.points ~= E.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+        self.e.s ~= Contur (Contur.Type.LINES);
+        self.e.s.back.points ~= Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
 
         return 0;
     }
@@ -208,7 +217,7 @@ Glyph_to_points (E) {
     line_to_cb (const FT_Vector* to, void* _self) {
         auto self = cast (SELF*) (_self);
 
-        self.s.back.points ~= E.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+        self.e.s.back.points ~= Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
 
         return 0;
     }
@@ -223,7 +232,7 @@ Glyph_to_points (E) {
         FT_Pos controlX = control.x;
         FT_Pos controlY = control.y;
 
-        self.s.back.points ~= E.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+        self.e.s.back.points ~= Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
 
         return 0;
     }
@@ -244,7 +253,7 @@ Glyph_to_points (E) {
         FT_Pos controlTwoX = controlTwo.x;
         FT_Pos controlTwoY = controlTwo.y;
 
-        self.s.back.points ~= E.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+        self.e.s.back.points ~= Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
 
         return 0;
     }

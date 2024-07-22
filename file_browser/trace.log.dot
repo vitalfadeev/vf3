@@ -1,0 +1,56 @@
+digraph {
+"_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport" [label="bindbc.sdl.config.SDLSupport
+sdl.loadSDL()
+\n2.48%(0.00%)", shape="box", style=filled, fillcolor="limegreen"];
+"_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport" -> "_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport" [label="3x"];
+"_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv" [label="void app.event_loop(ref
+sdl.video.SDL_Window*,
+sdl.render.SDL_Renderer*, ref app.Frame)
+\n56.78%(31.12%)", shape="box", style=filled, fillcolor="royalblue"];
+"_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv" -> "_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size" [label="9x"];
+"_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi" [label="int
+cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator,
+cache.Cache_id)._cache.opApply(scope int
+delegate(ui.render.Render.E))
+\n2.74%(0.08%)", shape="box", style=filled, fillcolor="limegreen"];
+"_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi" -> "_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi" [label="24x"];
+"_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size" [label="types.Size
+ui.select._Select!(file.Dir.linux_dirent64[])._Select._draw_selection(sdl.render.SDL_Renderer*,
+ulong, file.Dir.linux_dirent64)
+\n2.26%(0.02%)", shape="box", style=filled, fillcolor="limegreen"];
+"_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size" -> "_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size" [label="18x"];
+"_Dmain" [label="void main()
+\n100.00%(40.63%)", shape="box", style=filled, fillcolor="red"];
+"_Dmain" -> "_D3sdl7loadSDLFNbNiZE6bindbcQBa6config10SDLSupport" [label="1x"];
+"_Dmain" -> "_D3app10event_loopFKPS3sdl5video10SDL_WindowPSQy6render12SDL_RendererKSQCr5FrameZv" [label="1x"];
+"_Dmain" -> "_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport" [label="1x"];
+"_D2ui6render6Render12render_charsMFAaZS5types4Size" [label="types.Size
+ui.render.Render.render_chars(..)
+\n25.42%(21.63%)", shape="box", style=filled, fillcolor="steelblue"];
+"_D2ui6render6Render12render_charsMFAaZS5types4Size" -> "_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size" [label="1647x"];
+"_D4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBf7opApplyMFMDFQBlZiZi" [label="int
+font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator.opApply(scope
+int delegate(ui.render.Render.E))
+\n2.01%(1.73%)", shape="box", style=filled, fillcolor="limegreen"];
+"_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size" [label="types.Size
+gl_side.draw_draws!(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator,
+cache.Cache_id)._cache).draw_draws(cache.cache!(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator).cache(font.Font_Glyph.ID.Iterator!(ui.render.Render.E).Iterator,
+cache.Cache_id)._cache,
+sdl.render.SDL_Renderer*, types.Pos,
+int)
+\n2.75%(0.01%)", shape="box", style=filled, fillcolor="limegreen"];
+"_D7gl_side__T10draw_drawsTS5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cacheZQEkFQEbPS3sdlQCl12SDL_RendererS5types3PosiZSQn4Size" -> "_D5cache__TQjTS4font10Font_Glyph2ID__T8IteratorTS2ui6render6Render1EZQBfZQCtFQClSQDb8Cache_idZ6_cache7opApplyMFMDFQCoZiZi" [label="531x"];
+"_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size" [label="types.Size
+ui.select._Select!(file.Dir.linux_dirent64[])._Select.draw(sdl.render.SDL_Renderer*)
+\n25.66%(0.03%)", shape="box", style=filled, fillcolor="steelblue"];
+"_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size" -> "_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl15_draw_selectionMFPS3sdl6render12SDL_RenderermQCzZS5types4Size" [label="9x"];
+"_D2ui6select__T7_SelectTAS4file3Dir14linux_dirent64ZQBl4drawMFPS3sdl6render12SDL_RendererZS5types4Size" -> "_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size" [label="207x"];
+"_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size" [label="types.Size
+ui.render.Render.render_struct!(file.Dir.linux_dirent64).render_struct(file.Dir.linux_dirent64*,
+int[])
+\n25.60%(0.06%)", shape="box", style=filled, fillcolor="steelblue"];
+"_D2ui6render6Render__T13render_structTS4file3Dir14linux_dirent64ZQBrMFPQBhAiZS5types4Size" -> "_D2ui6render6Render12render_charsMFAaZS5types4Size" [label="675x"];
+"_D3sdl7loadSDLFNbNiPxaZE6bindbcQBd6config10SDLSupport" [label="bindbc.sdl.config.SDLSupport
+sdl.loadSDL(..)
+\n2.50%(2.48%)", shape="box", style=filled, fillcolor="limegreen"];
+}

@@ -1,28 +1,35 @@
 module cache;
 
+import std.stdio : writeln;
+alias log = writeln;
+
 auto 
 cache (R) (R range, Cache_id cache_id) {
     import std.range : ElementType;
 
     struct
     _cache {
-        R        range;
-        Cache_id cache_id;
-        int      w;
-        int      h;
-        static E[][Cache_id] _cache;
+        R          range;
+        Cache_id   cache_id;
+        static _Cached[Cache_id] _cache;
 
         alias E = ElementType!R;
         alias DG = int delegate (E e);
+
+        struct
+        _Cached {
+            E[] s;
+        }
 
         E front () { return E ();};
 
         int 
         opApply (scope DG dg) {
-            auto cached = cache_id in _cache;
-            if (cached !is null) 
+            auto _cached = cache_id in _cache;
+            if (_cached !is null) 
             {  // cached
-                foreach (e; *cached) {
+                //log ("cached");
+                foreach (e; _cached.s) {
                     int result = dg (e);
                     if (result)
                         return result;
@@ -31,10 +38,11 @@ cache (R) (R range, Cache_id cache_id) {
             }
             else 
             {  // non-cached
-                _cache[cache_id] = [];
-                auto es = cache_id in _cache;
+                //log ("non-cached");
+                _cache[cache_id] = _Cached ();
+                _cached = cache_id in _cache;
                 foreach (e; range) {
-                    *es ~= e;  // to cache
+                    _cached.s ~= e;  // to cache
                     int result = dg (e);
                     if (result)
                         return result;
@@ -45,7 +53,7 @@ cache (R) (R range, Cache_id cache_id) {
         }    
     }
 
-    return _cache (range,cache_id,range.w,range.h);
+    return _cache (range,cache_id);
 }
 
 struct

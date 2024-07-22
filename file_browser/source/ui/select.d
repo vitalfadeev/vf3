@@ -23,6 +23,7 @@ _Select (R) {
 
     int  selected; // 1 or 2
     int  max_i;
+    int[] cols = [50,50,50,50,50,50,50];
 
     alias E = ElementType!R;
 
@@ -34,6 +35,9 @@ _Select (R) {
         size_t i;
 
         foreach (e; range) {
+            if (_e_pos (i,e).y > size.h)
+                break;
+
             if (selected == i)
                 sz = _draw_selection (renderer,i,e);
 
@@ -80,7 +84,7 @@ _Select (R) {
     _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
         return
             Render (renderer,_e_pos (i,e))
-                .render (e);
+                .render (e,cols);
     }
 
     Pos

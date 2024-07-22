@@ -216,7 +216,7 @@ Dir {
             return Iterator (fd,buffer);
         }
 
-        //alias E = linux_dirent64;
+        alias E = linux_dirent64;
 
         struct 
         Iterator {
@@ -275,7 +275,7 @@ Dir {
         }
     }
 
-version (linux_X86_64) {  // Posix
+version (linux_X86_64) {  // Posix 
     pragma (msg,"linux_X86_64");
     struct 
     linux_dirent64 {
@@ -347,7 +347,7 @@ unittest {
     import std.string : fromStringz;
 
     auto d = Dir.open ("/");
-    Dir.E[] buffer;
+    ubyte[] buffer;
     buffer.length = 1000;
 
     log ("Dir.read");
