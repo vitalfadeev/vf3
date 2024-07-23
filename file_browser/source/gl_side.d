@@ -304,6 +304,46 @@ GL_Side {
             }
         }
     }
+
+    //
+    GL_Buffer_Ids[Resource_Id] _gl_uploaded_buffers;
+    alias SLOW_MEM_CB = Resource delegate (Resource_Id);
+    struct
+    GL_Buffer_Ids {
+        GL.Buffer_Id[] s;
+    }
+    struct
+    Resource {
+        E[] s;
+
+        struct
+        E {
+            Type     type;     // LINES
+            Vertex[] vertexes; // 
+        }
+    }
+    void
+    draw_resource (int id, SLOW_MEM_CB slow_mem_cb) {
+        auto buffer_ids = id in _gl_uploaded_buffers;
+        if (buffer_ids is null) {
+            resource = slow_mem_cb (id);
+            buffer_ids = GL.Upload_Resource (resource);
+              buffer_ids = [
+                buffer_id = GL.CreateBuffer (vertexes[0]),
+                buffer_id = GL.CreateBuffer (vertexes[1]),
+              ];
+            _gl_uploaded_buffers[id] = buffer_ids;
+        }
+
+        _draw_resource (buffer_id);
+    }
+
+    void
+    _draw_resource (ref Buffer_Id buffer_id) {
+        // buffer_id
+        //   GL.select_buffer (buffer_id)
+        // GL.DrawArray LINES
+    }
 }
 
 
@@ -377,3 +417,102 @@ SDL_Rect
 to_SDL_Rect (Pos_Size pos_size) {
     return SDL_Rect (pos_size.pos.x,pos_size.pos.y,pos_size.size.w,pos_size.size.h);
 }
+
+/*
+// GLES2.gl2
+// Fixed_16_16  is 32 bit signed 16-bit fraction
+//
+// vertex array
+// GL_POINTS, 
+// GL_LINES, GL_LINE_LOOP, GL_LINE_STRIP, 
+// GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN
+//
+// RGBA
+//
+// ubyte,ushort indexing
+//
+// VertexAttribPointer ()
+void 
+glVertexAttribPointer (
+   GLuint indx, GLint size, GLenum type, 
+   GLboolean normalized, GLsizei stride, const(GLvoid)* ptr);
+void
+// size
+//   1,2,3,4
+// type
+//   GL_BYTE
+//   GL_SHORT
+//   GL_FIXED
+
+glDrawArrays (GLenum mode, GLint first, GLsizei count);
+// mode
+//   GL_POINTS, GL_LINES, GL_LINE_LOOP, GL_LINE_STRIP,
+//   GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, 
+//
+
+void 
+glEnableVertexAttribArray (GLuint index);
+
+// client-size Array -> server-side Buffer
+void 
+glBindBuffer (GLenum target, GLuint buffer);
+void 
+glDeleteBuffers (GLsizei n, const(GLuint)* buffers);
+void 
+glGenBuffers (GLsizei n, GLuint* buffers);
+void 
+glBufferData (GLenum target, GLsizeiptr size, const(GLvoid)* data, GLenum usage);
+void 
+glBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, const(GLvoid)* data);
+
+// coord transform
+void 
+glDepthRangef (GLclampf zNear, GLclampf zFar);
+void 
+glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
+
+// color
+void 
+glFrontFace (GLenum mode);
+
+// vertex shaders
+void 
+glShaderSource (GLuint shader, GLsizei count, in GLchar** string, const(GLint)* length);
+void 
+glCompileShader (GLuint shader);
+void 
+glGetShaderInfoLog (GLuint shader, GLsizei bufsize, GLsizei* length, GLchar* infolog);
+void 
+glReleaseShaderCompiler ();
+void 
+glShaderBinary (GLsizei n, const(GLuint)* shaders, GLenum binaryformat, const(GLvoid)* binary, GLsizei length);
+GLuint 
+glCreateShader (GLenum type);
+
+//
+void 
+glGetActiveUniform (GLuint program, GLuint index, GLsizei bufsize, GLsizei* length, GLint* size, GLenum* type, GLchar* name);
+void 
+glUseProgram (GLuint program);
+
+// line width
+void 
+glLineWidth (GLfloat width);
+
+// Whole framebuffer
+void 
+glClear (GLbitfield mask);
+void 
+glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+*/
+
+
+
+// void Vertex 234 sifd v (T coords)
+// GLint
+// glGetVertexAttribiv
+// glGetVertexAttribPointerv
+// glVertexAttrib1f 
+
+//
+// glGetError (void)

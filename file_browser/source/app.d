@@ -424,7 +424,7 @@ new_window (ref SDL_Window* window) {
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             640, 480, //1366, 768
-            0 //SDL_WINDOW_OPENGL
+            SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL
         );
 
     if (!window)
