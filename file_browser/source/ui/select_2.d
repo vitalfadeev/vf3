@@ -5,6 +5,7 @@ import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
+import gl_side : to_SDL_Rect;
 alias log = writeln;
 
 
@@ -130,9 +131,4 @@ _Select_2 (E1,E2) {
         else
             selected--;
     }
-}
-
-SDL_Rect
-to_SDL_Rect (Pos pos, Size size) {
-    return SDL_Rect (pos.x,pos.y,size.w,size.h);
 }

@@ -1,39 +1,33 @@
 //module types;
 
+import gl_side;
+
+alias Pos      = GL_Side.Pos;
+alias Size     = GL_Side.Size;
+alias X        = GL_Side.X;
+alias Y        = GL_Side.Y;
+alias Pos_Size = GL_Side.Pos_Size;
+alias Pad      = GL_Side.Pad;
+
+
+//
 struct
-Pos {
-   X x;
-   Y y; 
+Mouse_Sensable {
+    Pos_Size[] pss;
+    DG[]       dgs;
+
+    alias DG = void delegate (Pos_Size pos_size, Pos pos);
 }
 
 struct
-Size {
-    X w;
-    Y h; 
+Key_Sensable {
+    DG dg;
 
-    void
-    opOpAssign (string op : "+") (Size b) {
-        this.w += b.w;
-        this.h += b.h;
-    }
-
-    Size
-    opBinary (string op : "+") (Pad b) {
-        return 
-            Size (
-                this.w + b.l + b.r, 
-                this.h + b.t + b.b
-            );
-    }
+    alias DG = void delegate ();
 }
 
-struct 
-Pad {
-    int t;
-    int r;
-    int b;
-    int l;
+struct
+Draw_Return {
+    Pos_Size       ps;
+    Mouse_Sensable ms;
 }
-
-alias X=int;
-alias Y=int;

@@ -2,7 +2,7 @@ import std.string : toStringz,fromStringz;
 import std.stdio : writeln;
 import std.range : back;
 import bindbc.freetype;
-import bindbc.sdl;
+import gl_side;
 import errno_exception;
 alias log=writeln;
 
@@ -56,7 +56,7 @@ Font {
                     LINES2,
                 }
 
-                alias Point = SDL_Point;
+                alias Point = GL_Side.Point;
             }
         }
 

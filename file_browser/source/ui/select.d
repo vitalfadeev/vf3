@@ -6,6 +6,7 @@ import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
+import gl_side;
 import std.algorithm.searching : find;
 import std.algorithm.searching : countUntil;
 alias log = writeln;
@@ -27,27 +28,44 @@ _Select (R) {
     int[]  cols = [50,50,50,50,150,50,50];
 
     E[]    frame; // = range [start..end]
+    Mouse_Sensable mouse_sensable;
+    Pos_Size mouse_hover;
 
     alias E = ElementType!R;
 
     // 1
     // 2
-    Size
+    Draw_Return
     draw (SDL_Renderer* renderer) {
         Size   sz;
         size_t i;
+        
+        mouse_sensable.pss.length = 0;
+        mouse_sensable.dgs.length = 0;
 
         if (frame.length == 0 && range.length != 0)
             frame = range[];
 
         foreach (e; frame) {
-            if (_e_pos (i,e).y > size.h)
+            auto epos = _e_pos (i,e);
+
+            if (epos.y > size.h)
                 break;
+
+            Pos  sel_pos  = _selection_pos (i,e);
+            Size sel_size = _selection_size (i,e);
 
             if (selected == i)
                 sz = _draw_selection (renderer,i,e);
 
-            sz = _draw_e (renderer, i, e, Pos (pos.x,pos.y+sz.h), size);
+            if (mouse_hover.pos == sel_pos)
+                _draw_mouse_sensable (renderer,i,e);
+
+            sz = _draw_e (renderer,i,e,epos,size);
+
+            // mouse sensable
+            mouse_sensable.pss ~= Pos_Size (sel_pos,sel_size);
+            mouse_sensable.dgs ~= &on_mouse_sensable;
 
             i++;
         }
@@ -57,7 +75,11 @@ _Select (R) {
         //
         _draw_scrollbar (renderer);
 
-        return size;
+        return
+            Draw_Return (
+                Pos_Size (pos,size),
+                mouse_sensable
+            );
     }
 
     Size
@@ -66,7 +88,7 @@ _Select (R) {
         Size _size = _selection_size (i,e);
 
         //
-        auto rect = to_SDL_Rect (_pos,Size (size.w,_size.h));
+        auto rect = to_SDL_Rect (_pos,_size);
 
         // fill
         SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
@@ -84,6 +106,19 @@ _Select (R) {
         SDL_RenderDrawRect (renderer,&_cr);
 
         return _size;
+    }
+
+    void
+    _draw_mouse_sensable (SDL_Renderer* renderer, size_t i, E e) {
+        auto rect = mouse_hover.to_SDL_Rect ();
+
+        // fill
+        SDL_SetRenderDrawColor (renderer,0x44,0x44,0xAA,0xFF);
+        SDL_RenderFillRect (renderer,&rect);
+
+        // border
+        SDL_SetRenderDrawColor (renderer,0x44,0x44,0xFF,0xFF);
+        SDL_RenderDrawRect (renderer,&rect);
     }
 
     Size
@@ -115,7 +150,7 @@ _Select (R) {
 
     Pos
     _selection_pos (size_t i, E e) {
-        if (selected == 0)
+        if (i == 0)
             return Pos (0,0);
         else
             return Pos (0,_selection_size (i,e).h * cast (int) i);
@@ -123,7 +158,12 @@ _Select (R) {
 
     Size
     _selection_size (size_t i, E e) {
-        return _e_size (i,e) + pad;
+        return 
+            Size (
+                size.w, 
+                (_e_size (i,e) + pad).h
+            );
+        //return _e_size (i,e) + pad;
     }
 
     void
@@ -131,6 +171,9 @@ _Select (R) {
         switch (e.type) {
             case SDL_KEYDOWN:
                 on_key (&e.key);
+                break;
+            case SDL_MOUSEMOTION:
+                on_mouse_motion (&e.motion);
                 break;
             default:
         }
@@ -144,6 +187,13 @@ _Select (R) {
             case SDL_SCANCODE_RETURN : _on_key_return (e);  break;
             default:
         }
+    }
+
+    void
+    on_mouse_motion (SDL_MouseMotionEvent* e) {
+        // find mous_sensable
+        //   colorize
+        //   redraw
     }
 
     void
@@ -198,9 +248,12 @@ _Select (R) {
         import std.string : fromStringz;
         log (selected, ": ", frame[selected].d_name.fromStringz);
     }
+
+    void
+    on_mouse_sensable (Pos_Size pos_size, Pos pos) {
+        // colorize
+        // redraw
+        mouse_hover = pos_size;
+    }
 }
 
-SDL_Rect
-to_SDL_Rect (Pos pos, Size size) {
-    return SDL_Rect (pos.x,pos.y,size.w,size.h);
-}

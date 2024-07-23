@@ -464,6 +464,9 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
                 case SDL_KEYDOWN:
                     frame.event (&e);
                     break;
+                case SDL_MOUSEMOTION:
+                    frame.event (&e);
+                    break;
                 default:
             }
 
@@ -530,6 +533,10 @@ Frame {
     ReturnType!(Select_2!(E1*,E2*)) select_2;
     _Select!(typeof(file_range)) select;
 
+    //
+    Pos_Size[]          mouse_sensable_pos_sizes;
+    Mouse_Sensable.DG[] mouse_sensable_dgs;
+
     this (GL_Side gl_side) {
         this.gl_side = gl_side;
         this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
@@ -565,8 +572,13 @@ Frame {
         // SDL_RenderDrawRect (renderer,&rect);
         // ...
 
+        // clear
+        mouse_sensable_pos_sizes.length = 0;
+        mouse_sensable_dgs.length       = 0;
         //select_2.draw (renderer);
-        select.draw (renderer);
+        // collect moue sensable pos_size
+        Draw_Return draw_return = select.draw (renderer);
+        _collect_mouse_sensable_pos_size (draw_return.ms);
 
         // Load Resource
         // Resource.id
@@ -696,11 +708,31 @@ version (_DIR_GRID_) {
             case SDL_MOUSEBUTTONDOWN:
                 // ...
                 break;
+            case SDL_MOUSEMOTION:
+                on_mouse_motion (&e.motion);
+                break;
             default:
         }
 
         select_2.event (e);
         select.event (e);
+    }
+
+
+    void
+    _collect_mouse_sensable_pos_size (ref Mouse_Sensable ms) {
+        mouse_sensable_pos_sizes ~= ms.pss;
+        mouse_sensable_dgs       ~= ms.dgs;
+    }
+
+    void
+    on_mouse_motion (SDL_MouseMotionEvent* e) {
+        auto pos = Pos (e.x,e.y);
+        foreach (i,ref ps; mouse_sensable_pos_sizes) {
+            if (ps.has_pos (pos)) {
+                mouse_sensable_dgs[i] (ps,pos);
+            }
+        }
     }
 }
 
@@ -708,22 +740,6 @@ version (_DIR_GRID_) {
 //
 import core.sys.posix.dirent : opendir,readdir_r,DIR,dirent,closedir;
 
-struct
-Mouse_Sensable {
-    XYWH[]   xywh;
-    Callback callback;
-
-    alias Callback = void function (size_t xywh_i);
-
-    alias XYWH = int;  // 16,16
-}
-
-struct
-Key_Sensable {
-    Callback callback;
-
-    alias Callback = void function ();
-}
 
 
 // render

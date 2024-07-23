@@ -21,8 +21,67 @@ GL_Side {
     _mix[ID]      s;  // resources
 
 
-    alias ABSXY = SDL_Point;
-    alias RELXY = SDL_Point;
+    alias ABSXY    = SDL_Point;
+    alias RELXY    = SDL_Point;
+    alias Point    = SDL_Point;
+    alias Pos      = SDL_Point;
+
+    struct 
+    Pos_Size {
+        Pos  pos;
+        Size size;
+
+        bool
+        has_pos (Pos _pos) {
+            if (_pos.x >= this.pos.x && _pos.y >= this.pos.y)
+            if (_pos.x < pos.x + this.size.w && _pos.y < this.pos.y + this.size.h)
+                return true;
+
+            return false;
+        }
+    }
+
+    struct
+    XYWH {
+        X x;
+        Y y;
+        W w;
+        H h;
+    }
+
+    struct
+    Size {
+        X w;
+        Y h; 
+
+        void
+        opOpAssign (string op : "+") (Size b) {
+            this.w += b.w;
+            this.h += b.h;
+        }
+
+        Size
+        opBinary (string op : "+") (Pad b) {
+            return 
+                Size (
+                    this.w + b.l + b.r, 
+                    this.h + b.t + b.b
+                );
+        }
+    }
+
+    struct 
+    Pad {
+        int t;
+        int r;
+        int b;
+        int l;
+    }
+
+    alias X=int;
+    alias Y=int;
+    alias W=int;
+    alias H=int;
 
     //struct
     //ABSXY {  // 16,16
@@ -289,4 +348,14 @@ draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     }
 
     return Size ();
+}
+
+SDL_Rect
+to_SDL_Rect (Pos pos, Size size) {
+    return SDL_Rect (pos.x,pos.y,size.w,size.h);
+}
+
+SDL_Rect
+to_SDL_Rect (Pos_Size pos_size) {
+    return SDL_Rect (pos_size.pos.x,pos_size.pos.y,pos_size.size.w,pos_size.size.h);
 }
