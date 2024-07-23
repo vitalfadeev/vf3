@@ -2,13 +2,13 @@ module ui.select;
 
 import std.stdio : writeln;
 import std.range : ElementType;
+import std.algorithm.searching : find;
+import std.algorithm.searching : countUntil;
 import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
 import gl_side;
-import std.algorithm.searching : find;
-import std.algorithm.searching : countUntil;
 alias log = writeln;
 
 
