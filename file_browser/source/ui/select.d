@@ -9,29 +9,29 @@ import ui.render;
 import ui.style;
 import types;
 import gl_side;
+import slice : Slice,_Slice;
 alias log = writeln;
 
 
 auto
 Select (R) (R range, Pos pos, Size size, Pad pad=Pad()) {
-    return _Select!(R) (range,pos,size,pad);
+    auto slice = Slice!R (range);
+    return _Select!(_Slice!R) (slice,pos,size,pad);
 }
 
 struct
-_Select (R) {
-    R    range;  // [0..length]
+_Select (S) {
+    S    slice;  // [0..length]
     Pos  pos;
     Size size;
     Pad  pad;
 
-    size_t selected; // 1 or 2
     int[]  cols = [50,50,50,50,150,50,50];
 
-    E[]    frame; // = range [start..end]
     Mouse_Sensable mouse_sensable;
     Pos_Size mouse_hover;
 
-    alias E = ElementType!R;
+    alias E = ElementType!S;
 
     // 1
     // 2
@@ -43,10 +43,7 @@ _Select (R) {
         mouse_sensable.pss.length = 0;
         mouse_sensable.dgs.length = 0;
 
-        if (frame.length == 0 && range.length != 0)
-            frame = range[];
-
-        foreach (e; frame) {
+        foreach (e; slice) {
             auto epos = _e_pos (i,e);
 
             if (epos.y > size.h)
@@ -55,7 +52,7 @@ _Select (R) {
             Pos  sel_pos  = _selection_pos (i,e);
             Size sel_size = _selection_size (i,e);
 
-            if (selected == i)
+            if (slice.selected == i)
                 sz = _draw_selection (renderer,i,e);
 
             if (mouse_hover.pos == sel_pos)
@@ -70,7 +67,7 @@ _Select (R) {
             i++;
         }
 
-        frame.length = i;
+        slice.length = i;
 
         //
         _draw_scrollbar (renderer);
@@ -198,55 +195,18 @@ _Select (R) {
 
     void
     _on_key_down (SDL_KeyboardEvent* e) {
-        if (selected == frame.length-1) {
-            if (frame[$-1] != range[$-1]) {
-                auto i = range.countUntil (frame[0]);
-                if (i != -1) {
-                    if (i == 0)
-                        frame = range[1..$];
-                    else
-                        frame = range[i+1..$];
-                }
-                else {
-                    frame = range[];
-                }
-            }
-            else {
-                //frame = range[];
-                //selected = 0;
-            }
-        }
-        else
-            selected++;
+        slice.select_down ();
     }
 
     void
     _on_key_up (SDL_KeyboardEvent* e) {
-        if (selected == 0) {
-            if (frame[0] == range[0]) {
-                //
-            }
-            else {
-                auto i = range.countUntil (frame[0]);
-                if (i != -1) {
-                    if (i == 0)
-                        frame = range[0..$];
-                    else
-                        frame = range[i-1..$];
-                }
-                else {
-                    frame = range[];
-                }
-            }
-        }
-        else
-            selected--;
+        slice.select_up ();
     }
 
     void
     _on_key_return (SDL_KeyboardEvent* e) {
         import std.string : fromStringz;
-        log (selected, ": ", frame[selected].d_name.fromStringz);
+        log (slice.selected, ": ", slice[slice.selected].d_name.fromStringz);
     }
 
     void

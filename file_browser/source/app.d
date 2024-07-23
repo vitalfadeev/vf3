@@ -13,6 +13,7 @@ import ui.render;
 import ui.select_2;
 import ui.select;
 import file : Dir;
+import slice;
 alias log = writeln;
 
 
@@ -531,7 +532,7 @@ Frame {
     // elements
     import std.traits : ReturnType;
     ReturnType!(Select_2!(E1*,E2*)) select_2;
-    _Select!(typeof(file_range)) select;
+    _Select!(_Slice!(typeof(file_range))) select;
 
     //
     Pos_Size[]          mouse_sensable_pos_sizes;
