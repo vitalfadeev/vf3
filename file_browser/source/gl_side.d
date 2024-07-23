@@ -312,6 +312,22 @@ enum Render_Flags : int {
 }
 
 
+struct
+Resource {
+    //
+}
+
+struct
+Fast_Mem {
+    //
+}
+
+struct
+Slow_Mem {
+    //
+}
+
+
 Size
 draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias E = ElementType!R;
@@ -349,6 +365,8 @@ draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
 
     return Size ();
 }
+
+
 
 SDL_Rect
 to_SDL_Rect (Pos pos, Size size) {
