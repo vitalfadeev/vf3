@@ -1,0 +1,37 @@
+{
+	"authors": [
+		"Danny Arends"
+	],
+	"configurations": [
+		{
+			"name": "dynamic",
+			"targetType": "staticLibrary"
+		},
+		{
+			"dflags": [
+				"-betterC"
+			],
+			"name": "dynamicBC",
+			"subConfigurations": {
+				"bindbc-loader": "yesBC"
+			},
+			"targetType": "staticLibrary"
+		}
+	],
+	"dependencies": {
+		"bindbc-loader": "~>1.0.0"
+	},
+	"description": "Dynamic bindings to GLES, compatible with -betterC, @nogc, and nothrow.",
+	"importPaths": [
+		"source/"
+	],
+	"license": "Boost",
+	"name": "bindbc-gles",
+	"sourcePaths": [
+		"source/"
+	],
+	"targetName": "BindBC_GLES",
+	"targetPath": "lib",
+	"targetType": "staticLibrary",
+	"version": "0.0.4"
+}

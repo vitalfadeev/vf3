@@ -16,6 +16,33 @@ import file : Dir;
 import slice;
 alias log = writeln;
 
+version = Android_or_linux;
+
+//import bindbc.gles.egl;
+version (Android) {
+import bindbc.gles.gles;
+alias glGenVertexArraysOES = glGenVertexArrays;
+alias glBindVertexArrayOES = glBindVertexArray;
+}
+else {
+import bindbc.opengl;
+alias glGenVertexArraysOES = glGenVertexArrays;
+alias glBindVertexArrayOES = glBindVertexArray;
+}
+
+// -lGLESv2
+
+// https://docs.tizen.org/application/native/guides/graphics/sdl-opengles/
+
+// » clang++  \
+//   --std=c++14 -Wreturn-type -g -O0  \
+//   -D_GLIBCXX_DEBUG -DCXXPOOL_ENABLE_THREAD_AFFINITIES  \
+//   `sdl2-config  --cflags --libs`  \
+//   -lGLESv2 -lEGL  \
+//   -lpthread -lstdc++fs  \
+//   ./hello_triangle.cpp  \
+//   -o hello_triangle
+
 
 void 
 main() {
@@ -37,12 +64,19 @@ main() {
 	SDL_Window*  window;
 	new_window (window);
 
+    // OpenGL context
+    SDL_GLContext glc;
+    new_gl_context (window,glc);
+
+    //
+    init_gl (window,glc);
+
 	// Renderer
 	SDL_Renderer* renderer;
 	new_renderer (window, renderer);
 
 	// Event Loop
-	auto frame = Frame (GL_Side (renderer));
+	auto frame = Frame (GL_Side (renderer), GL_View (GL_View.Appdata (null,null,null,window)));
 	event_loop (window,renderer,frame);
 
     //
@@ -410,7 +444,7 @@ init_sdl () {
             throw new Exception ("One or more symbols failed to load. The likely cause is that the shared library is for a lower version than bindbc-sdl was configured to load (via SDL_204, GLFW_2010 etc.)");
     }
 
-    loadSDL ("sdl2.dll");
+    //loadSDL ("sdl2.dll");
 }
 
 
@@ -435,12 +469,135 @@ new_window (ref SDL_Window* window) {
 }
 
 
+void
+init_gl (SDL_Window* window,SDL_GLContext glc) {
+version (Android) {
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_MAJOR_VERSION,2);
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER,1);
+    SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE,24);    
+    SDL_GL_SetAttribute (SDL_GL_ACCELERATED_VISUAL,1);
+}
+else
+version (linux) {
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_FLAGS, 0);
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute (SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute (SDL_GL_STENCIL_SIZE, 8);
+}
+else {
+    assert (0, "unsupported platform");
+}
+
+    // import bindbc.gles.egl;
+    // loadEGL()
+    //   libEGL.so
+    //
+    // import bindbc.gles.gles;
+    // loadGLES ();
+    //   libGLESv2.so
+    // Create context for OpenGL window
+
+version (Android) {
+    import bindbc.gles.gles;
+
+    GLESSupport ret = loadGLES();
+
+    if (ret == GLESSupport.noLibrary) 
+        throw new Exception ("The OpenGL shared library failed to load");
+    else 
+    if (ret == GLESSupport.badLibrary) 
+        throw new Exception ("One or more symbols failed to load in OpenGL library");
+
+    log (ret);
+}
+else 
+version (linux) {
+    //SDL_GL_LoadLibrary ("libGL.so");
+    //SDL_GL_LoadLibrary ("libEGL.so");
+    import bindbc.opengl;
+
+    const GLSupport openglLoaded = loadOpenGL ();
+    log (glSupport);
+    if ( openglLoaded != glSupport) {
+        import std.conv : to;
+        log ("Error loading OpenGL shared library: ", to!string(openglLoaded));
+        throw new Exception ("Error loading OpenGL shared library");
+    }
+}
+else
+version (__linux) {
+    import bindbc.gles.egl;    
+
+    EGLSupport ret = loadEGL();
+
+    if (ret == EGLSupport.noLibrary) 
+        throw new Exception ("The OpenGL shared library failed to load");
+    else 
+    if (ret == EGLSupport.badLibrary) 
+        throw new Exception ("One or more symbols failed to load in OpenGL library");
+
+    log (ret);
+}
+else {
+    assert (0, "unsupported platform");
+}
+}
+
+auto
+new_gl_context (SDL_Window* window, ref SDL_GLContext glc) {
+    // Create context for OpenGL window
+    glc = SDL_GL_CreateContext (window);
+    if (glc is null) {
+        throw new SDLException ("[SDL] GL context creation failed!");
+        return -1;
+    }
+
+    // Set context as current
+    auto err = SDL_GL_MakeCurrent (window,glc);
+    if (err) 
+        throw new SDLException ("SDL_GL_MakeCurrent: ");
+
+    //
+    if (SDL_GL_SetSwapInterval (1) < 0) {
+        log ("Warning: Unable to set VSync! SDL Error: %s",SDL_GetError ());
+    }
+
+    //
+    //GLint GLMajorVer, GLMinorVer;
+    //glGetIntegerv (GL_MAJOR_VERSION,&GLMajorVer);
+    //glGetIntegerv (GL_MINOR_VERSION,&GLMinorVer);
+    int GLMajorVer, GLMinorVer;
+    SDL_GL_GetAttribute (SDL_GL_CONTEXT_MAJOR_VERSION,&GLMajorVer);
+    SDL_GL_GetAttribute (SDL_GL_CONTEXT_MINOR_VERSION,&GLMinorVer);
+    log ("OpenGL version: ",GLMajorVer,".",GLMinorVer);
+
+    return 0;
+}
+
+
 //
 void 
 new_renderer (SDL_Window* window, ref SDL_Renderer* renderer) {
-    renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_SOFTWARE);
+version (GL_ES_2)
+    renderer = 
+        SDL_CreateRenderer (
+            window, 
+            -1, 
+            SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE
+        );
+else 
+    renderer = 
+        SDL_CreateRenderer (
+            window, 
+            -1, 
+            SDL_RENDERER_SOFTWARE
+        );
 }
-
 
 //
 void 
@@ -472,7 +629,7 @@ event_loop (ref SDL_Window* window, SDL_Renderer* renderer, ref Frame frame) {
             }
 
             // Draw
-            frame.draw (renderer);
+            frame.draw (renderer,window);
 
             // Rasterize
             SDL_RenderPresent (renderer);
@@ -497,6 +654,7 @@ SDLException : Exception {
 struct
 Frame {
     GL_Side             gl_side;
+    GL_View             gl_view;
     //Font_cache!Draws    font_cache;
     //Fonts!Draws.Font_id font_id;
 
@@ -538,14 +696,21 @@ Frame {
     Pos_Size[]          mouse_sensable_pos_sizes;
     Mouse_Sensable.DG[] mouse_sensable_dgs;
 
-    this (GL_Side gl_side) {
+    this (GL_Side gl_side, GL_View gl_view) {
         this.gl_side = gl_side;
+        this.gl_view = gl_view;
+        //gl_view._init_glview ();
+
+/*
         this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
         //this.select = Select (range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
         _load_dir ();
         this.select = Select (file_range, Pos (0,0), Size (640,400), Pad (24,36,24,36));
+*/
     }
 
+
+    //
     void
     _load_dir () {
         import std.string : fromStringz;
@@ -559,7 +724,12 @@ Frame {
     }
 
     void
-    draw (SDL_Renderer* renderer) {
+    draw (SDL_Renderer* renderer, SDL_Window* window) {
+version (Android_or_linux) {
+        gl_view._draw_glview ();
+}
+else {
+
         //import std.range : back;
 
         // clear screen
@@ -700,6 +870,7 @@ version (_DIR_GRID_) {
 
         alias Point = SDL_Point;
     }
+}
 }
 
 
@@ -961,3 +1132,211 @@ Dirent_ext {
 // start pos col2.start_x
 
 
+
+struct
+GL_View {
+    // https://github.com/Samsung/tizen-docs/blob/master/docs/application/native/guides/graphics/creating-opengles.md
+
+    Appdata ad;
+
+    struct 
+    Appdata {
+        Evas_Object *win;
+        Evas_Object *conform;
+        Evas_Object *label;
+        alias Evas_Object = void;
+
+        SDL_Window* window;
+        void*       view;
+        int         w=640;
+        int         h=480;
+        Model       model;
+        Pos         anglePoint;
+        int         window_rotation;
+        float[]     mvp;
+        GLuint      program;
+        GLuint      vbo;
+        GLuint      vao;
+    };
+
+    alias Model = float[];
+
+
+    void
+    _init () {
+        _init_glview ();
+    }
+
+    void
+    _eln_callbacks () {
+        // Initialization callback
+        auto cb1 = &_init_glview;
+        // Resizing callback
+        auto cb2 = &_resize_glview;
+        // Drawing callback
+        auto cb3 = &_draw_glview;
+        // Deletion callback
+        auto cb4 = &_del_glview;
+    }
+
+    // OpenGL ES init callback 
+    void
+    _init_glview () {
+        // Set OpenGL ES state color to pink 
+        glClearColor (1.0, 0.2, 0.6, 1.0);
+
+        // Do any form of OpenGL ES initialization here 
+        _init_shaders(); 
+        _init_vertices();
+    }
+
+    void
+    _init_shaders () {
+        // Shader sources
+        const GLchar* vertexSource =
+            "attribute vec4 position;    \n" ~
+            "void main()                  \n" ~
+            "{                            \n" ~
+            "   gl_Position = vec4(position.xyz, 1.0);  \n" ~
+            "}                            \n";
+
+        const GLchar* fragmentSource =
+            "precision mediump float;\n" ~
+            "void main()                                  \n" ~
+            "{                                            \n" ~
+            "  gl_FragColor = vec4 (1.0, 1.0, 1.0, 1.0 );\n" ~
+            "}                                            \n";
+
+
+        // Create Vertex Array Object
+        GLuint vao;
+        glGenVertexArraysOES (1,&vao);
+        glBindVertexArrayOES (vao);
+
+        // Create a Vertex Buffer Object and copy the vertex data to it
+        GLuint vbo;
+        glGenBuffers (1,&vbo);
+
+        GLfloat[] vertices = [0.0f, 0.5f,  0.5f, -0.5f,  -0.5f, -0.5f];
+
+        glBindBuffer (GL_ARRAY_BUFFER,vbo);
+        glBufferData (GL_ARRAY_BUFFER,vertices.sizeof,vertices.ptr,GL_STATIC_DRAW);
+
+        // Create and compile the vertex shader
+        GLuint vertexShader = glCreateShader (GL_VERTEX_SHADER);
+        glShaderSource (vertexShader,1,&vertexSource,null);
+        glCompileShader (vertexShader);
+
+        // Create and compile the fragment shader
+        GLuint fragmentShader = glCreateShader (GL_FRAGMENT_SHADER);
+        glShaderSource (fragmentShader,1,&fragmentSource,null);
+        glCompileShader (fragmentShader);
+
+        // Link the vertex and fragment shader into a shader program
+        GLuint shaderProgram = glCreateProgram();
+        glAttachShader (shaderProgram,vertexShader);
+        glAttachShader (shaderProgram,fragmentShader);
+        // glBindFragDataLocation(shaderProgram, 0, "outColor");
+        glLinkProgram (shaderProgram);
+        glUseProgram (shaderProgram);
+
+        // Specify the layout of the vertex data
+        GLint posAttrib = glGetAttribLocation (shaderProgram,"position");
+        glEnableVertexAttribArray (posAttrib);
+        glVertexAttribPointer (posAttrib,2,GL_FLOAT,GL_FALSE,0,null);    
+
+        ad.program = shaderProgram;
+        ad.vbo = vbo;
+        ad.vao = vao;
+    }
+
+    void
+    _init_vertices() {
+        //matrix;
+    }
+
+    // GLView resize callback 
+    static void
+    _resize_glview () {
+        int w;
+        int h;
+        //elm_glview_size_get (glview, &w, &h);
+        glViewport (0, 0, w, h);
+    }
+
+    // OpenGL ES draw callback
+    //static 
+    void
+    _draw_glview () {
+        // Paint it pink 
+        //glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // Usual OpenGL ES draw commands come here 
+        _draw_scene(); 
+    }
+
+    // GLView deletion callback
+    static void
+    _del_glview () {
+        /* Destroy all the OpenGL ES resources here */
+        /* destroy_shaders(); */
+        /* destroy_objects(); */
+    }
+
+    void
+    _draw_scene () {
+        _clear_buffer ();
+        _render_scene ();
+        _update_window ();
+    }
+
+    // https://docs.tizen.org/application/native/guides/graphics/sdl-opengles/#render
+    void
+    _clear_buffer () {
+        glViewport (0, 0, ad.w, ad.h);
+        glClearColor (0.5f, 0.5f, 0.5f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+    void
+    _render_scene () {
+        _init_matrix (ad.model);
+        _rotate_xyz (ad.model, ad.anglePoint.x, ad.anglePoint.y, ad.window_rotation);
+
+        _multiply_matrix (ad.mvp, ad.view, ad.model);
+        glUseProgram (ad.program);
+
+        glBindBuffer (GL_ARRAY_BUFFER, ad.vbo);
+        glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, float.sizeof * 6, null);
+        glEnableVertexAttribArray (0);
+
+        glBindBuffer (GL_ARRAY_BUFFER, ad.vbo);
+        glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, float.sizeof * 6, cast (void*) ((float.sizeof) * 3));
+        glEnableVertexAttribArray (1);
+
+        glUniformMatrix4fv (glGetUniformLocation (ad.program, "mvpMatrix"), 1, GL_FALSE, ad.mvp.ptr);
+
+        // Render primitives from array data
+        glDrawArrays (GL_TRIANGLES, 0, 36);
+    }
+
+    void
+    _init_matrix (Model model) {
+        //
+    }
+
+    void
+    _rotate_xyz (Model model, int anglePoint_x, int anglePoint_y, int window_rotation) {
+        //
+    }
+
+    void
+    _multiply_matrix (ref float[] mvp, void* view, Model model) {
+        //
+    }
+
+    void
+    _update_window () {
+        SDL_GL_SwapWindow (ad.window);
+    }    
+}

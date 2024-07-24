@@ -305,6 +305,7 @@ GL_Side {
         }
     }
 
+version (_RESOURCE_CB) {
     //
     GL_Buffer_Ids[Resource_Id] _gl_uploaded_buffers;
     alias SLOW_MEM_CB = Resource delegate (Resource_Id);
@@ -344,6 +345,7 @@ GL_Side {
         //   GL.select_buffer (buffer_id)
         // GL.DrawArray LINES
     }
+}
 }
 
 

@@ -3,10 +3,35 @@
 		"vf"
 	],
 	"copyright": "Copyright © 2024, vf",
-	"dependencies": {
-		"bindbc-freetype": "~>1.2.6",
-		"bindbc-sdl": "~>1.4.8",
-		"file_dir": {"path":"deps/file_dir"},
+	"configurations": [
+		{
+			"name": "linux",
+			"platforms"      : ["linux"],
+			"targetType"     : "executable",
+			"dependencies": {
+				"bindbc-freetype": "~>1.2.6",
+				"bindbc-sdl": "~>1.4.8",
+				"file_dir": {"path":"deps/file_dir"},
+				"bindbc-opengl": {"path":"deps/bindbc-opengl"},
+			},			
+			"versions" : ["GL_30","GL_AllowDeprecated"],
+		},
+		{
+			"name": "android",
+			"platforms"      : ["Android"],
+			"targetType"     : "executable",
+			"dependencies": {
+				"bindbc-freetype": "~>1.2.6",
+				"bindbc-sdl": "~>1.4.8",
+				"file_dir": {"path":"deps/file_dir"},
+				"bindbc-gles": {"path":"deps/bindbc-gles"},
+			},
+			"versions" : ["GL_ES_2"],
+		},
+	],
+	"subConfigurations": {
+		"bindbc-gles": "dynamic",
+		"bindbc-opengl": "dynamicBC"
 	},
 	"description": "A minimal D application.",
 	"libs": [
@@ -17,7 +42,7 @@
 	"versions": [
 		"SDL_2_6",
 		"SDL_2_6_5",
-		"FT_2_13"
+		"FT_2_13",
 	],
 	"buildTypes": {
 	    "release-shared": {
