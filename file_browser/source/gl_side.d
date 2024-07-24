@@ -14,6 +14,7 @@ else {
 public import bindbc.opengl;
 alias glGenVertexArraysOES = glGenVertexArrays;
 alias glBindVertexArrayOES = glBindVertexArray;
+alias GLfixed = int;
 }
 
 
@@ -547,8 +548,8 @@ GL_View {
 
         SDL_Window* window;
         void*       view;
-        int         w=640;
-        int         h=480;
+        GLsizei     w=640;
+        GLsizei     h=480;
         Model       model;
         Pos         anglePoint;
         int         window_rotation;
@@ -568,8 +569,31 @@ GL_View {
         E x;
         E y;
 
-        alias E    = GLfloat;
-        alias GL_E = GL_FLOAT;
+        alias E          = GLbyte;
+
+        static if (is (E == GLfixed))
+            alias GL_E   = GL_FIXED;
+        else
+        static if (is (E == GLbyte))
+            alias GL_E   = GL_BYTE;
+        else
+        static if (is (E == GLshort))
+            alias GL_E   = GL_SHORT;
+        else
+        static if (is (E == GLint))
+            alias GL_E   = GL_INT;
+        else
+        static if (is (E == GLfloat))
+            alias GL_E   = GL_FLOAT;
+        else
+            static assert (0,"unsupported planform");
+
+        static if (is (GL_E == GL_FIXED))
+            alias NORMALIZED = GL_FALSE;  // GL_FALSE for  GL_FIXED
+        else
+            alias NORMALIZED = GL_TRUE;  // GL_FALSE for  GL_FIXED
+        //alias E    = GLfloat;
+        //alias GL_E = GL_FLOAT;
     }
 
 
@@ -664,11 +688,16 @@ else {
         GLuint vbo;
         glGenBuffers (1,&vbo);  // 1 buffer
 
-        //GLfloat[] vertices = [0.0f, 0.5f,  0.5f, -0.5f,  -0.5f, -0.5f];
+        //ad.model = Model ([
+        //    Vert (   0, 0.4),
+        //    Vert ( 0.4, 0.4),
+        //    Vert ( 0.4,   0),
+        //]);
+
         ad.model = Model ([
-            Vert (   0, 0.4),
-            Vert ( 0.4, 0.4),
-            Vert ( 0.4,   0),
+            Vert (   0, 120),
+            Vert ( 120, 120),
+            Vert ( 120,   0),
         ]);
 
         glBindBuffer (GL_ARRAY_BUFFER, vbo);
@@ -688,7 +717,7 @@ else {
         log ("posAttrib: ", posAttrib);
         posAttrib = 0;
         glEnableVertexAttribArray (posAttrib);
-        glVertexAttribPointer (posAttrib, Vert.tupleof.length, Vert.GL_E, GL_FALSE, Vert.sizeof, null);
+        glVertexAttribPointer (posAttrib, Vert.tupleof.length, Vert.GL_E, Vert.NORMALIZED, Vert.sizeof, null);
 
         ad.program = shaderProgram;
         ad.vbo = vbo;
