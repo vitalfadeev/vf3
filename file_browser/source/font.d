@@ -37,28 +37,7 @@ Font {
             return Iterator (fd,pathname,size,index);
         }
 
-        struct
-        E {
-            Contur[] s;
-            int w;
-            int h;
-
-            struct
-            Contur {
-                Type    type;
-                Point[] points;  // rel
-                int     base_x;
-                int     base_y;
-
-                enum Type {
-                    POINTS,
-                    LINES,
-                    LINES2,
-                }
-
-                alias Point = GL_Side.Point;
-            }
-        }
+        alias E = GL_Side.GL_Char;
 
         struct 
         Iterator {
@@ -73,7 +52,9 @@ Font {
                 &cubi_to_cb
             };
 
-            E e;
+            E   e;
+            int first;
+            int count;
 
             alias DG = int delegate (E e);
             alias front = e;
@@ -106,8 +87,9 @@ Font {
                 //FT_Pos x = to.x / 64;
                 //FT_Pos y = to.y / 64;
 
-                self.e.s ~= E.Contur (E.Contur.Type.LINES);
-                self.e.s.back.points ~= E.Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+                self.e.gl_conturs ~= E.GL_Contur (E.GL_Contur.Type.GL_LINES,self.first,self.count);
+                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_conturs.back.count++;
 
                 return 0;
             }
@@ -119,7 +101,8 @@ Font {
             line_to_cb (const FT_Vector* to, void* _self) {
                 auto self = cast (Iterator*) (_self);
 
-                self.e.s.back.points ~= E.Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_conturs.back.count++;
 
                 return 0;
             }
@@ -134,7 +117,8 @@ Font {
                 FT_Pos controlX = control.x;
                 FT_Pos controlY = control.y;
 
-                self.e.s.back.points ~= E.Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_conturs.back.count++;
 
                 return 0;
             }
@@ -155,7 +139,8 @@ Font {
                 FT_Pos controlTwoX = controlTwo.x;
                 FT_Pos controlTwoY = controlTwo.y;
 
-                self.e.s.back.points ~= E.Contur.Point (cast (int) to.x/64,self.size-cast (int) to.y/64);
+                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_conturs.back.count++;
 
                 return 0;
             }
@@ -198,6 +183,23 @@ Font {
         close () {
             FT_Done_Face (fd);
         }
+    }
+
+    //
+    GL_Side.GL_Char
+    load_from_slow_mem_cb (GL_Side.Char_id char_id) {
+        import ui.style : Style;
+        Style style;
+
+        auto iterator = 
+            Font
+                .open (style.font_pathname,style.font_size,cast (dchar) char_id)
+                .read ()
+                ;
+        foreach (e; iterator)
+            return e;
+
+        return GL_Side.GL_Char ();
     }
 }
 

@@ -5,7 +5,7 @@ import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
-import gl_side : to_SDL_Rect;
+//import gl_side : to_SDL_Rect;
 alias log = writeln;
 
 

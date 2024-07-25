@@ -63,8 +63,19 @@ main() {
 	SDL_Renderer* renderer;
 	new_renderer (window, renderer);
 
+    //
+    Font font;  // FreeType font loader
+
 	// Event Loop
-	auto frame = Frame (GL_Side (renderer), GL_View (GL_View.Appdata (null,null,null,window)));
+	auto frame = 
+        Frame (
+            GL_Side (
+                renderer,
+                window,
+                GL_View (GL_View.Appdata (null,null,null,window)),
+                &font.load_from_slow_mem_cb  // load char with FreeType
+            )
+        );
 	event_loop (window,renderer,frame);
 
     //
@@ -564,7 +575,6 @@ SDLException : Exception {
 struct
 Frame {
     GL_Side             gl_side;
-    GL_View             gl_view;
     //Font_cache!Draws    font_cache;
     //Fonts!Draws.Font_id font_id;
 
@@ -606,10 +616,9 @@ Frame {
     Pos_Size[]          mouse_sensable_pos_sizes;
     Mouse_Sensable.DG[] mouse_sensable_dgs;
 
-    this (GL_Side gl_side, GL_View gl_view) {
+    this (GL_Side gl_side) {
         this.gl_side = gl_side;
-        this.gl_view = gl_view;
-        this.gl_view._init ();
+        this.gl_side.gl_view._init ();
 
 /*
         this.select_2 = Select_2 (&e1, &e2, Pos (0,0), Size (640,400), Pad (50,50,50,50));
@@ -636,7 +645,8 @@ Frame {
     void
     draw (SDL_Renderer* renderer, SDL_Window* window) {
 version (Android_or_linux) {
-        gl_view._draw_glview ();
+        //gl_view._draw_glview ();
+        gl_side.draw_char (GL_Side.Char_id ('A'));
 }
 else {
 

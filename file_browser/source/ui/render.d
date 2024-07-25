@@ -6,16 +6,22 @@ import ui.render;
 import ui.style;
 import font;
 import types;
+import gl_side;
 import cache : cache, Cache_id;
-import gl_side : draw_draws;
+//import gl_side : draw_draws;
 public import gl_side : Render_Flags;
 alias log = writeln;
 
+alias X = GL_Side.X;
+alias Y = GL_Side.Y;
+alias W = GL_Side.W;
+alias H = GL_Side.H;
 
 
 struct
 Render {
-       SDL_Renderer*    renderer;
+       //SDL_Renderer*    renderer;
+       GL_Side*         gl_side;
        Pos              pos;        // _cur_pos
        int              render_flags;
        //
@@ -37,8 +43,11 @@ Render {
     render_char (char c) { // resource_id
         // pos,char
         // current_style
-        SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
+        //SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
 
+        return gl_side.draw_char (GL_Side.Char_id (c));
+
+version (__worked__)
         return 
             Font
                 .open (style.font_pathname,style.font_size,c)
@@ -64,7 +73,7 @@ Render {
         Size size, _size;
 
         foreach (c; s) {
-            SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
+            //SDL_SetRenderDrawColor (renderer,0xFF,0xFF,0xFF,0xFF);
 
             _size = render_char (c);
                 //Font
@@ -211,13 +220,8 @@ Render {
     }
 
     Size
-    render_selection (int x, int y, int w, int h) { // resource_id
-        auto rect = SDL_Rect (x,y,w,h);
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
-        SDL_RenderFillRect (renderer,&rect);
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&rect);
-        return Size (w,h);
+    render_selection (X x, Y y, W w, H h) { // resource_id
+        return gl_side.draw_rect (x,y,w,h);
     }
 
     Size

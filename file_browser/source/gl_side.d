@@ -32,13 +32,26 @@ GL_Side {
     alias ID = dchar;
 
     SDL_Renderer* renderer;
+    SDL_Window*   window;
+    GL_View       gl_view;
+    LOAD_FROM_SLOW_MEM_CB load_from_slow_mem_cb;
     _mix[ID]      s;  // resources
 
 
-    alias ABSXY    = SDL_Point;
-    alias RELXY    = SDL_Point;
-    alias Point    = SDL_Point;
-    alias Pos      = SDL_Point;
+    alias ABSXY    = GL_Point;
+    alias RELXY    = GL_Point;
+    alias Point    = GL_Point;
+    alias Pos      = GL_Point;
+
+    struct
+    GL_Point {
+        X x;
+        Y y;
+
+        alias E          = GLfloat;
+        alias GL_E       = GL_FLOAT;
+        alias NORMALIZED = GL_TRUE;
+    }
 
     struct 
     Pos_Size {
@@ -86,16 +99,16 @@ GL_Side {
 
     struct 
     Pad {
-        int t;
-        int r;
-        int b;
-        int l;
+        Y t;
+        X r;
+        Y b;
+        X l;
     }
 
-    alias X=int;
-    alias Y=int;
-    alias W=int;
-    alias H=int;
+    alias X=GLfloat;
+    alias Y=GLfloat;
+    alias W=GLfloat;
+    alias H=GLfloat;
 
     //struct
     //ABSXY {  // 16,16
@@ -124,11 +137,11 @@ GL_Side {
         //
     }
 
-    void
-    draw_char (ID id, _char draws) {
-        _add_char (id,draws);
-        _draw_draws (draws);
-    }
+    //void
+    //draw_char (ID id, _char draws) {
+    //    _add_char (id,draws);
+    //    _draw_draws (draws);
+    //}
 
     void
     draw_string (ID[] ids, ABSXY[] xys) {
@@ -235,16 +248,122 @@ GL_Side {
         foreach (ref rec; draws.s) 
             switch (rec.type) {
                 case _char.Rec.Type.POINTS: 
-                    SDL_RenderDrawPoints (renderer,rec.points.ptr,cast (int) rec.points.length);
+                    //SDL_RenderDrawPoints (renderer,rec.points.ptr,cast (int) rec.points.length);
                     break;
                 case _char.Rec.Type.LINES: 
-                    SDL_RenderDrawLines (renderer,rec.points.ptr,cast (int) rec.points.length);
+                    //SDL_RenderDrawLines (renderer,rec.points.ptr,cast (int) rec.points.length);
                     break;
                 case _char.Rec.Type.LINES2: 
                     break;
                 default:
             }
     }
+
+    static GL_Char[Char_id] gl_char_map;
+
+    struct
+    GL_Buffer_id {
+        GLuint _super;
+        alias _super this;
+    }
+
+    struct
+    GL_Attrib_id {
+        GLuint _super;
+        alias _super this;
+    }
+
+    struct
+    GL_Char {
+        GL_Buffer_id gl_buffer_id;  // vertices Buffer id
+        GL_Conturs   gl_conturs;    // from FreeType 
+        GL_Point[]   gl_points;     // from FreeType
+        X w;
+        Y h;
+
+        alias GL_Point = GL_Side.GL_Point;
+
+        struct
+        GL_Contur {  // for glDrawArrays
+            GLenum  type;
+            GLint   first;
+            GLsizei count;
+
+            enum Type : GLenum {
+                GL_POINTS,
+                GL_LINES,
+                GL_LINE_STRIP,
+                GL_LINE_LOOP,
+                GL_TRIANGLES,
+                GL_TRIANGLE_STRIP,
+                GL_TRIANGLE_FAN,
+            }
+        }
+
+        struct
+        GL_Conturs {
+            GL_Contur[] s;
+            alias s this;
+        }
+    }
+
+    struct
+    Char_id {
+        dchar _super;
+        alias _super this;
+    }
+
+
+    alias LOAD_FROM_SLOW_MEM_CB = GL_Char delegate (Char_id char_id);
+
+    GL_Char
+    _load_from_slow_mem (Char_id char_id) {
+        GL_Char gl_char = load_from_slow_mem_cb (char_id);
+
+        GL_Buffer_id gl_buffer_id;
+        glGenBuffers (1, cast (GLuint*) &gl_buffer_id);
+        glBindBuffer (GL_ARRAY_BUFFER, gl_buffer_id);  // select
+        glBufferData (GL_ARRAY_BUFFER, gl_char.gl_points.length*GL_Point.sizeof, gl_char.gl_points.ptr, GL_STATIC_DRAW);
+        glBindBuffer (GL_ARRAY_BUFFER, 0);
+        gl_char.gl_buffer_id = gl_buffer_id;
+
+        return gl_char;
+    }
+
+    Size
+    draw_char (Char_id char_id) {
+        // 1. Char_id -> GL_Char -> GL_Conturs -> GL_Contur -> buffer_id,fisrt,count
+        auto _gl_char = char_id in gl_char_map;
+        if (_gl_char is null) {
+            gl_char_map[char_id] = _load_from_slow_mem (char_id);
+            _gl_char = char_id in gl_char_map;
+        }
+
+        // 2. draw
+        glUseProgram (gl_view.ad.program);
+        glBindBuffer (GL_ARRAY_BUFFER, _gl_char.gl_buffer_id); // select
+        foreach (ref gl_contur; _gl_char.gl_conturs) { // GL_Char
+            GLint position = 0;
+            glEnableVertexAttribArray (position);
+            glVertexAttribPointer (position, Point.tupleof.length, Point.GL_E, Point.NORMALIZED, 0, null);
+            glDrawArrays (gl_contur.type, gl_contur.first, gl_contur.count);
+        }
+
+        return Size (_gl_char.w,_gl_char.h);
+    }
+
+    Size
+    draw_rect (X x, Y y, W w, H h) {
+        // 4 XY -> GL_Buffer -> glDrawArrays
+        //auto rect = SDL_Rect (x,y,w,h);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
+        //SDL_RenderFillRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&rect);        
+        return Size (w,h);
+    }
+
+
 
     _mix*
     _get_char_draws (ID char_id) {
@@ -384,10 +503,11 @@ Slow_Mem {
 }
 
 
+version (__worked__)
 Size
 draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
     alias E = ElementType!R;
-    alias Contur = E.Contur;
+    alias Contur = E.GL_Contur;
 
     foreach (e; range) {        
         if (flags & Render_Flags.NO_RENDER_SIZE_ONLY)
@@ -405,10 +525,10 @@ draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
             final
             switch (contur.type) {
                 case Contur.Type.POINTS: 
-                    SDL_RenderDrawPoints (renderer,points.ptr,cast (int) points.length);
+                    //SDL_RenderDrawPoints (renderer,points.ptr,cast (int) points.length);
                     break;
                 case Contur.Type.LINES: 
-                    SDL_RenderDrawLines (renderer,points.ptr,cast (int) points.length);
+                    //SDL_RenderDrawLines (renderer,points.ptr,cast (int) points.length);
                     break;
                 case Contur.Type.LINES2: 
                     // ...
@@ -424,15 +544,15 @@ draw_draws (R) (R range, SDL_Renderer* renderer, Pos pos, int flags=0) {
 
 
 
-SDL_Rect
-to_SDL_Rect (Pos pos, Size size) {
-    return SDL_Rect (pos.x,pos.y,size.w,size.h);
-}
+//SDL_Rect
+//to_SDL_Rect (Pos pos, Size size) {
+//    return SDL_Rect (pos.x,pos.y,size.w,size.h);
+//}
 
-SDL_Rect
-to_SDL_Rect (Pos_Size pos_size) {
-    return SDL_Rect (pos_size.pos.x,pos_size.pos.y,pos_size.size.w,pos_size.size.h);
-}
+//SDL_Rect
+//to_SDL_Rect (Pos_Size pos_size) {
+//    return SDL_Rect (pos_size.pos.x,pos_size.pos.y,pos_size.size.w,pos_size.size.h);
+//}
 
 /*
 // GLES2.gl2
@@ -561,41 +681,10 @@ GL_View {
 
     struct 
     Model {
-        Vert[] s;
+        GL_Point[] s;
     }
 
-    struct 
-    Vert {
-        E x;
-        E y;
-
-        alias E          = GLbyte;
-
-        static if (is (E == GLfixed))
-            alias GL_E   = GL_FIXED;
-        else
-        static if (is (E == GLbyte))
-            alias GL_E   = GL_BYTE;
-        else
-        static if (is (E == GLshort))
-            alias GL_E   = GL_SHORT;
-        else
-        static if (is (E == GLint))
-            alias GL_E   = GL_INT;
-        else
-        static if (is (E == GLfloat))
-            alias GL_E   = GL_FLOAT;
-        else
-            static assert (0,"unsupported planform");
-
-        static if (is (GL_E == GL_FIXED))
-            alias NORMALIZED = GL_FALSE;  // GL_FALSE for  GL_FIXED
-        else
-            alias NORMALIZED = GL_TRUE;  // GL_FALSE for  GL_FIXED
-        //alias E    = GLfloat;
-        //alias GL_E = GL_FLOAT;
-    }
-
+    alias GL_Point = GL_Side.GL_Point;
 
     void
     _init () {
@@ -648,10 +737,10 @@ version (linux) {
     // Shader sources
     const GLchar* vertexSource =
         "#version 330                                   \n" ~
-        "layout (location = 0) in vec2 position;        \n" ~
+        "layout (location = 0) in ivec2 position;       \n" ~
         "void                                           \n" ~
         "main () {                                      \n" ~
-        "   gl_Position = vec4 (position, 0.0, 1.0);    \n" ~
+        "   gl_Position = ivec4 (position, 0, 1);       \n" ~
         "}                                              \n";
 
     const GLchar* fragmentSource =
@@ -679,7 +768,6 @@ else {
         GLuint shaderProgram = glCreateProgram();
         glAttachShader (shaderProgram,vertexShader);
         glAttachShader (shaderProgram,fragmentShader);
-        // glBindFragDataLocation(shaderProgram, 0, "outColor");
         glLinkProgram (shaderProgram);
 
 
@@ -688,20 +776,20 @@ else {
         GLuint vbo;
         glGenBuffers (1,&vbo);  // 1 buffer
 
-        //ad.model = Model ([
-        //    Vert (   0, 0.4),
-        //    Vert ( 0.4, 0.4),
-        //    Vert ( 0.4,   0),
-        //]);
-
         ad.model = Model ([
-            Vert (   0, 120),
-            Vert ( 120, 120),
-            Vert ( 120,   0),
+            GL_Point (   0, 0.4),
+            GL_Point ( 0.4, 0.4),
+            GL_Point ( 0.4,   0),
         ]);
 
+        //ad.model = Model ([
+        //    Vert (   0, 120),
+        //    Vert ( 120, 120),
+        //    Vert ( 120,   0),
+        //]);
+
         glBindBuffer (GL_ARRAY_BUFFER, vbo);
-        glBufferData (GL_ARRAY_BUFFER, ad.model.s.length*Vert.sizeof, ad.model.s.ptr, GL_STATIC_DRAW);
+        glBufferData (GL_ARRAY_BUFFER, ad.model.s.length*GL_Point.sizeof, ad.model.s.ptr, GL_STATIC_DRAW);
 
 
         // 2. Ray
@@ -713,11 +801,14 @@ else {
 
         // 3. vars
         // Specify the layout of the vertex data
-        GLint posAttrib = glGetAttribLocation (shaderProgram,"position");
+        GLint posAttrib = glGetAttribLocation (ad.program,"position");
         log ("posAttrib: ", posAttrib);
         posAttrib = 0;
         glEnableVertexAttribArray (posAttrib);
-        glVertexAttribPointer (posAttrib, Vert.tupleof.length, Vert.GL_E, Vert.NORMALIZED, Vert.sizeof, null);
+        // for XY
+        glVertexAttribPointer (posAttrib, GL_Point.tupleof.length, GL_Point.GL_E, GL_Point.NORMALIZED, GL_Point.sizeof, null);
+        // for int data
+        // glVertexAttribIPointer (posAttrib, Vert.tupleof.length, Vert.GL_E, Vert.sizeof, null);
 
         ad.program = shaderProgram;
         ad.vbo = vbo;
@@ -774,9 +865,9 @@ else {
 
     void
     _render_scene () {
-        _init_matrix (ad.model);
-        _rotate_xyz (ad.model, ad.anglePoint.x, ad.anglePoint.y, ad.window_rotation);
-        _multiply_matrix (ad.mvp, ad.view, ad.model);
+        //_init_matrix (ad.model);
+        //_rotate_xyz (ad.model, ad.anglePoint.x, ad.anglePoint.y, ad.window_rotation);
+        //_multiply_matrix (ad.mvp, ad.view, ad.model);
 
         glUseProgram (ad.program);
         glBindVertexArray (ad.vao);
@@ -883,3 +974,9 @@ else {
     assert (0, "unsupported platform");
 }
 }
+
+// All in flooat
+//  [-1..1]
+// Font 
+//   contur
+//     to float

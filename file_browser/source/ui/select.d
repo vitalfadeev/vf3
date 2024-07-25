@@ -121,7 +121,7 @@ _Select (S) {
     Size
     _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
         return
-            Render (renderer,_e_pos (i,e))
+            Render (gl_side,_e_pos (i,e))
                 .render (e,cols);
     }
 
