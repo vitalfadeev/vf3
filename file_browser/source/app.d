@@ -645,8 +645,9 @@ Frame {
     void
     draw (SDL_Renderer* renderer, SDL_Window* window) {
 version (Android_or_linux) {
-        //gl_view._draw_glview ();
+        //gl_side.gl_view._draw_glview ();
         gl_side.draw_char (GL_Side.Char_id ('A'));
+        SDL_GL_SwapWindow (window);
 }
 else {
 

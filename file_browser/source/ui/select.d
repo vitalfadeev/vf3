@@ -36,7 +36,7 @@ _Select (S) {
     // 1
     // 2
     Draw_Return
-    draw (SDL_Renderer* renderer) {
+    draw (GL_Side* gl_side) {
         Size   sz;
         size_t i;
         
@@ -53,12 +53,12 @@ _Select (S) {
             Size sel_size = _selection_size (i,e);
 
             if (slice.selected == i)
-                sz = _draw_selection (renderer,i,e);
+                sz = _draw_selection (gl_side,i,e);
 
             if (mouse_hover.pos == sel_pos)
-                _draw_mouse_sensable (renderer,i,e);
+                _draw_mouse_sensable (gl_side,i,e);
 
-            sz = _draw_e (renderer,i,e,epos,size);
+            sz = _draw_e (gl_side,i,e,epos,size);
 
             // mouse sensable
             mouse_sensable.pss ~= Pos_Size (sel_pos,sel_size);
@@ -70,7 +70,7 @@ _Select (S) {
         slice.length = i;
 
         //
-        _draw_scrollbar (renderer);
+        _draw_scrollbar (gl_side);
 
         return
             Draw_Return (
@@ -80,53 +80,53 @@ _Select (S) {
     }
 
     Size
-    _draw_selection (SDL_Renderer* renderer, size_t i, E e) {
+    _draw_selection (GL_Side* gl_side, size_t i, E e) {
         Pos  _pos  = _selection_pos (i,e);
         Size _size = _selection_size (i,e);
 
         //
-        auto rect = to_SDL_Rect (_pos,_size);
+        //auto rect = to_SDL_Rect (_pos,_size);
 
         // fill
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
-        SDL_RenderFillRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
+        //SDL_RenderFillRect (renderer,&rect);
 
         // border
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&rect);
 
         // content
         auto _ep = _e_pos (i,e);
         auto _es = _e_size (i,e);
-        auto _cr = to_SDL_Rect (_ep,_es);
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&_cr);
+        //auto _cr = to_SDL_Rect (_ep,_es);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&_cr);
 
         return _size;
     }
 
     void
-    _draw_mouse_sensable (SDL_Renderer* renderer, size_t i, E e) {
-        auto rect = mouse_hover.to_SDL_Rect ();
+    _draw_mouse_sensable (GL_Side* gl_side, size_t i, E e) {
+        //auto rect = mouse_hover.to_SDL_Rect ();
 
         // fill
-        SDL_SetRenderDrawColor (renderer,0x44,0x44,0xAA,0xFF);
-        SDL_RenderFillRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x44,0x44,0xAA,0xFF);
+        //SDL_RenderFillRect (renderer,&rect);
 
         // border
-        SDL_SetRenderDrawColor (renderer,0x44,0x44,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x44,0x44,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&rect);
     }
 
     Size
-    _draw_e (SDL_Renderer* renderer, size_t i, E e, Pos pos, Size size) {
+    _draw_e (GL_Side* gl_side, size_t i, E e, Pos pos, Size size) {
         return
             Render (gl_side,_e_pos (i,e))
                 .render (e,cols);
     }
 
     void
-    _draw_scrollbar (SDL_Renderer* renderer) {
+    _draw_scrollbar (GL_Side* gl_side) {
         //
     }
 

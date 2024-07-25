@@ -52,9 +52,7 @@ Font {
                 &cubi_to_cb
             };
 
-            E   e;
-            int first;
-            int count;
+            E e;
 
             alias DG = int delegate (E e);
             alias front = e;
@@ -62,8 +60,8 @@ Font {
             int 
             opApply (scope DG dg) {
                 _open ();
-                e.w = cast (int) fd.glyph.metrics.horiAdvance/64;
-                e.h = cast (int) fd.glyph.metrics.vertAdvance/64;
+                e.w = (cast (GL_Side.W) fd.glyph.metrics.horiAdvance) / 64.0 / size;
+                e.h = (cast (GL_Side.H) fd.glyph.metrics.vertAdvance) / 64.0 / size;
 
                 auto _err = FT_Outline_Decompose (&fd.glyph.outline,&_callbacks,&this);
                 
@@ -87,8 +85,17 @@ Font {
                 //FT_Pos x = to.x / 64;
                 //FT_Pos y = to.y / 64;
 
-                self.e.gl_conturs ~= E.GL_Contur (E.GL_Contur.Type.GL_LINES,self.first,self.count);
-                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_conturs ~= 
+                    E.GL_Contur (
+                        E.GL_Contur.Type.GL_LINE_LOOP,
+                        cast (GLint) self.e.gl_points.length,
+                        0
+                    );
+                self.e.gl_points  ~= 
+                    E.GL_Point (
+                               (cast (GL_Side.X) to.x)/64.0/self.size, 
+                               (cast (GL_Side.X) to.y)/64.0/self.size
+                    );
                 self.e.gl_conturs.back.count++;
 
                 return 0;
@@ -101,7 +108,11 @@ Font {
             line_to_cb (const FT_Vector* to, void* _self) {
                 auto self = cast (Iterator*) (_self);
 
-                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_points  ~= 
+                    E.GL_Point (
+                              (cast (GL_Side.X) to.x)/64.0/self.size, 
+                              (cast (GL_Side.X) to.y)/64.0/self.size
+                        );
                 self.e.gl_conturs.back.count++;
 
                 return 0;
@@ -117,7 +128,11 @@ Font {
                 FT_Pos controlX = control.x;
                 FT_Pos controlY = control.y;
 
-                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_points  ~= 
+                    E.GL_Point (
+                              (cast (GL_Side.X) to.x)/64.0/self.size, 
+                              (cast (GL_Side.X) to.y)/64.0/self.size
+                        );
                 self.e.gl_conturs.back.count++;
 
                 return 0;
@@ -139,7 +154,11 @@ Font {
                 FT_Pos controlTwoX = controlTwo.x;
                 FT_Pos controlTwoY = controlTwo.y;
 
-                self.e.gl_points ~= E.GL_Point (cast (GL_Side.X) to.x/64,self.size-cast (GL_Side.Y) to.y/64);
+                self.e.gl_points  ~= 
+                    E.GL_Point (
+                              (cast (GL_Side.X) to.x)/64.0/self.size, 
+                              (cast (GL_Side.X) to.y)/64.0/self.size
+                        );
                 self.e.gl_conturs.back.count++;
 
                 return 0;
@@ -186,8 +205,8 @@ Font {
     }
 
     //
-    GL_Side.GL_Char
-    load_from_slow_mem_cb (GL_Side.Char_id char_id) {
+    void
+    load_from_slow_mem_cb (GL_Side.Char_id char_id, GL_Side.GL_Char* gl_char) {
         import ui.style : Style;
         Style style;
 
@@ -196,10 +215,10 @@ Font {
                 .open (style.font_pathname,style.font_size,cast (dchar) char_id)
                 .read ()
                 ;
-        foreach (e; iterator)
-            return e;
-
-        return GL_Side.GL_Char ();
+        foreach (e; iterator) {
+            *gl_char = e;
+            return;
+        }
     }
 }
 

@@ -5,6 +5,7 @@ import bindbc.sdl;
 import ui.render;
 import ui.style;
 import types;
+import gl_side;
 //import gl_side : to_SDL_Rect;
 alias log = writeln;
 
@@ -27,45 +28,45 @@ _Select_2 (E1,E2) {
     // 1
     // 2
     Size
-    draw (SDL_Renderer* renderer) {
+    draw (GL_Side* gl_side) {
         Size sz;
-        sz = _draw_selection (renderer);
-        sz = _draw_1 (renderer,pos,size);
-        sz = _draw_2 (renderer,Pos (pos.x,pos.y+sz.h),size);
+        sz = _draw_selection (gl_side);
+        sz = _draw_1 (gl_side,pos,size);
+        sz = _draw_2 (gl_side,Pos (pos.x,pos.y+sz.h),size);
 
         return size;
     }
 
     Size
-    _draw_selection (SDL_Renderer* renderer) {
+    _draw_selection (GL_Side* gl_side) {
         Pos  _pos  = _selection_pos ();
         Size _size = _selection_size ();
 
         //
-        auto rect = to_SDL_Rect (_pos,Size (size.w,_size.h));
+        //auto rect = to_SDL_Rect (_pos,Size (size.w,_size.h));
 
-        // fill
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
-        SDL_RenderFillRect (renderer,&rect);
+        //// fill
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
+        //SDL_RenderFillRect (renderer,&rect);
 
-        // border
-        SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
-        SDL_RenderDrawRect (renderer,&rect);
+        //// border
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&rect);
 
         return _size;
     }
 
     Size
-    _draw_1 (SDL_Renderer* renderer, Pos pos, Size size) {
+    _draw_1 (GL_Side* gl_side, Pos pos, Size size) {
         return
-            Render (renderer,_e_pos (0))
+            Render (gl_side,_e_pos (0))
                 .render (e1);
     }
 
     Size
-    _draw_2 (SDL_Renderer* renderer, Pos pos, Size size) {
+    _draw_2 (GL_Side* gl_side, Pos pos, Size size) {
         return
-        Render (renderer,_e_pos (1))
+        Render (gl_side,_e_pos (1))
                 .render (e2);
     }
 

@@ -14,7 +14,7 @@
 				"file_dir": {"path":"deps/file_dir"},
 				"bindbc-opengl": {"path":"deps/bindbc-opengl"},
 			},			
-			"versions" : ["GL_30","GL_AllowDeprecated"],
+			"versions" : ["_GL_30","GL_AllowDeprecated", "GL_ES_2"],
 		},
 		{
 			"name": "android",

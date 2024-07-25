@@ -163,7 +163,7 @@ version (__worked__)
         Size   size;
         Size   sz;
         size_t i;
-        int    col_x=pos.x;
+        X      col_x=pos.x;
         int    col_step = 20;
 
         bool _with_cols;

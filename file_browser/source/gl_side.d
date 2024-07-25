@@ -12,8 +12,8 @@ alias glBindVertexArrayOES = glBindVertexArray;
 }
 else {
 public import bindbc.opengl;
-alias glGenVertexArraysOES = glGenVertexArrays;
-alias glBindVertexArrayOES = glBindVertexArray;
+//alias glGenVertexArraysOES = glGenVertexArrays;
+//alias glBindVertexArrayOES = glBindVertexArray;
 alias GLfixed = int;
 }
 
@@ -50,7 +50,7 @@ GL_Side {
 
         alias E          = GLfloat;
         alias GL_E       = GL_FLOAT;
-        alias NORMALIZED = GL_TRUE;
+        alias NORMALIZED = GL_FALSE;
     }
 
     struct 
@@ -278,8 +278,8 @@ GL_Side {
         GL_Buffer_id gl_buffer_id;  // vertices Buffer id
         GL_Conturs   gl_conturs;    // from FreeType 
         GL_Point[]   gl_points;     // from FreeType
-        X w;
-        Y h;
+        W w;
+        H h;
 
         alias GL_Point = GL_Side.GL_Point;
 
@@ -314,20 +314,32 @@ GL_Side {
     }
 
 
-    alias LOAD_FROM_SLOW_MEM_CB = GL_Char delegate (Char_id char_id);
+    alias LOAD_FROM_SLOW_MEM_CB = void delegate (Char_id char_id, GL_Char* gl_char);
 
-    GL_Char
-    _load_from_slow_mem (Char_id char_id) {
-        GL_Char gl_char = load_from_slow_mem_cb (char_id);
+    void
+    _load_from_slow_mem (Char_id char_id, GL_Char* gl_char) {
+        load_from_slow_mem_cb (char_id,gl_char);
 
+        gl_char.gl_buffer_id = _upload_to_gpu (gl_char.gl_points);
+        log ("gl_char.gl_buffer_id: ", gl_char.gl_buffer_id);
+    }
+
+
+    GL_Buffer_id
+    _upload_to_gpu (GL_Point[] points) {
+        // upload to GPU to GL Buffer
+version (GL_ES_2) {
         GL_Buffer_id gl_buffer_id;
         glGenBuffers (1, cast (GLuint*) &gl_buffer_id);
         glBindBuffer (GL_ARRAY_BUFFER, gl_buffer_id);  // select
-        glBufferData (GL_ARRAY_BUFFER, gl_char.gl_points.length*GL_Point.sizeof, gl_char.gl_points.ptr, GL_STATIC_DRAW);
+        glBufferData (GL_ARRAY_BUFFER, points.length*GL_Point.sizeof, points.ptr, GL_STATIC_DRAW);
         glBindBuffer (GL_ARRAY_BUFFER, 0);
-        gl_char.gl_buffer_id = gl_buffer_id;
-
-        return gl_char;
+}
+else {
+    //
+}
+        // save GL Buffer Id
+        return gl_buffer_id;
     }
 
     Size
@@ -335,19 +347,36 @@ GL_Side {
         // 1. Char_id -> GL_Char -> GL_Conturs -> GL_Contur -> buffer_id,fisrt,count
         auto _gl_char = char_id in gl_char_map;
         if (_gl_char is null) {
-            gl_char_map[char_id] = _load_from_slow_mem (char_id);
+            GL_Char gl_char;
+            _load_from_slow_mem (char_id,&gl_char);
+            gl_char_map[char_id] = gl_char;
             _gl_char = char_id in gl_char_map;
         }
+        //log (*_gl_char);
+        //log ("Point.tupleof.length: ",Point.tupleof.length);
+
+        GLfloat[] _test_triangle_verts = [
+             0.0f,  0.5f,
+            -0.5f, -0.5f,
+             0.5f, -0.5f,
+            ];
 
         // 2. draw
+        // glGetAttribLocation (...)
+        //glBindVertexArray (ad.vao);
+        //glBindBuffer (GL_ARRAY_BUFFER, _gl_char.gl_buffer_id); // select
+        glViewport (0,0,640,480);
+
+        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         glUseProgram (gl_view.ad.program);
-        glBindBuffer (GL_ARRAY_BUFFER, _gl_char.gl_buffer_id); // select
-        foreach (ref gl_contur; _gl_char.gl_conturs) { // GL_Char
-            GLint position = 0;
-            glEnableVertexAttribArray (position);
-            glVertexAttribPointer (position, Point.tupleof.length, Point.GL_E, Point.NORMALIZED, 0, null);
-            glDrawArrays (gl_contur.type, gl_contur.first, gl_contur.count);
-        }
+
+        glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, _gl_char.gl_points.ptr);
+        glEnableVertexAttribArray (0);
+
+        foreach (ref gl_contur; _gl_char.gl_conturs)
+            glDrawArrays (GL_LINE_LOOP, gl_contur.first, gl_contur.count);
 
         return Size (_gl_char.w,_gl_char.h);
     }
@@ -361,6 +390,17 @@ GL_Side {
         //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
         //SDL_RenderDrawRect (renderer,&rect);        
         return Size (w,h);
+    }
+
+    Size
+    draw_rect (Pos pos, Size size) {
+        // 4 XY -> GL_Buffer -> glDrawArrays
+        //auto rect = SDL_Rect (x,y,w,h);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0x88,0xFF);
+        //SDL_RenderFillRect (renderer,&rect);
+        //SDL_SetRenderDrawColor (renderer,0x22,0x22,0xFF,0xFF);
+        //SDL_RenderDrawRect (renderer,&rect);        
+        return size;
     }
 
 
@@ -719,10 +759,10 @@ GL_View {
 version (Android) {
         // Shader sources
         const GLchar* vertexSource =
-            "attribute vec2 posi;         \n" ~
+            "attribute vec2 position;     \n" ~
             "void                         \n" ~
             "main() {                     \n" ~
-            "   gl_Position = vec4 (posi.xy, 0.0, 1.0); \n" ~
+            "   gl_Position = vec4 (position, 0.0, 1.0); \n" ~
             "}                            \n";
 
         const GLchar* fragmentSource =
@@ -737,10 +777,10 @@ version (linux) {
     // Shader sources
     const GLchar* vertexSource =
         "#version 330                                   \n" ~
-        "layout (location = 0) in ivec2 position;       \n" ~
+        "layout (location = 0) in vec2 position;        \n" ~
         "void                                           \n" ~
         "main () {                                      \n" ~
-        "   gl_Position = ivec4 (position, 0, 1);       \n" ~
+        "   gl_Position = vec4 (position, 0.0, 1.0);    \n" ~
         "}                                              \n";
 
     const GLchar* fragmentSource =
@@ -770,7 +810,10 @@ else {
         glAttachShader (shaderProgram,fragmentShader);
         glLinkProgram (shaderProgram);
 
+        ad.program = shaderProgram;
 
+
+version (__worked__) {
         // 1. Buffer
         // Create a Vertex Buffer Object and copy the vertex data to it
         GLuint vbo;
@@ -813,6 +856,7 @@ else {
         ad.program = shaderProgram;
         ad.vbo = vbo;
         ad.vao = vao;
+}
     }
 
     void
@@ -869,10 +913,10 @@ else {
         //_rotate_xyz (ad.model, ad.anglePoint.x, ad.anglePoint.y, ad.window_rotation);
         //_multiply_matrix (ad.mvp, ad.view, ad.model);
 
-        glUseProgram (ad.program);
-        glBindVertexArray (ad.vao);
-        //glDrawArrays (GL_TRIANGLES, 0, cast (GLsizei) (ad.model.s.length));
-        glDrawArrays (GL_LINE_LOOP, 0, cast (GLsizei) (ad.model.s.length));
+        //glUseProgram (ad.program);
+        //glBindVertexArray (ad.vao);
+        //glDrawArrays (GL_LINE_LOOP, 0, cast (GLsizei) (ad.model.s.length));
+        ////glDrawArrays (GL_TRIANGLES, 0, cast (GLsizei) (ad.model.s.length));
     }
 
     void
