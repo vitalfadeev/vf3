@@ -54,26 +54,48 @@ GLES2 {
            "  gl_FragColor = vec4 ( 1.0, 0.0, 0.0, 1.0 );\n" ~
            "}                                            \n";
 
-        vertex_shader   = load_shader (GL_VERTEX_SHADER, vShaderStr);
-        fragment_shader = load_shader (GL_FRAGMENT_SHADER, fShaderStr);
+        // Store the program object
+        program_object = load_program (vShaderStr,fShaderStr);
+        if (program_object == GL_FALSE)
+            return GL_FALSE;
+
+        userData.program_object = program_object;
+
+        return GL_TRUE;
+    }
+
+    Program_Id 
+    load_program (string vertShaderSrc, string fragShaderSrc) {
+        Shader_Id  vertex_shader;
+        Shader_Id  fragment_shader;
+        Program_Id program_object;
+        GLint      linked;
+
+        // Load the vertex/fragment shaders
+        vertex_shader = load_shader (GL_VERTEX_SHADER, vertShaderSrc);
+        if (vertex_shader == 0)
+           return 0;
+
+        fragment_shader = load_shader (GL_FRAGMENT_SHADER, fragShaderSrc);
+        if (fragment_shader == 0) {
+           glDeleteShader (vertex_shader);
+           return 0;
+        }
 
         // Create the program object
-        program_object = glCreateProgram ( );
+        program_object = glCreateProgram ();
         
         if (program_object == 0)
            return 0;
 
-        glAttachShader (program_object,vertex_shader);
-        glAttachShader (program_object,fragment_shader);
-
-        // Bind vPosition to attribute 0   
-        glBindAttribLocation (program_object,0,"vPosition");
+        glAttachShader (program_object, vertex_shader);
+        glAttachShader (program_object, fragment_shader);
 
         // Link the program
         glLinkProgram (program_object);
 
         // Check the link status
-        glGetProgramiv (program_object,GL_LINK_STATUS,&linked);
+        glGetProgramiv (program_object, GL_LINK_STATUS, &linked);
 
         if (!linked) {
            GLint info_len = 0;
@@ -102,11 +124,11 @@ GLES2 {
            return GL_FALSE;
         }
 
-        // Store the program object
-        userData.program_object = program_object;
+        // Free up no longer needed shader resources
+        glDeleteShader (vertex_shader);
+        glDeleteShader (fragment_shader);
 
-        glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
-        return GL_TRUE;
+        return program_object;
     }
 
 
