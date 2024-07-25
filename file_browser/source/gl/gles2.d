@@ -24,7 +24,7 @@ alias Shader_Id  = GLuint;
 struct
 GLES2 {
     Program_Id draw_char_program;
-    ESContext es_context;
+    ESContext  es_context;
 
     void
     _init () {
@@ -34,10 +34,7 @@ GLES2 {
 
     GLuint
     init_shaders (ESContext* es_context) {
-        Shader_Id vertex_shader;
-        Shader_Id fragment_shader;
-        GLuint    program_object;
-        GLint     linked;
+        Program_Id program_id;
         UserData* userData = cast (UserData*) es_context.userData;
 
         string vShaderStr =  
@@ -55,11 +52,11 @@ GLES2 {
            "}                                            \n";
 
         // Store the program object
-        program_object = load_program (vShaderStr,fShaderStr);
-        if (program_object == GL_FALSE)
+        program_id = load_program (vShaderStr,fShaderStr);
+        if (program_id == GL_FALSE)
             return GL_FALSE;
 
-        userData.program_object = program_object;
+        userData.program_object = program_id;
 
         return GL_TRUE;
     }
@@ -132,25 +129,6 @@ GLES2 {
     }
 
 
-    Size
-    draw_char (GL_Char* gl_char) {
-        glViewport (0,0,640,480);
-
-        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
-        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        glUseProgram (draw_char_program);
-
-        glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, gl_char.gl_points.ptr);
-        glEnableVertexAttribArray (0);
-
-        foreach (ref gl_contur; gl_char.gl_conturs)
-            glDrawArrays (GL_LINE_LOOP, gl_contur.first, gl_contur.count);
-
-        return Size (gl_char.w,gl_char.h);
-    }
-
-
     Shader_Id 
     load_shader (GLenum type, string shader_src) {
        Shader_Id shader;
@@ -202,6 +180,26 @@ GLES2 {
 
        return shader;
     }
+
+
+    Size
+    draw_char (GL_Char* gl_char) {
+        glViewport (0,0,640,480);
+
+        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT);
+
+        glUseProgram (draw_char_program);
+
+        glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, gl_char.gl_points.ptr);
+        glEnableVertexAttribArray (0);
+
+        foreach (ref gl_contur; gl_char.gl_conturs)
+            glDrawArrays (GL_LINE_LOOP, gl_contur.first, gl_contur.count);
+
+        return Size (gl_char.w,gl_char.h);
+    }
+
 
     GLfloat[] 
     _test_triangle_verts = [
