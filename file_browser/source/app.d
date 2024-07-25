@@ -618,6 +618,7 @@ Frame {
 
     this (GL_Side gl_side) {
         this.gl_side = gl_side;
+        this.gl_side._init ();
         this.gl_side.gl_view._init ();
 
 /*

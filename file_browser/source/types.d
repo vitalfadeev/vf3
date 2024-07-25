@@ -8,6 +8,7 @@ alias X        = GL_Side.X;
 alias Y        = GL_Side.Y;
 alias Pos_Size = GL_Side.Pos_Size;
 alias Pad      = GL_Side.Pad;
+alias GL_Char  = GL_Side.GL_Char;
 
 
 //

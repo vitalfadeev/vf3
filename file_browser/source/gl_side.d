@@ -1,6 +1,7 @@
 import bindbc.sdl;
 import std.range : ElementType;
 import types;
+import gl.gles2;
 import std.stdio : writeln;
 alias log = writeln;
 
@@ -36,6 +37,7 @@ GL_Side {
     GL_View       gl_view;
     LOAD_FROM_SLOW_MEM_CB load_from_slow_mem_cb;
     _mix[ID]      s;  // resources
+    GLES2         gl;
 
 
     alias ABSXY    = GL_Point;
@@ -121,6 +123,11 @@ GL_Side {
     //    byte x;
     //    byte y;
     //}
+
+    void
+    _init () {
+        gl._init ();
+    }
 
     void
     draw (ID id) {
@@ -352,33 +359,8 @@ else {
             gl_char_map[char_id] = gl_char;
             _gl_char = char_id in gl_char_map;
         }
-        //log (*_gl_char);
-        //log ("Point.tupleof.length: ",Point.tupleof.length);
 
-        GLfloat[] _test_triangle_verts = [
-             0.0f,  0.5f,
-            -0.5f, -0.5f,
-             0.5f, -0.5f,
-            ];
-
-        // 2. draw
-        // glGetAttribLocation (...)
-        //glBindVertexArray (ad.vao);
-        //glBindBuffer (GL_ARRAY_BUFFER, _gl_char.gl_buffer_id); // select
-        glViewport (0,0,640,480);
-
-        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
-        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        glUseProgram (gl_view.ad.program);
-
-        glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, _gl_char.gl_points.ptr);
-        glEnableVertexAttribArray (0);
-
-        foreach (ref gl_contur; _gl_char.gl_conturs)
-            glDrawArrays (GL_LINE_LOOP, gl_contur.first, gl_contur.count);
-
-        return Size (_gl_char.w,_gl_char.h);
+        return gl.draw_char (_gl_char);
     }
 
     Size
