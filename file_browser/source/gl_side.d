@@ -364,6 +364,20 @@ else {
     }
 
     Size
+    draw_char_at (Char_id char_id, int x, int y) {
+        // 1. Char_id -> GL_Char -> GL_Conturs -> GL_Contur -> buffer_id,fisrt,count
+        auto _gl_char = char_id in gl_char_map;
+        if (_gl_char is null) {
+            GL_Char gl_char;
+            _load_from_slow_mem (char_id,&gl_char);
+            gl_char_map[char_id] = gl_char;
+            _gl_char = char_id in gl_char_map;
+        }
+
+        return gl.draw_char_at (_gl_char,x,y);
+    }
+
+    Size
     draw_rect (X x, Y y, W w, H h) {
         // 4 XY -> GL_Buffer -> glDrawArrays
         //auto rect = SDL_Rect (x,y,w,h);
