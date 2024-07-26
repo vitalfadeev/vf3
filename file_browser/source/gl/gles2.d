@@ -24,172 +24,59 @@ alias Shader_Id  = GLuint;
 struct
 GLES2 {
     Program_Id draw_char_program;
-    ESContext  es_context;
+    Context    context;
 
     void
     _init () {
-        es_context.userData = new UserData ();
-        init_shaders (&es_context);
+        context.user_data = new UserData (640,480);
+        load_programs ();
     }
 
-    GLuint
-    init_shaders (ESContext* es_context) {
-        Program_Id program_id;
-        UserData* userData = cast (UserData*) es_context.userData;
+    void
+    load_programs () {
+        context.user_data.basic_program = 
+            Program (
+                "attribute vec4 vPosition;    \n" ~
+                "void main()                  \n" ~
+                "{                            \n" ~
+                "   gl_Position = vPosition;  \n" ~
+                "}                            \n"
+            ,
+                //"precision mediump float;\n" ~
+                "void main()                                  \n" ~
+                "{                                            \n" ~
+                "  gl_FragColor = vec4 ( 1.0, 1.0, 1.0, 1.0 );\n" ~
+                "}                                            \n"
+            );
 
-        string vShaderStr =  
-           "attribute vec4 vPosition;    \n" ~
-           "void main()                  \n" ~
-           "{                            \n" ~
-           "   gl_Position = vPosition;  \n" ~
-           "}                            \n";
+
+        context.user_data.matrix_program = 
+            Program (
+                "uniform mat4 u_mvpMatrix;                   \n" ~
+                "attribute vec4 a_position;                  \n" ~
+                "void main()                                 \n" ~
+                "{                                           \n" ~
+                "   gl_Position = u_mvpMatrix * a_position;  \n" ~
+                "}                                           \n"
+            ,
+                //"precision mediump float;                            \n" ~
+                "void main()                                         \n" ~
+                "{                                                   \n" ~
+                "  gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );        \n" ~
+                "}                                                   \n"
+            );
         
-        string fShaderStr =  
-           //"precision mediump float;\n" ~
-           "void main()                                  \n" ~
-           "{                                            \n" ~
-           "  gl_FragColor = vec4 ( 1.0, 0.0, 0.0, 1.0 );\n" ~
-           "}                                            \n";
-
-        // Store the program object
-        program_id = load_program (vShaderStr,fShaderStr);
-        if (program_id == GL_FALSE)
-            return GL_FALSE;
-
-        userData.program_object = program_id;
-
-        return GL_TRUE;
-    }
-
-    Program_Id 
-    load_program (string vertShaderSrc, string fragShaderSrc) {
-        Shader_Id  vertex_shader;
-        Shader_Id  fragment_shader;
-        Program_Id program_object;
-        GLint      linked;
-
-        // Load the vertex/fragment shaders
-        vertex_shader = load_shader (GL_VERTEX_SHADER, vertShaderSrc);
-        if (vertex_shader == 0)
-           return 0;
-
-        fragment_shader = load_shader (GL_FRAGMENT_SHADER, fragShaderSrc);
-        if (fragment_shader == 0) {
-           glDeleteShader (vertex_shader);
-           return 0;
-        }
-
-        // Create the program object
-        program_object = glCreateProgram ();
-        
-        if (program_object == 0)
-           return 0;
-
-        glAttachShader (program_object, vertex_shader);
-        glAttachShader (program_object, fragment_shader);
-
-        // Link the program
-        glLinkProgram (program_object);
-
-        // Check the link status
-        glGetProgramiv (program_object, GL_LINK_STATUS, &linked);
-
-        if (!linked) {
-           GLint info_len = 0;
-
-           glGetProgramiv (program_object,GL_INFO_LOG_LENGTH,&info_len);
-           
-           if (info_len > 1) {
-                string info;
-                info.length = info_len;
-
-                glGetProgramInfoLog (
-                    program_object, 
-                    info_len, 
-                    null, 
-                    cast (char*) info.ptr
-                );
-
-                info.length--;
-
-                glDeleteProgram (program_object);
-
-                throw new Exception ("Error linking program: \n" ~ info);
-           }
-
-           glDeleteProgram (program_object);
-           return GL_FALSE;
-        }
-
-        // Free up no longer needed shader resources
-        glDeleteShader (vertex_shader);
-        glDeleteShader (fragment_shader);
-
-        return program_object;
-    }
-
-
-    Shader_Id 
-    load_shader (GLenum type, string shader_src) {
-       Shader_Id shader;
-       GLint     compiled;
-       
-       // Create the shader object
-       shader = glCreateShader (type);
-
-       if (shader == 0)
-        return 0;
-
-       // Load the shader source
-       const GLchar* ptr = shader_src.ptr;
-       glShaderSource (shader, 1, &ptr, null);
-       
-       // Compile the shader
-       glCompileShader (shader);
-
-       // Check the compile status
-       glGetShaderiv (shader, GL_COMPILE_STATUS, &compiled);
-
-       if (!compiled)  {
-          GLint info_len = 0;
-
-          glGetShaderiv (shader, GL_INFO_LOG_LENGTH, &info_len);
-          
-          if (info_len > 1) {
-               string info;
-               info.length = info_len;
-
-               glGetShaderInfoLog (
-                    shader, 
-                    info_len, 
-                    null, 
-                    cast (char*) info.ptr
-                );
-
-               info.length--;
-
-               glDeleteShader (shader);
-
-               throw new Exception ("Error compiling shader: \n" ~info ~ "\n" ~ shader_src);
-          }
-
-          glDeleteShader (shader);
-
-          return 0;
-       }
-
-       return shader;
     }
 
 
     Size
     draw_char (GL_Char* gl_char) {
-        glViewport (0,0,640,480);
+        glViewport (0,0,context.user_data.w,context.user_data.h);
 
         glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
         glClear (GL_COLOR_BUFFER_BIT);
 
-        glUseProgram (draw_char_program);
+        glUseProgram (context.user_data.basic_program.id);
 
         glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, gl_char.gl_points.ptr);
         glEnableVertexAttribArray (0);
@@ -210,8 +97,8 @@ GLES2 {
 }
 
 struct 
-ESContext {
-   void*               userData;   /// Put your user data here...
+Context {
+   UserData*           user_data;   /// Put your user data here...
    GLint               width;      /// Window width
    GLint               height;     /// Window height
    //EGLNativeWindowType hWnd;       /// Window handle
@@ -219,13 +106,170 @@ ESContext {
    //EGLContext          eglContext; /// EGL context
    //EGLSurface          eglSurface; /// EGL surface
    /// Callbacks
-   void function (ESContext*) drawFunc;
-   void function (ESContext*, ubyte, int, int ) keyFunc;
-   void function (ESContext*, float deltaTime ) updateFunc;
+   void function (Context*) drawFunc;
+   void function (Context*, ubyte, int, int ) keyFunc;
+   void function (Context*, float deltaTime ) updateFunc;
 }
 
 struct
 UserData {
-   GLuint program_object;  // Handle to a program object
+    // viewport
+    int     w;
+    int     h;
+    // programs
+    Program basic_program;
+    Program matrix_program;
 }
 
+
+struct
+Program {
+    Program_Id id;
+
+    this (string vShaderStr, string fShaderStr) {
+        if (!load_program (vShaderStr,fShaderStr))
+            this.id = 0;
+    }
+
+    bool
+    load_program (string vertShaderSrc, string fragShaderSrc) {
+        GLint linked;
+
+        // Load the vertex/fragment shaders
+        Shader vertex_shader;
+        Shader fragment_shader;
+        try {
+            vertex_shader   = Shader (GL_VERTEX_SHADER, vertShaderSrc);
+            fragment_shader = Shader (GL_FRAGMENT_SHADER, fragShaderSrc);
+        } catch (Exception e) {            
+            if (vertex_shader.id != 0) {
+               glDeleteShader (vertex_shader.id);
+               throw e;
+            }
+        }
+
+        // Create the program object
+        auto program_id = glCreateProgram ();
+        
+        if (program_id == 0)
+           throw new Exception ("glCreateProgram");
+
+        glAttachShader (program_id, vertex_shader.id);
+        glAttachShader (program_id, fragment_shader.id);
+
+        // Link the program
+        glLinkProgram (program_id);
+
+        // Check the link status
+        glGetProgramiv (program_id, GL_LINK_STATUS, &linked);
+
+        if (!linked)
+            throw new Program_Exception (program_id, "glGetProgramiv");
+
+        // Free up no longer needed shader resources
+        glDeleteShader (vertex_shader.id);
+        glDeleteShader (fragment_shader.id);
+
+        this.id = program_id;
+        return true;
+    }
+
+    class 
+    Program_Exception : Exception {
+        this (Program_Id program_object, string msg) {
+            GLint info_len = 0;
+
+            glGetProgramiv (program_object,GL_INFO_LOG_LENGTH,&info_len);
+
+            if (info_len > 1) {
+                 string info;
+                 info.length = info_len;
+
+                 glGetProgramInfoLog (
+                     program_object, 
+                     info_len, 
+                     null, 
+                     cast (char*) info.ptr
+                 );
+
+                 info.length--;
+
+                 glDeleteProgram (program_object);
+                 super (msg ~ ": Error linking program: \n" ~ info);
+            }
+            else {
+                glDeleteProgram (program_object);
+                super (msg);
+            }
+        }
+    }}
+
+
+struct
+Shader {
+    Shader_Id id;
+
+    this (GLenum type, string shader_src) {
+        if (!load_shader (type,shader_src))
+            this.id = 0;
+    }
+
+    bool 
+    load_shader (GLenum type, string shader_src) {
+        Shader_Id shader;
+        GLint compiled;
+       
+        // Create the shader object
+        shader = glCreateShader (type);
+
+        if (shader == 0)
+            throw new Exception ("glCreateShader");
+
+        // Load the shader source
+        const GLchar* ptr = shader_src.ptr;
+        glShaderSource (shader, 1, &ptr, null);
+       
+        // Compile the shader
+        glCompileShader (shader);
+
+        // Check the compile status
+        glGetShaderiv (shader, GL_COMPILE_STATUS, &compiled);
+
+        if (!compiled)
+            throw new Shader_Exception (shader,"glGetShaderiv",shader_src);
+
+        this.id = shader;
+ 
+        return true;
+    }    
+
+    class 
+    Shader_Exception : Exception {
+        this (Shader_Id shader, string msg, string shader_src) {
+             GLint info_len = 0;
+
+             glGetShaderiv (shader, GL_INFO_LOG_LENGTH, &info_len);
+               
+             if (info_len > 1) {
+                 string info;
+                 info.length = info_len;
+
+                 glGetShaderInfoLog (
+                     shader, 
+                     info_len, 
+                     null, 
+                     cast (char*) info.ptr
+                 );
+
+                 info.length--;
+
+                 glDeleteShader (shader);
+                 super (msg ~ ": Error compiling shader: \n" ~info ~ "\n" ~ shader_src);
+             }
+             else {
+                glDeleteShader (shader);
+                super (msg);
+             }
+       }
+    }
+}
