@@ -69,13 +69,46 @@ GLES2 {
     }
 
 
+    void
+    draw_scene () {
+        _clear_buffer ();
+        _render_scene ();
+        _update_window ();
+    }
+
+    void
+    _clear_buffer () {
+        glViewport (0,0,context.user_data.w,context.user_data.h);
+        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+    void
+    _render_scene () {
+        //
+    }
+
+    void
+    _update_window () {
+        //SDL_GL_SwapWindow (ad.window);
+    }    
+
     Size
     draw_char (GL_Char* gl_char) {
-        glViewport (0,0,context.user_data.w,context.user_data.h);
+        glUseProgram (context.user_data.basic_program.id);
 
-        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
-        glClear (GL_COLOR_BUFFER_BIT);
+        glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, gl_char.gl_points.ptr);
+        glEnableVertexAttribArray (0);
 
+        foreach (ref gl_contur; gl_char.gl_conturs)
+            glDrawArrays (GL_LINE_LOOP, gl_contur.first, gl_contur.count);
+
+        return Size (gl_char.w,gl_char.h);
+    }
+
+
+    Size
+    draw_char_at (GL_Char* gl_char, int x, int y) {
         glUseProgram (context.user_data.basic_program.id);
 
         glVertexAttribPointer (0, 2, GL_FLOAT, GL_TRUE, 0, gl_char.gl_points.ptr);

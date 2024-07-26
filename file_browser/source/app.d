@@ -646,8 +646,17 @@ Frame {
     void
     draw (SDL_Renderer* renderer, SDL_Window* window) {
 version (Android_or_linux) {
-        //gl_side.gl_view._draw_glview ();
-        gl_side.draw_char (GL_Side.Char_id ('A'));
+        //draw_scene
+        // _clear_buffer
+        glViewport (0, 0, 640, 480);
+        glClearColor (0.2f, 0.2f, 0.2f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // _render_scene
+        //gl_side.draw_char (GL_Side.Char_id ('A'));
+        gl_side.draw_char_at (GL_Side.Char_id ('A'), 100, 100);
+
+        // _update_window
         SDL_GL_SwapWindow (window);
 }
 else {

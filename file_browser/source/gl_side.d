@@ -891,6 +891,7 @@ version (__worked__) {
 
     void
     _render_scene () {
+
         //_init_matrix (ad.model);
         //_rotate_xyz (ad.model, ad.anglePoint.x, ad.anglePoint.y, ad.window_rotation);
         //_multiply_matrix (ad.mvp, ad.view, ad.model);
